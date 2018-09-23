@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/main_color</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="edittext_style">
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">#707070</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">@color/white</item>
+    </style>
+
+    <style name="radio_style">
+        <item name="android:colorControlNormal" tools:targetApi="lollipop">#707070</item>
+        <item name="android:colorControlActivated" tools:targetApi="lollipop">@color/white</item>
+    </style>
+
+    <style name="CircularProgress">
+        <item name="colorAccent">@color/blue</item>
+    </style>
+
+</resources>

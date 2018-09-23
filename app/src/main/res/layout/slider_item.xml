@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/slider_item_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color">
+
+    <TextView
+        android:id="@+id/slider_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="ليس جميع ما نقوله عنك سيجعلك تبتسم، لأن هدفنا الحقيقة، أيضًا، البشر كمخلوقات اجتماعيّة ليس فيها شيء ثابت وصفاتك قد تتغيّر من وقت لآخر"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#FFF"
+        android:textSize="@dimen/main_text_slider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/slider_person_image"
+        android:layout_width="@dimen/person_image_width_slider"
+        android:layout_height="@dimen/person_image_height_slider"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/slider_textview"
+        app:srcCompat="@drawable/person01" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="@dimen/start_btn_width_slider"
+        android:layout_height="@dimen/start_btn_height_slider"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/rounded_button_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="ابدأ"
+        android:textColor="@color/white"
+        android:textSize="@dimen/start_btn_text_size_slider"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // 480 dpi
+    <item name="mainActivityStyle" type="layout">@layout/activity_main</item>
+    <item name="questionActivityStyle" type="layout">@layout/activity_question</item>
+    <item name="finalActivityStyle" type="layout">@layout/activity_final</item>
+    <item name="sliderActivity" type="layout">@layout/slider_item</item>
+    <item name="infoActivity" type="layout">@layout/infoActivity</item>
+    <dimen name="main_title_MainActivity">42sp</dimen>
+    <dimen name="main_text_MainActivity">32sp</dimen>
+    <dimen name="topic_container_width_MainActivity">210dp</dimen>
+    <dimen name="topic_container_height_MainActivity">170dp</dimen>
+    <dimen name="topic_title_container_MainActivity">70dp</dimen>
+    <dimen name="topic_image_width_480dpi">70dp</dimen>
+    <dimen name="topic_image_height_MainActivity">70dp</dimen>
+    <dimen name="topic_title_size_MainActivity">28sp</dimen>
+    <dimen name="share_width">70dp</dimen>
+    <dimen name="share_height">70dp</dimen>
+    // Question Activity
+    <dimen name="info_image_QuestionActivity">80dp</dimen>
+    <dimen name="info_image_height_QuestionActivity">80dp</dimen>
+    <dimen name="total_question_text_size">32sp</dimen>
+    <dimen name="curent_question_text_size">32sp</dimen>
+    <dimen name="question_text_size">32sp</dimen>
+    <dimen name="answer_btn_width">330dp</dimen>
+    <dimen name="result_btn_width">160dp</dimen>
+    <dimen name="result_btn_height">40dp</dimen>
+    <dimen name="answer_btn_text_size">24sp</dimen>
+    <dimen name="thx_text_size">120sp</dimen>
+    // Final Activity
+    <dimen name="main_title_finalActivity">42sp</dimen>
+    <dimen name="result_finalActivity">36sp</dimen>
+    <dimen name="person_image_width_FinalActivity">180dp</dimen>
+    <dimen name="person_image_height_FinalActivity">180dp</dimen>
+    <dimen name="home_btn_width_finalActivity">160dp</dimen>
+    <dimen name="home_btn_height_finalActivity">50dp</dimen>
+    <dimen name="share_btn_width_finalActivity">160dp</dimen>
+    <dimen name="share_btn_height_finalActivity">50dp</dimen>
+    <dimen name="finger_width_finalActivity">100dp</dimen>
+    <dimen name="finger_height_finalActivity">100dp</dimen>
+    <dimen name="result_window_height_finalActivity">217dp</dimen>
+    <dimen name="share_btn_text_size_finalActivity">22sp</dimen>
+    <dimen name="home_btn_text_size_finalActivity">22sp</dimen>
+    <dimen name="share_btn_margin_top_finalActivity">100dp</dimen>
+    // Slider
+    <dimen name="main_title_slider">42sp</dimen>
+    <dimen name="main_text_slider">34sp</dimen>
+    <dimen name="person_image_width_slider">240dp</dimen>
+    <dimen name="person_image_height_slider">240dp</dimen>
+    <dimen name="start_btn_width_slider">260dp</dimen>
+    <dimen name="start_btn_height_slider">50dp</dimen>
+    <dimen name="start_btn_text_size_slider">24sp</dimen>
+    // InfoActivity
+    <dimen name="main_title_infoActivity">42sp</dimen>
+    <dimen name="main_text_infoActivity">36sp</dimen>
+    <dimen name="image_infoActivity_width">180dp</dimen>
+    <dimen name="image_infoActivity_height">180dp</dimen>
+    <dimen name="save_btn_width_infoActivity">340dp</dimen>
+    <dimen name="save_btn_height_infoActivity">66dp</dimen>
+    <dimen name="save_btn_text_size_infoActivity">32sp</dimen>
+    <dimen name="male_radio_text_size_infoActivity">36sp</dimen>
+    <dimen name="female_radio_text_size_infoActivity">36sp</dimen>
+    <dimen name="credits_width">70dp</dimen>
+    <dimen name="credits_height">70dp</dimen>
+    <dimen name="new_question_width">148dp</dimen>
+    <dimen name="new_question_height">48dp</dimen>
+    <dimen name="new_question_size">22sp</dimen>
+    <dimen name="star_width">70dp</dimen>
+    <dimen name="start_height">70dp</dimen>
+    <dimen name="main_text_newQuestion">36sp</dimen>
+    <dimen name="send_btn_width_newQuestion">180dp</dimen>
+    <dimen name="send_btn_height_newQuestion">80dp</dimen>
+    <dimen name="question_edittext_height_newQuestion">150dp</dimen>
+    <dimen name="choose_edittext_height_newQuestion">60dp</dimen>
+    <dimen name="choose_edittext_size_newQuestion">18sp</dimen>
+    <dimen name="send_btn_newQuestion">36sp</dimen>
+</resources>

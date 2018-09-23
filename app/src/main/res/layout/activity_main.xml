@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentContainer"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context="persona.lemonlab.com.persona.MainActivity">
+
+    <TextView
+        android:id="@+id/main_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="اختبار الشخصية"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_title_MainActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/main_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:allowUndo="true"
+        android:autoText="true"
+        android:fontFamily="@font/cairo_semibold"
+        android:gravity="center"
+        android:text="اختر واحد من الاختبارات التالية"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/main_title"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/main_title"
+        app:layout_constraintTop_toBottomOf="@+id/main_title" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <ImageView
+        android:id="@+id/topic_container01"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_text"
+        app:srcCompat="@drawable/circle_image" />
+
+    <ImageView
+        android:id="@+id/topic_title_container"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_container01"
+        app:layout_constraintTop_toTopOf="@+id/topic_container01"
+        app:srcCompat="@drawable/topic_image" />
+
+    <ImageView
+        android:id="@+id/topic_image01"
+        android:layout_width="@dimen/topic_image_width_MainActivity"
+        android:layout_height="@dimen/topic_image_height_MainActivity"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container01"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_container01"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title01"
+        app:srcCompat="@drawable/topic01" />
+
+    <TextView
+        android:id="@+id/topic_title01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="التكتيك و الهوية"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container" />
+
+    <ImageView
+        android:id="@+id/topic_container02"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container"
+        app:srcCompat="@drawable/circle_image" />
+
+    <ImageView
+        android:id="@+id/topic_title_container02"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_container02"
+        app:layout_constraintTop_toTopOf="@+id/topic_container02"
+        app:srcCompat="@drawable/topic_image" />
+
+    <ImageView
+        android:id="@+id/topic_image02"
+        android:layout_width="@dimen/topic_image_height_MainActivity"
+        android:layout_height="@dimen/topic_image_width_MainActivity"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container02"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_container02"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title_container02"
+        app:srcCompat="@drawable/topic04" />
+
+    <TextView
+        android:id="@+id/topic_title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="الصبغة والهوية"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container02"
+        app:layout_constraintTop_toTopOf="@+id/topic_container02" />
+
+    <ImageView
+        android:id="@+id/topic_container3"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_container01"
+        app:layout_constraintTop_toBottomOf="@+id/topic_container01"
+        app:srcCompat="@drawable/circle_image" />
+
+    <ImageView
+        android:id="@+id/topic_title_container4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container3"
+        app:layout_constraintStart_toStartOf="@+id/topic_container3"
+        app:layout_constraintTop_toTopOf="@+id/topic_container3"
+        app:srcCompat="@drawable/topic_image" />
+
+    <ImageView
+        android:id="@+id/topic_image3"
+        android:layout_width="@dimen/topic_image_width_MainActivity"
+        android:layout_height="@dimen/topic_image_height_MainActivity"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container3"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container3"
+        app:layout_constraintStart_toStartOf="@+id/topic_container3"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title_container4"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/topic03" />
+
+    <TextView
+        android:id="@+id/topic_title3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="الفكر و العقلية"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container4"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container4"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container4" />
+
+    <ImageView
+        android:id="@+id/topic_container4"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_container02"
+        app:layout_constraintTop_toBottomOf="@+id/topic_container02"
+        app:srcCompat="@drawable/circle_image" />
+
+    <ImageView
+        android:id="@+id/topic_title_container5"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container4"
+        app:layout_constraintStart_toStartOf="@+id/topic_container4"
+        app:layout_constraintTop_toTopOf="@+id/topic_container4"
+        app:srcCompat="@drawable/topic_image" />
+
+    <ImageView
+        android:id="@+id/topic_image4"
+        android:layout_width="@dimen/topic_image_width_MainActivity"
+        android:layout_height="@dimen/topic_image_height_MainActivity"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container4"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container4"
+        app:layout_constraintStart_toStartOf="@+id/topic_container4"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title_container5"
+        app:srcCompat="@drawable/topic02" />
+
+    <TextView
+        android:id="@+id/topic_title4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="الطاقه و الحركة"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container5"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container5"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container5" />
+
+    <Button
+        android:id="@+id/add_question_btn"
+        android:layout_width="@dimen/new_question_width"
+        android:layout_height="@dimen/new_question_height"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_button_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="اقترح سؤالًا"
+        android:textColor="@color/white"
+        android:textSize="@dimen/new_question_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topic_container4" />
+
+    <LinearLayout
+        android:padding="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:id="@+id/rate_btn"
+            android:layout_width="@dimen/star_width"
+            android:layout_height="@dimen/start_height"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/star"
+            tools:layout_editor_absoluteX="239dp"
+            tools:layout_editor_absoluteY="744dp" />
+
+        <ImageView
+            android:id="@+id/share_btn_ActivityMain"
+            android:layout_width="@dimen/share_width"
+            android:layout_height="@dimen/share_height"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/share"
+            tools:layout_editor_absoluteX="116dp"
+            tools:layout_editor_absoluteY="735dp" />
+
+        <ImageView
+            android:onClick="showDialog"
+            android:id="@+id/imageView2"
+            android:layout_width="@dimen/credits_width"
+            android:layout_height="@dimen/credits_height"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_action_credits"
+            tools:layout_editor_absoluteX="353dp"
+            tools:layout_editor_absoluteY="779dp" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
