@@ -69,6 +69,9 @@ class UsersActivity : AppCompatActivity() {
 
                 }
             }
+        }else{
+            question_text_textView.text = "انتهت جميع الاسئلة انتظر وصول اسئلة جديدة من المستخدمين"
+            hideOptions()
         }
     }
 
@@ -116,5 +119,12 @@ class UsersActivity : AppCompatActivity() {
         b_answer_btn.text = data[index].b
         c_answer_btn.text = data[index].c
         d_answer_btn.text = data[index].d
+    }
+
+    fun hideOptions(){
+        a_answer_btn.visibility = View.INVISIBLE
+        b_answer_btn.visibility = View.INVISIBLE
+        c_answer_btn.visibility = View.INVISIBLE
+        d_answer_btn.visibility = View.INVISIBLE
     }
 }

@@ -17,7 +17,7 @@
 
         <activity
             android:name=".splashActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".MainActivity"
             android:screenOrientation="portrait">
@@ -47,7 +47,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UsersActivity"></activity>
+        <activity android:name=".UsersActivity" />
+        <activity android:name=".models.PVPMatchActivity"></activity>
     </application>
 
 </manifest>

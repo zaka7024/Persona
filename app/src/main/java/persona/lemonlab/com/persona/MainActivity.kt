@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.info_dialog.view.*
 import persona.lemonlab.com.persona.Extenstions.playSound
 import persona.lemonlab.com.persona.models.AddQuestionActivity
+import persona.lemonlab.com.persona.models.PVPMatchActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -162,9 +163,16 @@ class MainActivity : AppCompatActivity() {
 
             dialog.show()
         }
+
+        // for test
+
+        main_text.setOnClickListener {
+            var intent = Intent(this, PVPMatchActivity::class.java)
+            startActivity(intent)
+        }
     }
 
-    public fun showDialog(view: View){
+    fun showDialog(view: View){
         playSound()
         viewDialog!!.howto_textView.text = "التطبيق من تطوير فريق مختبر الليمون\n" +
                 "إبراهيم محمد العتوم\n" +
@@ -174,7 +182,7 @@ class MainActivity : AppCompatActivity() {
         dialog!!.show()
     }
 
-    public fun closeDialog(view: View){
+    fun closeDialog(view: View){
         playSound()
         dialog!!.dismiss()
     }
