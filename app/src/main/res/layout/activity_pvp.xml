@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="persona.lemonlab.com.persona.PVPActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question_text_textView">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="269dp">
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:id="@+id/a_answer_btn"
+                    android:layout_width="@dimen/answer_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="20dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/answer_selector"
+                    android:elevation="0dp"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:scaleX="0.01"
+                    android:scaleY="0.01"
+                    android:text="الخيار الاول"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/answer_btn_text_size"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/b_answer_btn"
+                    android:layout_width="@dimen/answer_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a_answer_btn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/answer_selector"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:scaleX="0.01"
+                    android:scaleY="0.01"
+                    android:text="الخيار الثاني"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/answer_btn_text_size"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/a_answer_btn" />
+
+                <Button
+                    android:id="@+id/c_answer_btn"
+                    android:layout_width="@dimen/answer_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a_answer_btn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/answer_selector"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:scaleX="0.01"
+                    android:scaleY="0.01"
+                    android:text="الخيار الثالث"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/answer_btn_text_size"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/b_answer_btn" />
+
+                <Button
+                    android:id="@+id/d_answer_btn"
+                    android:layout_width="@dimen/answer_btn_width"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/a_answer_btn"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/answer_selector"
+                    android:fontFamily="@font/cairo_semibold"
+                    android:scaleX="0.01"
+                    android:scaleY="0.01"
+                    android:text="الخيار الرابع"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/answer_btn_text_size"
+                    android:visibility="visible"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/c_answer_btn" />
+
+                <TextView
+                    android:id="@+id/guest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/d_answer_btn" />
+
+                <TextView
+                    android:id="@+id/host"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="TextView"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/d_answer_btn" />
+
+            </android.support.constraint.ConstraintLayout>
+
+        </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/question_text_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:gravity="center"
+        android:text="هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي"
+        android:textColor="#585C65"
+        android:textSize="@dimen/question_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

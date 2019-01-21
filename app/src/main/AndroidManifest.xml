@@ -48,7 +48,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".UsersActivity" />
-        <activity android:name=".models.PVPMatchActivity"></activity>
+        <activity android:name=".models.PVPMatchActivity" />
+        <activity android:name=".PVPActivity"></activity>
     </application>
 
 </manifest>
