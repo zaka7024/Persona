@@ -125,8 +125,7 @@ class MainActivity : AppCompatActivity() {
 
         topic_container05.setOnClickListener {// this is a user question topic
             playSound()
-            var intent = Intent(this,QuestionActivity::class.java)
-            intent.putExtra("topic",4)
+            var intent = Intent(this,UsersActivity::class.java)
             startActivity(intent)
         }
 

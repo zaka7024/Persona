@@ -70,7 +70,8 @@ class QuestionActivity : AppCompatActivity() {
         }
 
         // set text to dialog
-        viewDialgo!!.howto_textView.text = DoorModel.addtionInformationAboutDoors[questionType!!]
+        if(questionType!! < DoorModel.addtionInformationAboutDoors.size)
+            viewDialgo!!.howto_textView.text = DoorModel.addtionInformationAboutDoors[questionType!!]
 
         // init the question text with their UI
         setDataToUI(index,curentTopic!!)
@@ -81,16 +82,16 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     // init Text With UI
-    private fun setDataToUI(index:Int, topic:ArrayList<Question>){
-
+    private fun setDataToUI(index:Int, topic:ArrayList<Question>?){
+        if (topic != null){
             question_text_textView.text = topic!![index].QuestionText
-            a_answer_btn.text = topic[index]!!.a.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
-            b_answer_btn.text = topic[index].b.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
-            c_answer_btn.text = topic[index].c.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
-            d_answer_btn.text = topic[index].d.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
+            a_answer_btn.text = topic[index]!!.a.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
+            b_answer_btn.text = topic[index].b.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
+            c_answer_btn.text = topic[index].c.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
+            d_answer_btn.text = topic[index].d.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
             curent_question_textView.text = (index + 1).toString() + "/"
             total_questions_textView.text = topic.size.toString()
-
+        }
     }
     // Animate the button
     private fun buttonsAnimate(){
@@ -133,7 +134,6 @@ class QuestionActivity : AppCompatActivity() {
     // select an answer and move to next answer until to the end of question to show result
     fun selectAnswer(view:View){
 
-        // play sound
         playSound()
 
         // Check If The index is more than the sise of any topic
@@ -238,22 +238,5 @@ class QuestionActivity : AppCompatActivity() {
      override fun onBackPressed() {
         super.onBackPressed()
          mInterstitialAd.show()
-    }
-
-    fun getDataFromFirebase(){
-        val ref =FirebaseDatabase.getInstance().getReference("question")
-        ref.addValueEventListener(object :ValueEventListener{
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                for( item in p0.children){
-                    var question = p0.getValue(questionModel::class.java)
-                    onlineData!!.add(question!!)
-                }
-            }
-
-        })
     }
 }
