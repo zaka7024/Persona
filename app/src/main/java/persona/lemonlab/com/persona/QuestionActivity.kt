@@ -10,16 +10,22 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_question.*
 import kotlinx.android.synthetic.main.info_dialog.view.*
 import persona.lemonlab.com.persona.Extenstions.playSound
 import persona.lemonlab.com.persona.models.DoorModel
 import persona.lemonlab.com.persona.models.Question
+import persona.lemonlab.com.persona.models.questionModel
 
 class QuestionActivity : AppCompatActivity() {
 
     var index = 0
     var curentTopic:ArrayList<Question>? = null
+    var onlineData:ArrayList<questionModel>? = null
     var trav = 0
     var trov = 0
 
@@ -59,7 +65,7 @@ class QuestionActivity : AppCompatActivity() {
 
         }else if(questionType == 2){
             curentTopic = DoorModel.topic_three
-        }else{
+        }else if (questionType == 3){
             curentTopic = DoorModel.topic_four
         }
 
@@ -76,13 +82,15 @@ class QuestionActivity : AppCompatActivity() {
 
     // init Text With UI
     private fun setDataToUI(index:Int, topic:ArrayList<Question>){
-        question_text_textView.text = topic!![index].QuestionText
-        a_answer_btn.text = topic[index]!!.a.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
-        b_answer_btn.text = topic[index].b.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
-        c_answer_btn.text = topic[index].c.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
-        d_answer_btn.text = topic[index].d.keys.toString().replaceFirst('[',' ').replaceFirst(']',' ')
-        curent_question_textView.text = (index + 1).toString() + "/"
-        total_questions_textView.text = topic.size.toString()
+
+            question_text_textView.text = topic!![index].QuestionText
+            a_answer_btn.text = topic[index]!!.a.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
+            b_answer_btn.text = topic[index].b.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
+            c_answer_btn.text = topic[index].c.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
+            d_answer_btn.text = topic[index].d.keys.toString().replaceFirst('[', ' ').replaceFirst(']', ' ')
+            curent_question_textView.text = (index + 1).toString() + "/"
+            total_questions_textView.text = topic.size.toString()
+
     }
     // Animate the button
     private fun buttonsAnimate(){
@@ -230,5 +238,22 @@ class QuestionActivity : AppCompatActivity() {
      override fun onBackPressed() {
         super.onBackPressed()
          mInterstitialAd.show()
+    }
+
+    fun getDataFromFirebase(){
+        val ref =FirebaseDatabase.getInstance().getReference("question")
+        ref.addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                for( item in p0.children){
+                    var question = p0.getValue(questionModel::class.java)
+                    onlineData!!.add(question!!)
+                }
+            }
+
+        })
     }
 }

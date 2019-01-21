@@ -78,13 +78,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //init
+        //by default open page one
+        openPageOne()
+
+        page_one_btn.setOnClickListener {
+            openPageOne()
+        }
+
+        page_two_btn.setOnClickListener {
+            openPageTwo()
+        }
+
         // set content view for dialog
         viewDialog = LayoutInflater.from(this).inflate(R.layout.info_dialog,null)
         dialog = Dialog(this)
         // When Click on a Topic 01
         //Send Key to QuestionActivity to determine which topic will loaded
         topic_container01.setOnClickListener {
-            // play sound
             playSound()
             var intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",0)
@@ -92,31 +103,34 @@ class MainActivity : AppCompatActivity() {
         }
 
         topic_container02.setOnClickListener {
-            // play sound
             playSound()
             var intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",1)
             startActivity(intent)
         }
 
-        topic_container3.setOnClickListener {
-            // play sound
+        topic_container03.setOnClickListener {
             playSound()
             var intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",2)
             startActivity(intent)
         }
 
-        topic_container4.setOnClickListener {
-            // play sound
+        topic_container04.setOnClickListener {
             playSound()
             var intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",3)
             startActivity(intent)
         }
 
+        topic_container05.setOnClickListener {// this is a user question topic
+            playSound()
+            var intent = Intent(this,QuestionActivity::class.java)
+            intent.putExtra("topic",4)
+            startActivity(intent)
+        }
+
         rate_btn.setOnClickListener {
-            // play sound
             playSound()
             var intent = Intent(Intent.ACTION_VIEW)
             intent.setData(Uri.parse("market://details?id=com.lemonlab.persona"))
@@ -124,7 +138,6 @@ class MainActivity : AppCompatActivity() {
         }
 
         share_btn_ActivityMain.setOnClickListener {
-            // play sound
             playSound()
             var intent = Intent(Intent.ACTION_SEND)
             intent.putExtra(Intent.EXTRA_TEXT,"تطبيق اختبار الشخصية، تطبيق لتحليل شخصيتك و معرفة صفاتك.يطرح التطبيق عليك الكثير والكثير من الاسئلة الغريبة والمحرجه " +
@@ -136,7 +149,6 @@ class MainActivity : AppCompatActivity() {
 
         // open new activity(add question)
         add_question_btn.setOnClickListener {
-            // play sound
             playSound()
             var intent = Intent(this,AddQuestionActivity::class.java)
             startActivity(intent)
@@ -154,7 +166,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     public fun showDialog(view: View){
-        // play sound
         playSound()
         viewDialog!!.howto_textView.text = "التطبيق من تطوير فريق مختبر الليمون\n" +
                 "إبراهيم محمد العتوم\n" +
@@ -165,8 +176,70 @@ class MainActivity : AppCompatActivity() {
     }
 
     public fun closeDialog(view: View){
-        // play sound
         playSound()
         dialog!!.dismiss()
+    }
+
+    fun openPageOne(){
+        page_one_btn.setImageResource(R.drawable.number_one_hover)
+        page_two_btn.setImageResource(R.drawable.number_two)
+        // show all this views
+        topic_container01.visibility = View.VISIBLE
+        topic_title_container01.visibility = View.VISIBLE
+        topic_image01.visibility = View.VISIBLE
+        topic_title01.visibility = View.VISIBLE
+
+        topic_container02.visibility = View.VISIBLE
+        topic_title_container02.visibility = View.VISIBLE
+        topic_image02.visibility = View.VISIBLE
+        topic_title02.visibility = View.VISIBLE
+
+        topic_container03.visibility = View.VISIBLE
+        topic_title_container03.visibility = View.VISIBLE
+        topic_image03.visibility = View.VISIBLE
+        topic_title03.visibility = View.VISIBLE
+
+        topic_container04.visibility = View.VISIBLE
+        topic_title_container04.visibility = View.VISIBLE
+        topic_image04.visibility = View.VISIBLE
+        topic_title04.visibility = View.VISIBLE
+
+        //hide page two topic
+        topic_container05.visibility = View.INVISIBLE
+        topic_title_container05.visibility = View.INVISIBLE
+        topic_image05.visibility = View.INVISIBLE
+        topic_title05.visibility = View.INVISIBLE
+
+    }
+
+    fun openPageTwo(){
+        page_one_btn.setImageResource(R.drawable.number_one)
+        page_two_btn.setImageResource(R.drawable.number_two_hover)
+        // hide all this views
+        topic_container01.visibility = View.INVISIBLE
+        topic_title_container01.visibility = View.INVISIBLE
+        topic_image02.visibility = View.INVISIBLE
+        topic_title01.visibility = View.INVISIBLE
+
+        topic_container02.visibility = View.INVISIBLE
+        topic_title_container02.visibility = View.INVISIBLE
+        topic_image02.visibility = View.INVISIBLE
+        topic_title02.visibility = View.INVISIBLE
+
+        topic_container03.visibility = View.INVISIBLE
+        topic_title_container03.visibility = View.INVISIBLE
+        topic_image03.visibility = View.INVISIBLE
+        topic_title03.visibility = View.INVISIBLE
+
+        topic_container04.visibility = View.INVISIBLE
+        topic_title_container04.visibility = View.INVISIBLE
+        topic_image04.visibility = View.INVISIBLE
+        topic_title04.visibility = View.INVISIBLE
+
+        // show other topic
+        topic_container05.visibility = View.VISIBLE
+        topic_title_container05.visibility = View.VISIBLE
+        topic_image05.visibility = View.VISIBLE
+        topic_title05.visibility = View.VISIBLE
     }
 }
