@@ -22,10 +22,18 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
     }
 
     override fun bind(viewHolder: ViewHolder, position: Int) {
+        //init
+
+        viewHolder.itemView.setBackgroundColor(activity.resources.getColor(R.color.main_color))
+
         viewHolder.itemView.quiz_name_text_view.text = code_item.host_name
 
         if (code_item.isUsed){
             viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+        }
+
+        if(code_item.value == currentDeviceCode){
+            viewHolder.itemView.setBackgroundColor(activity.resources.getColor(R.color.blue))
         }
 
         viewHolder.itemView.setOnClickListener {
@@ -46,6 +54,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                     ac_code = p0.getValue(code::class.java)!!
                     if (!(ac_code!!.isUsed)){ // if quiz available or not
                         ac_code!!.isUsed = true
+                        ac_code!!.guest_name = getUserName()
                         ref.setValue(ac_code).addOnCompleteListener {
                             Log.i("PVPMatchActivity", "accept code, pvp will start")
                             viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
@@ -62,7 +71,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
 
     fun startOnlineQuiz(){
         var intent = Intent(activity, PVPActivity::class.java)
-        intent.putExtra("PVP_HOTS_NAME", code_item.guest_name)
+        intent.putExtra("PVP_HOTS_NAME", code_item.host_name)
         intent.putExtra("PVP_GUEST_NAME", getUserName())
         activity.startActivity(intent)
     }

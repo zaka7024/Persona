@@ -1,9 +1,11 @@
 package persona.lemonlab.com.persona.models
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.widget.Toast
@@ -14,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_pvpmatch.*
+import persona.lemonlab.com.persona.PVPActivity
 import persona.lemonlab.com.persona.R
 import persona.lemonlab.com.persona.items.quiz_item
 import java.util.*
@@ -23,6 +26,7 @@ class PVPMatchActivity : AppCompatActivity() {
 
     var adapter = GroupAdapter<ViewHolder>()
     var myQuizId:String = ""
+    var myQuiz:code? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +43,12 @@ class PVPMatchActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+
+        if (myQuizId.isEmpty()){
+            this.finish()
+            return
+        }
+
         var dialog = AlertDialog.Builder(this)
 
         dialog.setTitle("تأكيد")
@@ -64,6 +74,7 @@ class PVPMatchActivity : AppCompatActivity() {
 
     fun initQuizAvailableRV(){
         quiz_available_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        quiz_available_rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         quiz_available_rv.adapter = adapter
     }
 
@@ -86,10 +97,9 @@ class PVPMatchActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                var quiz_code = p0.getValue(code::class.java)
-                if(quiz_code!!.isUsed){
-                    Toast.makeText(this@PVPMatchActivity,"a person accept your quiz, i will start pvp for you, soon", Toast.LENGTH_LONG)
-                            .show()
+                myQuiz = p0.getValue(code::class.java)
+                if(myQuiz!!.isUsed){
+                    startOnlineQuizForHost()
                 }
             }
 
@@ -125,5 +135,12 @@ class PVPMatchActivity : AppCompatActivity() {
     fun getUserName():String{
         val ref = getSharedPreferences("app_data", 0)
         return ref.getString("username", "username")
+    }
+
+    fun startOnlineQuizForHost(){
+        var intent = Intent(this, PVPActivity::class.java)
+        intent.putExtra("PVP_HOTS_NAME", myQuiz!!.host_name)
+        intent.putExtra("PVP_GUEST_NAME", myQuiz!!.guest_name)
+        startActivity(intent)
     }
 }

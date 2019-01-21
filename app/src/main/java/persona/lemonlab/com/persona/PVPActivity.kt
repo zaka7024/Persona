@@ -14,6 +14,7 @@ class PVPActivity : AppCompatActivity() {
         setContentView(R.layout.activity_pvp)
 
         test()
+        buttonsAnimate()
     }
 
     fun test(){
