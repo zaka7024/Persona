@@ -54,6 +54,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                     ac_code = p0.getValue(code::class.java)!!
                     if (!(ac_code!!.isUsed)){ // if quiz available or not
                         ac_code!!.isUsed = true
+                        ac_code!!.guestIsHere = true
                         ac_code!!.guest_name = getUserName()
                         ref.setValue(ac_code).addOnCompleteListener {
                             Log.i("PVPMatchActivity", "accept code, pvp will start")
@@ -80,4 +81,5 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
         val ref = activity.getSharedPreferences("app_data", 0)
         return ref.getString("username", "الضيف")
     }
+
 }

@@ -3,24 +3,56 @@ package persona.lemonlab.com.persona
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_pvp.*
 import persona.lemonlab.com.persona.models.Question
 import persona.lemonlab.com.persona.models.questionModel
 
 class PVPActivity : AppCompatActivity() {
 
+    var hostCode:String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvp)
 
+        hostCode = intent.extras.getString("PVP_HOST_CODE","")
+
         test()
         buttonsAnimate()
+
+        a_answer_btn.setOnClickListener {
+            checkIfHostIsHere()
+        }
     }
 
     fun test(){
         host.text = intent.extras.getString("PVP_HOTS_NAME")
         guest.text = intent.extras.getString("PVP_GUEST_NAME")
     }
+
+    fun checkIfHostIsHere(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}")
+        ref.addValueEventListener(object:ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists()){
+                    host.text = host.text.toString() + " متصل"
+                }else{
+                    host.text = host.text.toString() + " غير متصل"
+                }
+            }
+
+        })
+    }
+
+
 
     private fun buttonsAnimate(){
         // Reset ScaleX and ScaleY for all Animating Buttons
@@ -70,4 +102,6 @@ class PVPActivity : AppCompatActivity() {
         c_answer_btn.visibility = View.INVISIBLE
         d_answer_btn.visibility = View.INVISIBLE
     }
+
+
 }
