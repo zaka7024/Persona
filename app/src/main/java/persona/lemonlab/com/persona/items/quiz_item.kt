@@ -54,11 +54,17 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                     ac_code = p0.getValue(code::class.java)!!
                     if (!(ac_code!!.isUsed)){ // if quiz available or not
                         ac_code!!.isUsed = true
-                        ac_code!!.guestIsHere = true
                         ac_code!!.guest_name = getUserName()
                         ref.setValue(ac_code).addOnCompleteListener {
+
+                            val refe = FirebaseDatabase.getInstance().getReference("pvp/${id}/guestIsHere")
+                            refe.setValue(true).addOnCompleteListener {
+                                Log.i("PVPMatchActivity", "guest is here: true")
+                            }
+
                             Log.i("PVPMatchActivity", "accept code, pvp will start")
                             viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+                            ref.removeEventListener(this)
                             startOnlineQuiz()
                         }
                     }else{
@@ -74,6 +80,8 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
         var intent = Intent(activity, PVPActivity::class.java)
         intent.putExtra("PVP_HOTS_NAME", code_item.host_name)
         intent.putExtra("PVP_GUEST_NAME", getUserName())
+        intent.putExtra("PVP_HOST_CODE", code_item!!.value)
+
         activity.startActivity(intent)
     }
 

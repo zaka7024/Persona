@@ -2,6 +2,7 @@ package persona.lemonlab.com.persona
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -9,12 +10,13 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_pvp.*
 import persona.lemonlab.com.persona.models.Question
+import persona.lemonlab.com.persona.models.code
 import persona.lemonlab.com.persona.models.questionModel
 
 class PVPActivity : AppCompatActivity() {
 
     var hostCode:String = ""
-
+    var hostName:String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvp)
@@ -23,10 +25,49 @@ class PVPActivity : AppCompatActivity() {
 
         test()
         buttonsAnimate()
+        getHostName()
+        checkIfHostAndGuestIsHere()
+    }
 
-        a_answer_btn.setOnClickListener {
-            checkIfHostIsHere()
+    override fun onBackPressed() {
+        Log.i("PVPActivity", "on back -> host name: ${getHostName()}")
+        if (hostName == getUserName()){
+            hostLeftQuiz()
+
+        }else{
+            guestLeftQuiz()
         }
+        super.onBackPressed()
+    }
+
+    override fun finish() {
+        if( hostName == getUserName()){
+            hostLeftQuiz()
+
+        }else{
+            guestLeftQuiz()
+        }
+        super.finish()
+    }
+
+    override fun onPause() {
+        if( hostName == getUserName()){
+            hostLeftQuiz()
+
+        }else{
+            guestLeftQuiz()
+        }
+        super.onPause()
+    }
+
+    override fun onResume() {
+        if( hostName == getUserName()){
+            hostBackToQuiz()
+
+        }else{
+            questBackToQiuz()
+        }
+        super.onResume()
     }
 
     fun test(){
@@ -34,8 +75,10 @@ class PVPActivity : AppCompatActivity() {
         guest.text = intent.extras.getString("PVP_GUEST_NAME")
     }
 
-    fun checkIfHostIsHere(){
+    fun checkIfHostAndGuestIsHere(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}")
+        var currentUserNmae = getUserName()
+
         ref.addValueEventListener(object:ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
 
@@ -43,9 +86,27 @@ class PVPActivity : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
-                    host.text = host.text.toString() + " متصل"
-                }else{
-                    host.text = host.text.toString() + " غير متصل"
+                    var pvp_code = p0.getValue(code::class.java)
+
+                    if (pvp_code!!.host_name == currentUserNmae){ // this device is the host
+
+                        if(pvp_code!!.guestIsHere){
+                            guest.setTextColor(resources.getColor(R.color.green))
+                        }else{
+                            guest.setTextColor(resources.getColor(R.color.red))
+                        }
+
+                    }else{ // this device is the guest
+
+                        if(pvp_code!!.hostIsHere){
+                            host.setTextColor(resources.getColor(R.color.green))
+                        }else{
+                            host.setTextColor(resources.getColor(R.color.red))
+                        }
+
+                    }
+                    Log.i("PVPActivity", "host is here (in quiz): ${pvp_code!!.hostIsHere}")
+                    Log.i("PVPActivity", "guest is here (in quiz): ${pvp_code!!.guestIsHere}")
                 }
             }
 
@@ -64,8 +125,6 @@ class PVPActivity : AppCompatActivity() {
         c_answer_btn.scaleY = 0.01f
         d_answer_btn.scaleX = 0.01f
         d_answer_btn.scaleY = 0.01f
-
-
 
         a_answer_btn.animate().apply{
             scaleY(1.0f)
@@ -96,12 +155,45 @@ class PVPActivity : AppCompatActivity() {
         // we do not know until this moment how online questions will be
     }
 
-    fun hideOptions(){
-        a_answer_btn.visibility = View.INVISIBLE
-        b_answer_btn.visibility = View.INVISIBLE
-        c_answer_btn.visibility = View.INVISIBLE
-        d_answer_btn.visibility = View.INVISIBLE
+    fun getUserName():String{
+        val ref = getSharedPreferences("app_data", 0)
+        var name = ref.getString("username", "المضيف")
+        Log.i("PVPActivity", "current device user name :${name}")
+        return name
     }
 
+    fun hostLeftQuiz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/hostIsHere")
+        ref.setValue(false)
+    }
 
+    fun guestLeftQuiz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
+        ref.setValue(false)
+    }
+
+    fun hostBackToQuiz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/hostIsHere")
+        ref.setValue(true)
+    }
+
+    fun questBackToQiuz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
+        ref.setValue(true)
+    }
+
+    fun getHostName(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/host_name")
+        ref.addValueEventListener(object :ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                hostName =  p0.getValue(String::class.java)!!
+                ref.removeEventListener(this)
+            }
+
+        })
+    }
 }

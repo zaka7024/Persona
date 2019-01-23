@@ -11,4 +11,6 @@
     <color name="white_alpha">#7dffffff</color>
     <color name="btn_color">#47ffffff</color>
     <color name="buttonColor">#15D8DF</color>
+    <color name="green">#0F0</color>
+    <color name="red">#F00</color>
 </resources>

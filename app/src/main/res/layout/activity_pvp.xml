@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cairo_semibold"
-        android:text="المضيف"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/guest"
-        app:layout_constraintTop_toTopOf="@+id/guest" />
+        app:layout_constraintTop_toTopOf="@+id/guest"
+        tools:text="اللاعب المضيف" />
 
     <TextView
         android:id="@+id/guest"
@@ -24,12 +24,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/cairo_semibold"
-        android:text="الضيف"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/host"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="اللاعب الضيف" />
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"

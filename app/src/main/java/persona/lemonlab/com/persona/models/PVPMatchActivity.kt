@@ -84,7 +84,8 @@ class PVPMatchActivity : AppCompatActivity() {
 
         myQuizId = UUID.randomUUID().toString()
 
-        val code = code(myQuizId, false, getUserName(),"",false, ArrayList(), ArrayList())
+        val code = code(myQuizId, false, getUserName(),"",true,
+                true, ArrayList(), ArrayList())
 
         val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}")
         ref.setValue(code).addOnCompleteListener {
@@ -100,6 +101,7 @@ class PVPMatchActivity : AppCompatActivity() {
                 if(p0.exists()){
                     myQuiz = p0.getValue(code::class.java)
                     if(myQuiz!!.isUsed){
+                        ref.removeEventListener(this)
                         startOnlineQuizForHost()
                     }
                 }
@@ -128,10 +130,8 @@ class PVPMatchActivity : AppCompatActivity() {
     }
 
     fun deleteQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}")
-        ref.removeValue().addOnCompleteListener {
-            Toast.makeText(this, "لقد تم حذف الختبارك", Toast.LENGTH_SHORT).show()
-        }
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/hostIsHere")
+        ref.setValue(false)
     }
 
     fun getUserName():String{
@@ -144,6 +144,12 @@ class PVPMatchActivity : AppCompatActivity() {
         intent.putExtra("PVP_HOTS_NAME", myQuiz!!.host_name)
         intent.putExtra("PVP_GUEST_NAME", myQuiz!!.guest_name)
         intent.putExtra("PVP_HOST_CODE", myQuizId)
+
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/hostIsHere")
+        ref.setValue(true).addOnCompleteListener {
+            Log.i("PVPMatchActivity", "host is here: true")
+        }
+
         startActivity(intent)
     }
 }

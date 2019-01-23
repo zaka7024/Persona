@@ -353,8 +353,8 @@
 
     <ImageView
         android:id="@+id/page_one_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         app:layout_constraintEnd_toStartOf="@+id/page_two_btn"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
@@ -363,8 +363,8 @@
 
     <ImageView
         android:id="@+id/page_two_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"

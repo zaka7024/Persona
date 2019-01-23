@@ -9,7 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import kotlinx.android.synthetic.main.activity_question.*
+import kotlinx.android.synthetic.main.activity_users.*
 import persona.lemonlab.com.persona.models.questionModel
 
 class UsersActivity : AppCompatActivity() {
@@ -40,6 +40,9 @@ class UsersActivity : AppCompatActivity() {
                     Log.i("UsersActivity", "user question: ${question!!.questionText}")
                     onlineData!!.add(question!!)
                 }
+                // all questions are here
+                users_question_progress_users_activity
+                        .visibility = View.GONE
                 onlineData!!.reverse()
                 setDataToUI(index, onlineData!!)
             }
@@ -114,11 +117,25 @@ class UsersActivity : AppCompatActivity() {
     }
 
     fun setDataToUI(index:Int, data:ArrayList<questionModel>){
-        question_text_textView.text = data[index].questionText
-        a_answer_btn.text = data[index].a
-        b_answer_btn.text = data[index].b
-        c_answer_btn.text = data[index].c
-        d_answer_btn.text = data[index].d
+
+        if (data[index].toString().trim().isEmpty()){
+            question_text_textView.text = "المستخدم لم يضع نص السؤال"
+        }else{
+            question_text_textView.text = data[index].questionText
+        }
+
+        clearOpetionTetx(data[index].a, a_answer_btn)
+        clearOpetionTetx(data[index].b, b_answer_btn)
+        clearOpetionTetx(data[index].c, c_answer_btn)
+        clearOpetionTetx(data[index].d, d_answer_btn)
+    }
+
+    fun clearOpetionTetx(text:String, view: TextView){
+        if(text.trim().isEmpty()){
+            view.text = "المستخدم لم بكتب خيا هنا"
+        }else{
+            view.text = text
+        }
     }
 
     fun hideOptions(){
