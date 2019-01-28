@@ -30,6 +30,8 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
 
         if (code_item.isUsed){
             viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+        }else{
+            viewHolder.itemView.quiz_available_text_view.text = "متاح"
         }
 
         if(code_item.value == currentDeviceCode){
@@ -51,24 +53,27 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                 }
 
                 override fun onDataChange(p0: DataSnapshot) {
-                    ac_code = p0.getValue(code::class.java)!!
-                    if (!(ac_code!!.isUsed)){ // if quiz available or not
-                        ac_code!!.isUsed = true
-                        ac_code!!.guest_name = getUserName()
-                        ref.setValue(ac_code).addOnCompleteListener {
+                    if(p0.exists()){
+                        ac_code = p0.getValue(code::class.java)!!
+                        if (!(ac_code!!.isUsed)){ // if quiz available or not
+                            ac_code!!.isUsed = true
+                            ac_code!!.guest_name = getUserName()
+                            ref.setValue(ac_code).addOnCompleteListener {
 
-                            val refe = FirebaseDatabase.getInstance().getReference("pvp/${id}/guestIsHere")
-                            refe.setValue(true).addOnCompleteListener {
-                                Log.i("PVPMatchActivity", "guest is here: true")
+                                val refe = FirebaseDatabase.getInstance().getReference("pvp/${id}/guestIsHere")
+                                refe.setValue(true).addOnCompleteListener {
+                                    Log.i("PVPMatchActivity", "guest is here: true")
+                                    refe.removeEventListener(this)
+                                }
+
+                                Log.i("PVPMatchActivity", "accept code, pvp will start")
+                                viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+                                ref.removeEventListener(this)
+                                startOnlineQuiz()
                             }
-
-                            Log.i("PVPMatchActivity", "accept code, pvp will start")
-                            viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
-                            ref.removeEventListener(this)
-                            startOnlineQuiz()
+                        }else{
+                            Log.i("PVPMatchActivity", "the quiz is already used")
                         }
-                    }else{
-                        Log.i("PVPMatchActivity", "the quiz is already used")
                     }
                 }
 

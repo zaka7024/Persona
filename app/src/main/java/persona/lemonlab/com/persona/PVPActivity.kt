@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -31,44 +32,10 @@ class PVPActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         Log.i("PVPActivity", "on back -> host name: ${getHostName()}")
-        if (hostName == getUserName()){
-            hostLeftQuiz()
-
-        }else{
-            guestLeftQuiz()
-        }
+        removeQuiz()
         super.onBackPressed()
     }
 
-    override fun finish() {
-        if( hostName == getUserName()){
-            hostLeftQuiz()
-
-        }else{
-            guestLeftQuiz()
-        }
-        super.finish()
-    }
-
-    override fun onPause() {
-        if( hostName == getUserName()){
-            hostLeftQuiz()
-
-        }else{
-            guestLeftQuiz()
-        }
-        super.onPause()
-    }
-
-    override fun onResume() {
-        if( hostName == getUserName()){
-            hostBackToQuiz()
-
-        }else{
-            questBackToQiuz()
-        }
-        super.onResume()
-    }
 
     fun test(){
         host.text = intent.extras.getString("PVP_HOTS_NAME")
@@ -94,6 +61,8 @@ class PVPActivity : AppCompatActivity() {
                             guest.setTextColor(resources.getColor(R.color.green))
                         }else{
                             guest.setTextColor(resources.getColor(R.color.red))
+                            removeQuiz()
+                            ref.removeEventListener(this)
                         }
 
                     }else{ // this device is the guest
@@ -102,11 +71,15 @@ class PVPActivity : AppCompatActivity() {
                             host.setTextColor(resources.getColor(R.color.green))
                         }else{
                             host.setTextColor(resources.getColor(R.color.red))
+                            removeQuiz()
+                            ref.removeEventListener(this)
                         }
 
                     }
                     Log.i("PVPActivity", "host is here (in quiz): ${pvp_code!!.hostIsHere}")
                     Log.i("PVPActivity", "guest is here (in quiz): ${pvp_code!!.guestIsHere}")
+                }else{
+                    this@PVPActivity.finish()
                 }
             }
 
@@ -162,7 +135,7 @@ class PVPActivity : AppCompatActivity() {
         return name
     }
 
-    fun hostLeftQuiz(){
+    /* fun hostLeftQuiz(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/hostIsHere")
         ref.setValue(false)
     }
@@ -180,7 +153,7 @@ class PVPActivity : AppCompatActivity() {
     fun questBackToQiuz(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
         ref.setValue(true)
-    }
+    } */
 
     fun getHostName(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/host_name")
@@ -195,5 +168,21 @@ class PVPActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    fun removeQuiz(){
+
+        if (hostCode.isEmpty())return
+
+        /*val host_left = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/hostIsHere")
+        val guest_left = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
+        host_left.setValue(false)
+        guest_left.setValue(false)*/
+
+        Toast.makeText(this, "لقد غادر شخص ما الاختبار", Toast.LENGTH_LONG).show()
+
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}")
+        ref.removeValue()
+        this.finish()
     }
 }

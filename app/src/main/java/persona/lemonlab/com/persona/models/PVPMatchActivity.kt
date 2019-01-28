@@ -40,6 +40,11 @@ class PVPMatchActivity : AppCompatActivity() {
         new_quiz_btn.setOnClickListener {
             createQuiz()
         }
+
+        //remove quiz from firebase
+        remove_quiz_btn.setOnClickListener {
+            deleteQuiz()
+        }
     }
 
     override fun onBackPressed() {
@@ -80,7 +85,10 @@ class PVPMatchActivity : AppCompatActivity() {
 
     fun createQuiz(){
 
-        if(myQuizId.isNotEmpty()) return
+        if(myQuizId.isNotEmpty()){
+            Toast.makeText(this, "احذف الاختبار الحالي اولًا", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         myQuizId = UUID.randomUUID().toString()
 
@@ -124,14 +132,31 @@ class PVPMatchActivity : AppCompatActivity() {
                     var quiz_code = item.getValue(code::class.java)
                     adapter.add(quiz_item(quiz_code!!, myQuizId, this@PVPMatchActivity))
                 }
+
+                //ref.removeEventListener(this)
             }
 
         })
     }
 
     fun deleteQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/hostIsHere")
-        ref.setValue(false)
+        if(myQuizId.isEmpty()) return
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/")
+        ref.addValueEventListener(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                if (p0.exists()){
+                    var code = p0.getValue(code::class.java)
+                    code!!.isUsed = true
+                    ref.removeEventListener(this)
+                }
+            }
+
+        })
+        myQuizId = ""
     }
 
     fun getUserName():String{
