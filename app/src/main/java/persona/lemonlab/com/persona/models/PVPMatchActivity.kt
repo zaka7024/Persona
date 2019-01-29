@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -45,6 +46,12 @@ class PVPMatchActivity : AppCompatActivity() {
         remove_quiz_btn.setOnClickListener {
             deleteQuiz()
         }
+    }
+
+    override fun onResume() {
+        myQuizId = ""
+        deleteQuiz()
+        super.onResume()
     }
 
     override fun onBackPressed() {
@@ -119,6 +126,10 @@ class PVPMatchActivity : AppCompatActivity() {
     }
 
     fun getAvailableQuiz(){
+
+        progress_pvp_match_activity.visibility = View.VISIBLE
+        hint_text_view_pvp_activity.visibility = View.GONE
+
         val ref = FirebaseDatabase.getInstance().getReference("pvp")
         ref.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {
@@ -128,9 +139,17 @@ class PVPMatchActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 adapter.clear()
 
-                for (item in p0.children){
-                    var quiz_code = item.getValue(code::class.java)
-                    adapter.add(quiz_item(quiz_code!!, myQuizId, this@PVPMatchActivity))
+                if(p0.exists()){
+
+                    for (item in p0.children){
+                        progress_pvp_match_activity.visibility = View.GONE
+                        hint_text_view_pvp_activity.visibility = View.GONE
+                        var quiz_code = item.getValue(code::class.java)
+                        adapter.add(quiz_item(quiz_code!!, myQuizId, this@PVPMatchActivity))
+                    }
+                }else{
+                    hint_text_view_pvp_activity.visibility = View.VISIBLE
+                    progress_pvp_match_activity.visibility = View.GONE
                 }
 
                 //ref.removeEventListener(this)
@@ -142,20 +161,7 @@ class PVPMatchActivity : AppCompatActivity() {
     fun deleteQuiz(){
         if(myQuizId.isEmpty()) return
         val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/")
-        ref.addValueEventListener(object : ValueEventListener{
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
-
-            override fun onDataChange(p0: DataSnapshot) {
-                if (p0.exists()){
-                    var code = p0.getValue(code::class.java)
-                    code!!.isUsed = true
-                    ref.removeEventListener(this)
-                }
-            }
-
-        })
+        ref.removeValue()
         myQuizId = ""
     }
 

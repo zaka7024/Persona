@@ -79,7 +79,7 @@ class PVPActivity : AppCompatActivity() {
                     Log.i("PVPActivity", "host is here (in quiz): ${pvp_code!!.hostIsHere}")
                     Log.i("PVPActivity", "guest is here (in quiz): ${pvp_code!!.guestIsHere}")
                 }else{
-                    this@PVPActivity.finish()
+                    removeQuiz()
                 }
             }
 

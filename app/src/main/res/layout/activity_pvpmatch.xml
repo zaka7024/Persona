@@ -6,6 +6,34 @@
     android:layout_height="match_parent"
     tools:context="persona.lemonlab.com.persona.models.PVPMatchActivity">
 
+    <ProgressBar
+        android:id="@+id/progress_pvp_match_activity"
+        android:theme="@style/CircularProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quiz_available_rv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/quiz_available_rv" />
+
+    <TextView
+        android:id="@+id/hint_text_view_pvp_activity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="لا يوجد اي اختبار متاح، قم بتجربة الاختبار مع صديقك من خلال مشاركة التطبيق معه 😊"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/quiz_available_rv"
+        app:layout_constraintStart_toStartOf="@+id/quiz_available_rv"
+        app:layout_constraintTop_toTopOf="@+id/quiz_available_rv" />
+
     <Button
         android:id="@+id/new_quiz_btn"
         android:layout_width="180dp"

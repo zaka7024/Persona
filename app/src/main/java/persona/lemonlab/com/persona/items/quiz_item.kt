@@ -60,16 +60,27 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                             ac_code!!.guest_name = getUserName()
                             ref.setValue(ac_code).addOnCompleteListener {
 
-                                val refe = FirebaseDatabase.getInstance().getReference("pvp/${id}/guestIsHere")
-                                refe.setValue(true).addOnCompleteListener {
-                                    Log.i("PVPMatchActivity", "guest is here: true")
-                                    refe.removeEventListener(this)
-                                }
+                                val refe = FirebaseDatabase.getInstance().getReference("pvp/${id}/")
 
-                                Log.i("PVPMatchActivity", "accept code, pvp will start")
-                                viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
-                                ref.removeEventListener(this)
-                                startOnlineQuiz()
+                                refe.addValueEventListener(object:ValueEventListener{
+                                    override fun onCancelled(p0: DatabaseError) {
+
+                                    }
+
+                                    override fun onDataChange(p0: DataSnapshot) {
+                                        if(p0.exists()){
+                                            var code = p0.getValue(code::class.java)
+                                            code!!.guestIsHere = true
+                                            Log.i("PVPMatchActivity", "guest is here: true")
+                                            refe.removeEventListener(this)
+                                            Log.i("PVPMatchActivity", "accept code, pvp will start")
+                                            viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+                                            ref.removeEventListener(this)
+                                            startOnlineQuiz()
+                                        }
+                                    }
+
+                                })
                             }
                         }else{
                             Log.i("PVPMatchActivity", "the quiz is already used")

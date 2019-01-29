@@ -119,7 +119,7 @@ class UsersActivity : AppCompatActivity() {
     fun setDataToUI(index:Int, data:ArrayList<questionModel>){
 
         if (data[index].toString().trim().isEmpty()){
-            question_text_textView.text = "المستخدم لم يضع نص السؤال"
+            question_text_textView.text = "المستخدم لم يكتب نص للسؤال"
         }else{
             question_text_textView.text = data[index].questionText
         }
@@ -132,7 +132,7 @@ class UsersActivity : AppCompatActivity() {
 
     fun clearOpetionTetx(text:String, view: TextView){
         if(text.trim().isEmpty()){
-            view.text = "المستخدم لم بكتب خيا هنا"
+            view.text = "المستخدم لم بكتب خيار هنا"
         }else{
             view.text = text
         }
