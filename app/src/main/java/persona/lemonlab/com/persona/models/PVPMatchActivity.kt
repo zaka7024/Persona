@@ -32,6 +32,7 @@ class PVPMatchActivity : AppCompatActivity() {
         var uniqueID=""
         var aQuizID=""
         var createdQuiz=false
+        var enteredQuiz=false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,11 +55,23 @@ class PVPMatchActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
-        myQuizId = ""
         deleteQuiz()
         super.onResume()
     }
+private fun removeData(){
+    if(!enteredQuiz){
+    FirebaseDatabase.getInstance().getReference("pvp/$aQuizID").removeValue()
+    }
+}
+    override fun onPause() {
+        removeData()
+        super.onPause()
+    }
 
+    override fun onStop() {
+        removeData()
+        super.onStop()
+    }
     override fun onBackPressed() {
 
         if (myQuizId.isEmpty()){
@@ -89,13 +102,13 @@ class PVPMatchActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    fun initQuizAvailableRV(){
+    private fun initQuizAvailableRV(){
         quiz_available_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
         quiz_available_rv.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         quiz_available_rv.adapter = adapter
     }
 
-    fun createQuiz(){
+    private fun createQuiz(){
 
         if(myQuizId.isNotEmpty()){
             Toast.makeText(this, getString(R.string.quiz_exists), Toast.LENGTH_SHORT).show()
@@ -105,6 +118,7 @@ class PVPMatchActivity : AppCompatActivity() {
         myQuizId = UUID.randomUUID().toString()
         aQuizID = myQuizId
         createdQuiz = true
+        enteredQuiz = false
         uniqueID = UUID.randomUUID().toString()//to identify the host, this is needed
 
         val code = code(myQuizId, false, getUserName(),"",true,
@@ -133,7 +147,7 @@ class PVPMatchActivity : AppCompatActivity() {
         })
     }
 
-    fun getAvailableQuiz(){
+    private fun getAvailableQuiz(){
 
         progress_pvp_match_activity.visibility = View.VISIBLE
         hint_text_view_pvp_activity.visibility = View.GONE
@@ -170,15 +184,17 @@ class PVPMatchActivity : AppCompatActivity() {
         if(myQuizId.isEmpty()) return
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$myQuizId/")
         ref.removeValue()
+        createdQuiz = false
         myQuizId = ""
     }
 
-    fun getUserName():String{
+    private fun getUserName():String{
         val ref = getSharedPreferences("app_data", 0)
         return ref.getString("username", "username")
     }
 
     fun startOnlineQuizForHost(){
+        enteredQuiz=true
         var intent = Intent(this, PVPActivity::class.java)
         intent.putExtra("PVP_HOTS_NAME", myQuiz!!.host_name)
         intent.putExtra("PVP_GUEST_NAME", myQuiz!!.guest_name)

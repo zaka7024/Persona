@@ -63,6 +63,15 @@ class PVPActivity : AppCompatActivity() {
         super.onBackPressed()
     }
 
+    override fun onPause() {
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue()
+        super.onPause()
+    }
+
+    override fun onStop() {
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue()
+        super.onStop()
+    }
     private fun getAllQuestionsAndAnswers(){
         see_result_btn.visibility = View.GONE
         listOfQuestionsTexts = resources.getStringArray(R.array.online_questions)
@@ -164,7 +173,8 @@ class PVPActivity : AppCompatActivity() {
         })
     }
     private fun addData(reference:DatabaseReference, path:String, x:Int, y:Int){
-        //I guess we have to update data after every answer, so when getting data it'd exist. This prevents an unexpected behavior as one of test takers may get stuck in this activity
+        //I guess we have to update data after every answer,
+        // so when getting data it'd exist. This prevents an unexpected behavior as one of test takers may get stuck in this activity
         reference.child("${path}_xValue").setValue(x)
         reference.child("${path}_yValue").setValue(y)
     }
