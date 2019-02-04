@@ -19,7 +19,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_pvpmatch.*
 import persona.lemonlab.com.persona.PVPActivity
 import persona.lemonlab.com.persona.R
-import persona.lemonlab.com.persona.items.quiz_item
+import persona.lemonlab.com.persona.items.QuizItem
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -32,6 +32,7 @@ class PVPMatchActivity : AppCompatActivity() {
         var uniqueID=""
         var aQuizID=""
         var createdQuiz=false
+        var enteringQuiz=true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +55,7 @@ class PVPMatchActivity : AppCompatActivity() {
     }
 
     override fun onResume() {
+        enteringQuiz=true
         deleteQuiz()
         super.onResume()
     }
@@ -93,6 +95,21 @@ class PVPMatchActivity : AppCompatActivity() {
         quiz_available_rv.adapter = adapter
     }
 
+    override fun onPause() {
+        if(!enteringQuiz){
+            FirebaseDatabase.getInstance().getReference("pvp/$myQuizId").removeValue()
+            enteringQuiz=true
+        }
+        super.onPause()
+    }
+
+    override fun onStop() {
+        if(!enteringQuiz){
+            FirebaseDatabase.getInstance().getReference("pvp/$myQuizId").removeValue()
+            enteringQuiz=true
+        }
+        super.onStop()
+    }
     private fun createQuiz(){
 
         if(myQuizId.isNotEmpty()){
@@ -103,6 +120,7 @@ class PVPMatchActivity : AppCompatActivity() {
         myQuizId = UUID.randomUUID().toString()
         aQuizID = myQuizId
         createdQuiz = true
+        enteringQuiz=false
         uniqueID = UUID.randomUUID().toString()//to identify the host, this is needed
 
         val code = code(myQuizId, false, getUserName(),"",true,
@@ -144,16 +162,15 @@ class PVPMatchActivity : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
                 adapter.clear()
-
                 if(p0.exists()){
-
                     for (item in p0.children){
                         progress_pvp_match_activity.visibility = View.GONE
                         hint_text_view_pvp_activity.visibility = View.GONE
                         var quiz_code = item.getValue(code::class.java)
-                        adapter.add(quiz_item(quiz_code!!, myQuizId, this@PVPMatchActivity))
+                        adapter.add(QuizItem(quiz_code!!, myQuizId, this@PVPMatchActivity))
                     }
                 }else{
+
                     hint_text_view_pvp_activity.visibility = View.VISIBLE
                     progress_pvp_match_activity.visibility = View.GONE
                 }
@@ -169,6 +186,7 @@ class PVPMatchActivity : AppCompatActivity() {
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$myQuizId/")
         ref.removeValue()
         createdQuiz = false
+        enteringQuiz = true
         myQuizId = ""
     }
 
@@ -178,7 +196,8 @@ class PVPMatchActivity : AppCompatActivity() {
     }
 
     fun startOnlineQuizForHost(){
-        var intent = Intent(this, PVPActivity::class.java)
+        enteringQuiz=true
+        val intent = Intent(this, PVPActivity::class.java)
         intent.putExtra("PVP_HOTS_NAME", myQuiz!!.host_name)
         intent.putExtra("PVP_GUEST_NAME", myQuiz!!.guest_name)
         intent.putExtra("PVP_HOST_CODE", myQuizId)

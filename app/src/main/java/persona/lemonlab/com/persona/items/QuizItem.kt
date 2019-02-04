@@ -17,7 +17,7 @@ import persona.lemonlab.com.persona.R
 import persona.lemonlab.com.persona.models.PVPMatchActivity
 import persona.lemonlab.com.persona.models.code
 
-class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Activity):Item<ViewHolder>() {
+class QuizItem(var code_item:code, var currentDeviceCode:String, var activity:Activity):Item<ViewHolder>() {
     override fun getLayout(): Int {
         return R.layout.quiz_item
     }
@@ -48,7 +48,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                 return@setOnClickListener
             }
 
-            var id = code_item.value
+            val id = code_item.value
             val ref = FirebaseDatabase.getInstance().getReference("pvp/$id")
             var ac_code:code? = null
             ref.addValueEventListener(object : ValueEventListener {
@@ -67,13 +67,11 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                                 val refe = FirebaseDatabase.getInstance().getReference("pvp/$id/")
 
                                 refe.addValueEventListener(object:ValueEventListener{
-                                    override fun onCancelled(p0: DatabaseError) {
-
-                                    }
+                                    override fun onCancelled(p0: DatabaseError) {}
 
                                     override fun onDataChange(p0: DataSnapshot) {
                                         if(p0.exists()){
-                                            var code = p0.getValue(code::class.java)
+                                            val code = p0.getValue(code::class.java)
                                             code!!.guestIsHere = true
                                             Log.i("PVPMatchActivity", "guest is here: true")
                                             refe.removeEventListener(this)
@@ -82,6 +80,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                                             ref.removeEventListener(this)
                                             deleteMyQuiz()
                                             startOnlineQuiz()
+                                            PVPMatchActivity.enteringQuiz=true
                                         }
                                     }
 
@@ -106,7 +105,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
         }catch (e:Exception){}
     }
     fun startOnlineQuiz(){
-        var intent = Intent(activity, PVPActivity::class.java)
+        val intent = Intent(activity, PVPActivity::class.java)
         intent.putExtra("PVP_HOTS_NAME", code_item.host_name)
         intent.putExtra("PVP_GUEST_NAME", getUserName())
         intent.putExtra("PVP_HOST_CODE", code_item.value)
