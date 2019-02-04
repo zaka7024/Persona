@@ -28,7 +28,11 @@ class PVPMatchActivity : AppCompatActivity() {
     var adapter = GroupAdapter<ViewHolder>()
     var myQuizId:String = ""
     var myQuiz:code? = null
-    private var uniqueID=""
+    companion object {
+        var uniqueID=""
+        var aQuizID=""
+        var createdQuiz=false
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +103,8 @@ class PVPMatchActivity : AppCompatActivity() {
         }
 
         myQuizId = UUID.randomUUID().toString()
+        aQuizID = myQuizId
+        createdQuiz = true
         uniqueID = UUID.randomUUID().toString()//to identify the host, this is needed
 
         val code = code(myQuizId, false, getUserName(),"",true,

@@ -58,6 +58,8 @@ class PVPActivity : AppCompatActivity() {
         Log.i("PVPActivity", "on back -> host name: ${getHostName()}")
         if(exitWhenDestroyed)
             removeQuiz()
+        else if(quizID.isNotEmpty() && !exitWhenDestroyed){
+            val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue() }
         super.onBackPressed()
     }
 
@@ -207,6 +209,8 @@ class PVPActivity : AppCompatActivity() {
         getHostName()
         updateTextWithoutIncrementation()
         hostProgressUpdater()
+        getGuestData()
+        getHostData()
             for (item in listOfAnswerButtons) {
                 item.setOnClickListener {
                     finishedYet()// goes to next question and when the test is completed this shows the "See results" button.
@@ -233,9 +237,8 @@ class PVPActivity : AppCompatActivity() {
     }
     private fun finishedYet(){
         if(questionPosition+1>=20){
+
             seeResults()
-            getGuestData()
-            getHostData()
             val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
             for(item in listOfAnswerButtons)
                 item.visibility = View.GONE
@@ -268,8 +271,12 @@ class PVPActivity : AppCompatActivity() {
                     host_progress.text = getString(R.string.progress_string, (questionPosition+1).toString())
                     if(guestPosition>=20 && questionPosition+1>=20){
                         anotherReference.child("/seeResults").setValue(true)
+                        see_result_btn.visibility = View.VISIBLE
                         see_result_btn.text =getString(R.string.show_result)
                         exitWhenDestroyed=false
+                        see_result_btn.setOnClickListener {
+                            seeResults()
+                        }
                         getGuestData()
                     }
                 }
@@ -304,8 +311,12 @@ class PVPActivity : AppCompatActivity() {
                             guest_progress.text = getString(R.string.progress_string, (questionPosition+1).toString())
                             if(hostPosition>=20 && questionPosition+1>=20){
                                 anotherReference.child("/seeResults").setValue(true)
+                                see_result_btn.visibility = View.VISIBLE
                                 see_result_btn.text =getString(R.string.show_result)
                                 exitWhenDestroyed=false
+                                see_result_btn.setOnClickListener {
+                                    seeResults()
+                                }
                                 getHostData()
                             }
                         }
@@ -346,7 +357,8 @@ class PVPActivity : AppCompatActivity() {
                             guest.setTextColor(Color.BLUE)
                             host.setTextColor(Color.RED)
                         }else{
-                            guest.setTextColor(Color.RED)
+                            guest.setTextColor(Color.BLUE)
+                            host.setTextColor(Color.RED)
                             if(exitWhenDestroyed)
                                 removeQuiz()
                             ref.removeEventListener(this)
@@ -355,9 +367,11 @@ class PVPActivity : AppCompatActivity() {
                     }else{ // this device is the guest
 
                         if(pvp_code.hostIsHere){
-                            host.setTextColor(Color.GREEN)
+                            host.setTextColor(Color.BLUE)
+                            host.setTextColor(Color.RED)
                         }else{
                             host.setTextColor(Color.RED)
+                            guest.setTextColor(Color.BLUE)
                             if(exitWhenDestroyed)
                                 removeQuiz()
                             ref.removeEventListener(this)

@@ -14,6 +14,7 @@ import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.quiz_item.view.*
 import persona.lemonlab.com.persona.PVPActivity
 import persona.lemonlab.com.persona.R
+import persona.lemonlab.com.persona.models.PVPMatchActivity
 import persona.lemonlab.com.persona.models.code
 
 class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Activity):Item<ViewHolder>() {
@@ -79,6 +80,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                                             Log.i("PVPMatchActivity", "accept code, pvp will start")
                                             viewHolder.itemView.quiz_available_text_view.text = activity.getString(R.string.unavailable)
                                             ref.removeEventListener(this)
+                                            deleteMyQuiz()
                                             startOnlineQuiz()
                                         }
                                     }
@@ -93,6 +95,15 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
 
             })
         }
+    }
+    private fun deleteMyQuiz(){
+        try {
+            if(PVPMatchActivity.createdQuiz){
+            val ref = FirebaseDatabase.getInstance().getReference("pvp/${PVPMatchActivity.aQuizID}")
+            ref.removeValue()
+            PVPMatchActivity.uniqueID=""
+            PVPMatchActivity.aQuizID=""}
+        }catch (e:Exception){}
     }
     fun startOnlineQuiz(){
         var intent = Intent(activity, PVPActivity::class.java)
