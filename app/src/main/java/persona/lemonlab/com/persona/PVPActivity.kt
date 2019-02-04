@@ -475,8 +475,10 @@ class PVPActivity : AppCompatActivity() {
             }
 
             override fun onDataChange(p0: DataSnapshot) {
-                hostName =  p0.getValue(String::class.java)!!
-                ref.removeEventListener(this)
+                if(p0.exists()){
+                    hostName =  p0.getValue(String::class.java)!!
+                    ref.removeEventListener(this)
+                }
             }
 
         })
