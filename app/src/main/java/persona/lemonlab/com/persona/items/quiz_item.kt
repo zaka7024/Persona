@@ -81,7 +81,6 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                                             viewHolder.itemView.quiz_available_text_view.text = activity.getString(R.string.unavailable)
                                             ref.removeEventListener(this)
                                             deleteMyQuiz()
-                                            PVPMatchActivity.enteredQuiz=true
                                             startOnlineQuiz()
                                         }
                                     }

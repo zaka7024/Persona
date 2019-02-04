@@ -62,16 +62,6 @@ class PVPActivity : AppCompatActivity() {
             val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue() }
         super.onBackPressed()
     }
-
-    override fun onPause() {
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue()
-        super.onStop()
-    }
     private fun getAllQuestionsAndAnswers(){
         see_result_btn.visibility = View.GONE
         listOfQuestionsTexts = resources.getStringArray(R.array.online_questions)

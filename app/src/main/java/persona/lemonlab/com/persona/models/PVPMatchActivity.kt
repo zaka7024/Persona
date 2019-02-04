@@ -32,7 +32,6 @@ class PVPMatchActivity : AppCompatActivity() {
         var uniqueID=""
         var aQuizID=""
         var createdQuiz=false
-        var enteredQuiz=false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,20 +56,6 @@ class PVPMatchActivity : AppCompatActivity() {
     override fun onResume() {
         deleteQuiz()
         super.onResume()
-    }
-private fun removeData(){
-    if(!enteredQuiz){
-    FirebaseDatabase.getInstance().getReference("pvp/$aQuizID").removeValue()
-    }
-}
-    override fun onPause() {
-        removeData()
-        super.onPause()
-    }
-
-    override fun onStop() {
-        removeData()
-        super.onStop()
     }
     override fun onBackPressed() {
 
@@ -118,7 +103,6 @@ private fun removeData(){
         myQuizId = UUID.randomUUID().toString()
         aQuizID = myQuizId
         createdQuiz = true
-        enteredQuiz = false
         uniqueID = UUID.randomUUID().toString()//to identify the host, this is needed
 
         val code = code(myQuizId, false, getUserName(),"",true,
@@ -194,7 +178,6 @@ private fun removeData(){
     }
 
     fun startOnlineQuizForHost(){
-        enteredQuiz=true
         var intent = Intent(this, PVPActivity::class.java)
         intent.putExtra("PVP_HOTS_NAME", myQuiz!!.host_name)
         intent.putExtra("PVP_GUEST_NAME", myQuiz!!.guest_name)
