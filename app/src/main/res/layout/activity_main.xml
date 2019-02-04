@@ -30,8 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:allowUndo="true"
-        android:autoText="true"
         android:fontFamily="@font/cairo_semibold"
         android:gravity="center"
         android:text="اختر واحد من الاختبارات التالية"
@@ -57,7 +55,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_text"
@@ -67,7 +65,7 @@
         android:id="@+id/topic_title_container01"
         android:layout_width="0dp"
         android:layout_height="@dimen/topic_title_container_MainActivity"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/topic_container01"
         app:layout_constraintStart_toStartOf="@+id/topic_container01"
         app:layout_constraintTop_toTopOf="@+id/topic_container01"
@@ -81,7 +79,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/topic_container01"
         app:layout_constraintEnd_toEndOf="@+id/topic_container01"
         app:layout_constraintStart_toStartOf="@+id/topic_container01"
@@ -100,7 +98,7 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/topic_title_size_MainActivity"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="@+id/topic_title_container01"
         app:layout_constraintStart_toStartOf="@+id/topic_title_container01"
         app:layout_constraintTop_toTopOf="@+id/topic_title_container01" />
@@ -254,58 +252,6 @@
         app:layout_constraintStart_toStartOf="@+id/topic_title_container04"
         app:layout_constraintTop_toTopOf="@+id/topic_title_container04" />
 
-
-    <ImageView
-        android:id="@+id/topic_container05"
-        android:layout_width="@dimen/topic_container_width_MainActivity"
-        android:layout_height="@dimen/topic_container_height_MainActivity"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_text"
-        app:srcCompat="@drawable/circle_image" />
-
-    <ImageView
-        android:id="@+id/topic_title_container05"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="@+id/topic_title_container01"
-        app:layout_constraintStart_toStartOf="@+id/topic_container05"
-        app:layout_constraintTop_toTopOf="@+id/topic_container05"
-        app:srcCompat="@drawable/topic_image" />
-
-    <ImageView
-        android:id="@+id/topic_image05"
-        android:layout_width="@dimen/topic_image_width_MainActivity"
-        android:layout_height="@dimen/topic_image_height_MainActivity"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="@+id/topic_container05"
-        app:layout_constraintEnd_toEndOf="@+id/topic_title_container05"
-        app:layout_constraintStart_toStartOf="@+id/topic_title_container05"
-        app:layout_constraintTop_toBottomOf="@+id/topic_title_container01"
-        tools:srcCompat="@drawable/user_topic" />
-
-    <TextView
-        android:id="@+id/topic_title05"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:fontFamily="@font/cairo_semibold"
-        android:text="اختبار المستخدمين"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/topic_title_size_MainActivity"
-        app:layout_constraintEnd_toEndOf="@+id/topic_title_container05"
-        app:layout_constraintStart_toStartOf="@+id/topic_title_container05"
-        app:layout_constraintTop_toTopOf="@+id/topic_title_container05" />
-
-
     <LinearLayout
         android:weightSum="3"
         android:layout_width="match_parent"
@@ -372,5 +318,37 @@
         app:layout_constraintStart_toEndOf="@+id/page_one_btn"
         app:layout_constraintTop_toBottomOf="@+id/topic_container04"
         app:srcCompat="@drawable/number_two" />
+
+    <Button
+        android:id="@+id/user_activity_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/answer_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:padding="10dp"
+        android:text="اختبار اسئلة المتسخدمين"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/main_text"
+        app:layout_constraintStart_toStartOf="@+id/main_text"
+        app:layout_constraintTop_toBottomOf="@+id/main_text" />
+
+    <Button
+        android:id="@+id/online_quiz_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/answer_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:padding="10dp"
+        android:text="اختبار 'اون لاين'مع المستخدمين"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/user_activity_btn"
+        app:layout_constraintStart_toStartOf="@+id/user_activity_btn"
+        app:layout_constraintTop_toBottomOf="@+id/user_activity_btn" />
 
 </android.support.constraint.ConstraintLayout>

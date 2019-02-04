@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -19,9 +20,16 @@ class Results : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
+
+        //init
+
+        var request = AdRequest.Builder().build()
+        adView_ResultActivity.loadAd(request)
+
         setTextAccordingToResult()
         iSawMyResults()
     }
+
     private fun iSawMyResults(){
         if(quizID.isNotEmpty())
             FirebaseDatabase.getInstance().getReference("pvp/$hostCode/results/hostFinished").setValue(true).addOnCompleteListener {
@@ -32,6 +40,7 @@ class Results : AppCompatActivity() {
                 deleteOnlineData()
             }
     }
+
     private fun deleteOnlineData(){
         val reference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/results/")
         reference.addValueEventListener(object:ValueEventListener{

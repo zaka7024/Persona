@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        topic_container05.setOnClickListener {// this is a user question topic
+        user_activity_btn.setOnClickListener {// this is a user question topic
             playSound()
             var intent = Intent(this,UsersActivity::class.java)
             startActivity(intent)
@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
         // for test
 
-        main_text.setOnClickListener {
+        online_quiz_btn.setOnClickListener {
             var intent = Intent(this, PVPMatchActivity::class.java)
             startActivity(intent)
         }
@@ -188,6 +188,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun openPageOne(){
+
+        main_text.text = "اختر واحد من الاختبارات الاساسية التالية"
+
         page_one_btn.setImageResource(R.drawable.number_one_hover)
         page_two_btn.setImageResource(R.drawable.number_two)
         // show all this views
@@ -212,20 +215,21 @@ class MainActivity : AppCompatActivity() {
         topic_title04.visibility = View.VISIBLE
 
         //hide page two topic
-        topic_container05.visibility = View.INVISIBLE
-        topic_title_container05.visibility = View.INVISIBLE
-        topic_image05.visibility = View.INVISIBLE
-        topic_title05.visibility = View.INVISIBLE
+        user_activity_btn.visibility = View.INVISIBLE
+        online_quiz_btn.visibility = View.INVISIBLE
 
     }
 
     fun openPageTwo(){
+
+        main_text.text = "اختبارات خاصة"
+
         page_one_btn.setImageResource(R.drawable.number_one)
         page_two_btn.setImageResource(R.drawable.number_two_hover)
         // hide all this views
         topic_container01.visibility = View.INVISIBLE
         topic_title_container01.visibility = View.INVISIBLE
-        topic_image02.visibility = View.INVISIBLE
+        topic_image01.visibility = View.INVISIBLE
         topic_title01.visibility = View.INVISIBLE
 
         topic_container02.visibility = View.INVISIBLE
@@ -244,9 +248,7 @@ class MainActivity : AppCompatActivity() {
         topic_title04.visibility = View.INVISIBLE
 
         // show other topic
-        topic_container05.visibility = View.VISIBLE
-        topic_title_container05.visibility = View.VISIBLE
-        topic_image05.visibility = View.VISIBLE
-        topic_title05.visibility = View.VISIBLE
+        user_activity_btn.visibility = View.VISIBLE
+        online_quiz_btn.visibility = View.VISIBLE
     }
 }

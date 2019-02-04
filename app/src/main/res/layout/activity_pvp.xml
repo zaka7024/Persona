@@ -173,7 +173,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/cairo_semibold"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي"
         android:textColor="#585C65"
         android:textSize="@dimen/question_text_size"
