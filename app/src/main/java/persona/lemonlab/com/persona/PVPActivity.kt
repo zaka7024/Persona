@@ -437,25 +437,25 @@ class PVPActivity : AppCompatActivity() {
         return name
     }
 
-    /* fun hostLeftQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/hostIsHere")
-        ref.setValue(false)
+     fun hostLeftQuiz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/")
+        ref.child("hostIsHere").setValue(false)
     }
 
     fun guestLeftQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
-        ref.setValue(false)
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/")
+        ref.child("guestIsHere").setValue(false)
     }
 
     fun hostBackToQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/hostIsHere")
-        ref.setValue(true)
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/")
+        ref.child("hostIsHere").setValue(true)
     }
 
     fun questBackToQiuz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
-        ref.setValue(true)
-    } */
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/")
+        ref.child("guestIsHere").setValue(true)
+    }
 
     private fun getHostName(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/host_name")
