@@ -10,10 +10,6 @@ import android.view.View
 import android.widget.TextView
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import kotlinx.android.synthetic.main.activity_question.*
 import kotlinx.android.synthetic.main.info_dialog.view.*
 import persona.lemonlab.com.persona.Extenstions.playSound

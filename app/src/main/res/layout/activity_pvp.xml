@@ -19,6 +19,18 @@
         tools:text="اللاعب المضيف" />
 
     <TextView
+        android:id="@+id/host_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toEndOf="@+id/guest"
+        app:layout_constraintTop_toTopOf="@+id/guest" />
+    <TextView
         android:id="@+id/guest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,6 +43,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="اللاعب الضيف" />
 
+    <TextView
+        android:id="@+id/guest_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="0"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/host"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
@@ -66,6 +90,7 @@
                     android:fontFamily="@font/cairo_semibold"
                     android:scaleX="0.01"
                     android:scaleY="0.01"
+                    android:gravity="center_horizontal"
                     android:text="الخيار الاول"
                     android:textColor="@color/white"
                     android:textSize="@dimen/answer_btn_text_size"
@@ -146,11 +171,9 @@
         android:id="@+id/question_text_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/cairo_semibold"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:text="هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي"
         android:textColor="#585C65"
         android:textSize="@dimen/question_text_size"
@@ -159,4 +182,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/host" />
 
+    <Button
+        android:id="@+id/see_result_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:layout_marginBottom="50dp"
+        android:textSize="@dimen/answer_btn_text_size"
+        android:background="@drawable/answer_selector"
+        android:fontFamily="@font/cairo_semibold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

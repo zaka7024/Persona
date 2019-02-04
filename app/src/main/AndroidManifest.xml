@@ -49,7 +49,8 @@
         </activity>
         <activity android:name=".UsersActivity" />
         <activity android:name=".models.PVPMatchActivity" />
-        <activity android:name=".PVPActivity"></activity>
+        <activity android:name=".PVPActivity" />
+        <activity android:name=".Results"></activity>
     </application>
 
 </manifest>

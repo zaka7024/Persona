@@ -2,8 +2,8 @@ package persona.lemonlab.com.persona.items
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.view.menu.MenuView
-import android.support.v7.widget.RecyclerView
+import android.graphics.Color
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -24,19 +24,22 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
     override fun bind(viewHolder: ViewHolder, position: Int) {
         //init
 
-        viewHolder.itemView.setBackgroundColor(activity.resources.getColor(R.color.main_color))
+        viewHolder.itemView.setBackgroundColor(ContextCompat.getColor(activity, R.color.main_color))
 
         viewHolder.itemView.quiz_name_text_view.text = code_item.host_name
 
         if (code_item.isUsed){
-            viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+            viewHolder.itemView.quiz_available_text_view.text = activity.getString(R.string.unavailable)
         }else{
-            viewHolder.itemView.quiz_available_text_view.text = "متاح"
+            viewHolder.itemView.quiz_available_text_view.text =  activity.getString(R.string.available)
         }
 
-        if(code_item.value == currentDeviceCode){
-            viewHolder.itemView.setBackgroundColor(activity.resources.getColor(R.color.blue))
-        }
+        if(code_item.value == currentDeviceCode && !code_item.isUsed)
+            viewHolder.itemView.setBackgroundColor(Color.rgb(90,0,0))
+        else if(!code_item.isUsed && code_item.value != currentDeviceCode)
+            viewHolder.itemView.setBackgroundColor(Color.rgb(123,104,238))
+        else if(code_item.isUsed && code_item.value != currentDeviceCode)
+            viewHolder.itemView.setBackgroundColor(Color.DKGRAY)
 
         viewHolder.itemView.setOnClickListener {
 
@@ -45,7 +48,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
             }
 
             var id = code_item.value
-            val ref = FirebaseDatabase.getInstance().getReference("pvp/${id}")
+            val ref = FirebaseDatabase.getInstance().getReference("pvp/$id")
             var ac_code:code? = null
             ref.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {
@@ -60,7 +63,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                             ac_code!!.guest_name = getUserName()
                             ref.setValue(ac_code).addOnCompleteListener {
 
-                                val refe = FirebaseDatabase.getInstance().getReference("pvp/${id}/")
+                                val refe = FirebaseDatabase.getInstance().getReference("pvp/$id/")
 
                                 refe.addValueEventListener(object:ValueEventListener{
                                     override fun onCancelled(p0: DatabaseError) {
@@ -74,7 +77,7 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
                                             Log.i("PVPMatchActivity", "guest is here: true")
                                             refe.removeEventListener(this)
                                             Log.i("PVPMatchActivity", "accept code, pvp will start")
-                                            viewHolder.itemView.quiz_available_text_view.text = "غير متاح"
+                                            viewHolder.itemView.quiz_available_text_view.text = activity.getString(R.string.unavailable)
                                             ref.removeEventListener(this)
                                             startOnlineQuiz()
                                         }
@@ -91,12 +94,11 @@ class quiz_item(var code_item:code,var currentDeviceCode:String, var activity:Ac
             })
         }
     }
-
     fun startOnlineQuiz(){
         var intent = Intent(activity, PVPActivity::class.java)
         intent.putExtra("PVP_HOTS_NAME", code_item.host_name)
         intent.putExtra("PVP_GUEST_NAME", getUserName())
-        intent.putExtra("PVP_HOST_CODE", code_item!!.value)
+        intent.putExtra("PVP_HOST_CODE", code_item.value)
 
         activity.startActivity(intent)
     }

@@ -2,9 +2,9 @@ package persona.lemonlab.com.persona.models
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
@@ -28,6 +28,7 @@ class PVPMatchActivity : AppCompatActivity() {
     var adapter = GroupAdapter<ViewHolder>()
     var myQuizId:String = ""
     var myQuiz:code? = null
+    private var uniqueID=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,13 +62,13 @@ class PVPMatchActivity : AppCompatActivity() {
             return
         }
 
-        var dialog = AlertDialog.Builder(this)
+        val dialog = AlertDialog.Builder(this)
 
-        dialog.setTitle("تأكيد")
+        dialog.setTitle(getString(R.string.back_to_main))
 
-        dialog.setMessage("هل تريد الاغلاق و حذف الاختبار؟")
+        dialog.setMessage(getString(R.string.confirm))
 
-        dialog.setPositiveButton("احذف ثم اغلق", object :DialogInterface.OnClickListener{
+        dialog.setPositiveButton(getString(R.string.yes), object :DialogInterface.OnClickListener{
             override fun onClick(p0: DialogInterface?, p1: Int) {
                 deleteQuiz()
                 this@PVPMatchActivity.finish()
@@ -75,7 +76,7 @@ class PVPMatchActivity : AppCompatActivity() {
 
         })
 
-        dialog.setNegativeButton("لا", object :DialogInterface.OnClickListener{
+        dialog.setNegativeButton(getString(R.string.no), object :DialogInterface.OnClickListener{
             override fun onClick(p0: DialogInterface?, p1: Int) {
                 return
             }
@@ -93,16 +94,17 @@ class PVPMatchActivity : AppCompatActivity() {
     fun createQuiz(){
 
         if(myQuizId.isNotEmpty()){
-            Toast.makeText(this, "احذف الاختبار الحالي اولًا", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.quiz_exists), Toast.LENGTH_SHORT).show()
             return
         }
 
         myQuizId = UUID.randomUUID().toString()
+        uniqueID = UUID.randomUUID().toString()//to identify the host, this is needed
 
         val code = code(myQuizId, false, getUserName(),"",true,
                 true, ArrayList(), ArrayList())
 
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}")
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$myQuizId")
         ref.setValue(code).addOnCompleteListener {
             Log.i("PVPMatchActivity", "add quiz in data base")
         }
@@ -160,7 +162,7 @@ class PVPMatchActivity : AppCompatActivity() {
 
     fun deleteQuiz(){
         if(myQuizId.isEmpty()) return
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/")
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$myQuizId/")
         ref.removeValue()
         myQuizId = ""
     }
@@ -175,8 +177,9 @@ class PVPMatchActivity : AppCompatActivity() {
         intent.putExtra("PVP_HOTS_NAME", myQuiz!!.host_name)
         intent.putExtra("PVP_GUEST_NAME", myQuiz!!.guest_name)
         intent.putExtra("PVP_HOST_CODE", myQuizId)
+        intent.putExtra("Unique_ID", uniqueID)
 
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/${myQuizId}/hostIsHere")
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$myQuizId/hostIsHere")
         ref.setValue(true).addOnCompleteListener {
             Log.i("PVPMatchActivity", "host is here: true")
         }

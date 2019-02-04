@@ -3,15 +3,11 @@ package persona.lemonlab.com.persona
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.os.Bundle
 import android.support.constraint.ConstraintLayout
-import android.support.v4.app.Fragment
 import android.support.v4.view.PagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.slider_item.view.*
 
 /**
