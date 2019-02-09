@@ -13,7 +13,7 @@ class LemonLabActivity : AppCompatActivity() {
         internal val mRunnable: Runnable = Runnable {
             if (!isFinishing) {
 
-                var first_time = getSharedPreferences("app_data",0).getBoolean("first_time",true)
+                val first_time = getSharedPreferences("app_data",0).getBoolean("first_time",true)
 
                 if(first_time){
                     var intent = Intent(this,splashActivity::class.java)

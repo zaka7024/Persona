@@ -9,11 +9,15 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.info_dialog.view.*
 import persona.lemonlab.com.persona.Extenstions.playSound
 import persona.lemonlab.com.persona.models.AddQuestionActivity
 import persona.lemonlab.com.persona.models.PVPMatchActivity
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,6 +86,8 @@ class MainActivity : AppCompatActivity() {
         //init
         //by default open page one
         openPageOne()
+        privacyPolicy()//privacy Policy Button
+        changeName()
 
         page_one_btn.setOnClickListener {
             openPageOne()
@@ -187,9 +193,9 @@ class MainActivity : AppCompatActivity() {
         dialog!!.dismiss()
     }
 
-    fun openPageOne(){
+    private fun openPageOne(){
 
-        main_text.text = "اختر واحد من الاختبارات الاساسية التالية"
+        main_text.text = getString(R.string.mainFourTests)
 
         page_one_btn.setImageResource(R.drawable.number_one_hover)
         page_two_btn.setImageResource(R.drawable.number_two)
@@ -217,12 +223,15 @@ class MainActivity : AppCompatActivity() {
         //hide page two topic
         user_activity_btn.visibility = View.INVISIBLE
         online_quiz_btn.visibility = View.INVISIBLE
+        change_name_btn.visibility = View.INVISIBLE
+        privacy_policy_btn.visibility = View.INVISIBLE
+        more_apps_btn.visibility = View.INVISIBLE
 
     }
 
-    fun openPageTwo(){
+    private fun openPageTwo(){
 
-        main_text.text = "اختبارات خاصة"
+        main_text.text =  getString(R.string.specialTests)
 
         page_one_btn.setImageResource(R.drawable.number_one)
         page_two_btn.setImageResource(R.drawable.number_two_hover)
@@ -250,5 +259,62 @@ class MainActivity : AppCompatActivity() {
         // show other topic
         user_activity_btn.visibility = View.VISIBLE
         online_quiz_btn.visibility = View.VISIBLE
+        change_name_btn.visibility = View.VISIBLE
+        privacy_policy_btn.visibility = View.VISIBLE
+        more_apps_btn.visibility = View.VISIBLE
     }
+    private fun privacyPolicy(){
+        val privacyPolicyText =getString(R.string.privacyPolicyText)
+        val privacyPolicyTextAr =getString(R.string.privacyPolicyTextAr)
+        privacy_policy_btn.setOnClickListener {
+            val dialog = AlertDialog.Builder(this)
+            dialog.setPositiveButton(getString(R.string.ok)) { firstDialog, _ ->
+                firstDialog.dismiss()
+            }
+
+            dialog.setNegativeButton(getString(R.string.changeLanguage)) {
+                firstDialog, _ ->
+                val anotherDialog = AlertDialog.Builder(this)
+                anotherDialog.setPositiveButton(getString(R.string.okay)) { secondDialog, _ ->
+                    secondDialog.dismiss()
+                }
+                anotherDialog.setTitle(getString(R.string.privacyPolicy))
+                anotherDialog.setMessage(privacyPolicyTextAr)
+                anotherDialog.show()
+                firstDialog.dismiss()
+            }
+            dialog.setTitle("Privacy Policy and Terms of Service")
+            dialog.setMessage(privacyPolicyText)
+            dialog.show()
+        }
+    }
+    private fun changeName(){
+        change_name_btn.setOnClickListener {
+            val dialogBuilder = AlertDialog.Builder(this).create()
+            val dialogView = layoutInflater.inflate(R.layout.edit_text_name, null)
+
+            val newName = dialogView.findViewById<EditText>(R.id.newName) as EditText
+            val buttonOkay = dialogView.findViewById<Button>(R.id.buttonSubmit) as Button
+            val buttonCancel = dialogView.findViewById<Button>(R.id.buttonCancel) as Button
+
+            buttonCancel.setOnClickListener { dialogBuilder.dismiss() }
+            buttonOkay.setOnClickListener {
+                if(newName.text.length>2){
+                    getSharedPreferences("app_data", 0).edit().apply{
+                    putString("username", newName.text.toString())
+                    apply()
+                }
+                    Toast.makeText(this, getString(R.string.nameChanged), Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(this, getString(R.string.nameMustBeLonger), Toast.LENGTH_SHORT).show()
+                }
+
+
+                dialogBuilder.dismiss()
+            }
+
+            dialogBuilder.setView(dialogView)
+            dialogBuilder.show()
+        }  }
 }
+

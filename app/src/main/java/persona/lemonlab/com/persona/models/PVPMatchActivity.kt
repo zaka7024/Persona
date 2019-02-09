@@ -90,9 +90,9 @@ class PVPMatchActivity : AppCompatActivity() {
                 Handler().postDelayed({
                     if(isConnectedToInternet())
                         connectedSnackBar()
-                    else
+                    else if(!isConnectedToInternet())
                         isConnectedNow()
-                }, 4000)
+                }, 7000)
             }
             snackBar.setActionTextColor(Color.rgb(240, 0 , 0))
             if(!isConnectedToInternet()){
@@ -105,7 +105,7 @@ class PVPMatchActivity : AppCompatActivity() {
             if(!isConnectedToInternet())
                 snackBarIfNoConnection()
             else
-                Handler().postDelayed({connectionChecker()}, 4000)
+                Handler().postDelayed({connectionChecker()}, 7000)
         }, 8000)
     }
     override fun onResume() {
@@ -113,7 +113,7 @@ class PVPMatchActivity : AppCompatActivity() {
         // If the activity is created/resumed and there was no connection => A snack bar would tell the user there is no connection
         // and the function(connectionChecker) does this : if there is no connection, it shows a snack bar(every 8 seconds),
         //  if there was a connection, it'd call itself again after 7 seconds to check for connection again.(while there is a connection, it's called every 4 seconds)
-        //if the function snackBarIfNoConnection is called and there was a no connection, it'd keep checking for connection every 4 seconds(isConnectedNow)
+        //if the function snackBarIfNoConnection is called and there was a no connection, it'd keep checking for connection every 7 seconds(isConnectedNow)
         //if isConnectedNow called connectedSnackBar(i.e, a connection was established) a snack bar with an action to recreate the activity is shown.
         //The recycler view is invisible if there is no internet and a message is shown to the user.
         snackBarIfNoConnection()
@@ -173,13 +173,9 @@ class PVPMatchActivity : AppCompatActivity() {
         super.onStop()
     }
     private fun createQuiz(){
-        if (myQuizId.isNotEmpty() && !isConnectedToInternet()){
+        if (myQuizId.isEmpty() && !isConnectedToInternet() || myQuizId.length>1 && !isConnectedToInternet() || myQuizId.isEmpty() && quiz_available_rv.visibility!=View.VISIBLE){
             Toast.makeText(this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show()
             hint_text_view_pvp_activity.visibility = View.VISIBLE
-            return
-        }
-        else if(myQuizId.isNotEmpty() && hint_text_view_pvp_activity.visibility==View.VISIBLE && isConnectedToInternet()){
-            Toast.makeText(this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show()
             return
         }
         else if(myQuizId.isNotEmpty()){
@@ -190,7 +186,7 @@ class PVPMatchActivity : AppCompatActivity() {
         myQuizId = UUID.randomUUID().toString()
         aQuizID = myQuizId
         createdQuiz = true
-        enteringQuiz=false
+        enteringQuiz = false
         uniqueID = UUID.randomUUID().toString()//to identify the host, this is needed
 
         val code = code(myQuizId, false, getUserName(),"",true,
