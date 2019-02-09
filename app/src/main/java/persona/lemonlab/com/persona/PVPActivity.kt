@@ -15,9 +15,7 @@ import android.widget.Toast
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_pvp.*
 import persona.lemonlab.com.persona.models.OnlineQuestion
-import persona.lemonlab.com.persona.models.Question
 import persona.lemonlab.com.persona.models.code
-import java.util.*
 
 
 class PVPActivity : AppCompatActivity() {
@@ -177,7 +175,7 @@ class PVPActivity : AppCompatActivity() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists())//To ensure that the two of them completed the quiz
-                    if(p0.value.toString()=="true")
+                    if(p0.value.toString()=="true" && everyoneIsHere)
                         goToResults()
                     else{
                         seeResults()
@@ -268,7 +266,7 @@ class PVPActivity : AppCompatActivity() {
                 else
                     removeQuiz()
                 when (item) {
-                    a_answer_btn -> {
+                    a_answer_btn -> { //Each answer has its own effect on x, y(final results).
                         xValue += onlineQuestions[questionPosition].firstAnswer.second.first
                         yValue += onlineQuestions[questionPosition].firstAnswer.second.second
                     }
@@ -309,13 +307,18 @@ class PVPActivity : AppCompatActivity() {
     private fun hostProgressUpdater() {
         //since I'm the host, I want to track my guest progress and send them mine
         if (quizID.isNotEmpty()) {
+            guest.setTextColor(Color.BLUE)
+            host.setTextColor(Color.RED)
             val anotherReference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
             val reference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress/${guest.text}_currentProgress")
+            addData(anotherReference, quizID, xValue, yValue)// data is sent earlier than the progress. This would ensure
+            //that every bit of data is sent before showing the final results(No different results)
             reference.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {}
                 override fun onDataChange(p0: DataSnapshot) {
+                    getGuestData()//If the progress is changed, then their data(x, y) values are updated so let's get some new data.
                     if(p0.value.toString()=="null")
-                        guest_progress.text = getString(R.string.progress_string,"1")
+                        guest_progress.text = getString(R.string.progress_string,"1")//No data yet(Guest hasn't answered any question so their progress is 1/20)
                     else
                         guest_progress.text = getString(R.string.progress_string, p0.value.toString())
                     guestPosition = try {
@@ -330,15 +333,14 @@ class PVPActivity : AppCompatActivity() {
                         see_result_btn.text = getString(R.string.show_result)
                         removeQuizWhenExit = false
                         see_result_btn.setOnClickListener {
+                            if(questionPosition>=19 && guestPosition>=19)
                             seeResults()
                         }
-                        getGuestData()
                     }
                 }
             })
             val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress")
             ref.child("/${quizID}_currentProgress").setValue(questionPosition + 1)
-            addData(anotherReference, quizID, xValue, yValue)
         } else {
             guestProgressUpdater()
         }
@@ -353,12 +355,19 @@ class PVPActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 hostProgressPath = p0.value.toString()
                 if (guest.text.toString() == getUserName()) {
-                    val reference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress/${hostProgressPath}_currentProgress")
+                    guest.setTextColor(Color.RED)
+                    host.setTextColor(Color.BLUE)
+                    addData(anotherReference, guest.text.toString(), xValue, yValue) // data is sent earlier than the progress. This would ensure
+                                                                                    //that every bit of data is sent before showing the final results(No different results)
+                    val reference = FirebaseDatabase.getInstance().getReference(
+                            "pvp/$hostCode/progress/${hostProgressPath}_currentProgress")//this is a unique id (created when a host opens a test) to prevent similar names from causing problems.
+                            //This unique ID is also used to identify the host. in the host device it's quizID, in the guest device it's hostProgressPath.
                     reference.addValueEventListener(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
                         override fun onDataChange(p0: DataSnapshot) {
+                            getHostData()//If the progress is changed, then their data(x, y) values are updated so let's get some new data.
                             if(p0.value.toString()=="null")
-                                host_progress.text = getString(R.string.progress_string,"1")
+                                host_progress.text = getString(R.string.progress_string,"1")//No data yet(Host hasn't answered any question so their progress is 1/20)
                             else
                                 host_progress.text = getString(R.string.progress_string, p0.value.toString())
                             hostPosition = try{
@@ -373,9 +382,9 @@ class PVPActivity : AppCompatActivity() {
                                 see_result_btn.text =getString(R.string.show_result)
                                 removeQuizWhenExit=false
                                 see_result_btn.setOnClickListener {
-                                    seeResults()
+                                    if(questionPosition>=19 && hostPosition>=19)
+                                        seeResults()
                                 }
-                                getHostData()
                             }
                         }
                     })
@@ -384,7 +393,6 @@ class PVPActivity : AppCompatActivity() {
         })
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress")
         ref.child("/${guest.text}_currentProgress").setValue(questionPosition+1)
-        addData(anotherReference, guest.text.toString(), xValue, yValue)
     }
     private fun test(){
         host.text = intent.extras.getString("PVP_HOTS_NAME")
@@ -402,9 +410,7 @@ class PVPActivity : AppCompatActivity() {
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         var currentUserName = getUserName()
         ref.addValueEventListener(object:ValueEventListener{
-            override fun onCancelled(p0: DatabaseError) {
-
-            }
+            override fun onCancelled(p0: DatabaseError) {}
 
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
@@ -426,7 +432,7 @@ class PVPActivity : AppCompatActivity() {
 
                         if(pvp_code.hostIsHere){
                             host.setTextColor(Color.BLUE)
-                            host.setTextColor(Color.RED)
+                            guest.setTextColor(Color.RED)
                         }else{
                             host.setTextColor(Color.RED)
                             guest.setTextColor(Color.BLUE)
@@ -484,14 +490,10 @@ class PVPActivity : AppCompatActivity() {
         }
     }
 
-    fun setDataToUI(index:Int, data:ArrayList<Question>){
-        // we do not know until this moment how online questions will be
-    }
-
     fun getUserName():String{
         val ref = getSharedPreferences("app_data", 0)
-        var name = ref.getString("username", "المضيف")
-        Log.i("PVPActivity", "current device user name :${name}")
+        val name = ref.getString("username", "المضيف")
+        Log.i("PVPActivity", "current device user name :$name")
         return name
     }
 
@@ -532,6 +534,11 @@ class PVPActivity : AppCompatActivity() {
         })
     }
 
+    override fun onStop() {
+        if(!everyoneIsHere)
+            removeQuiz()
+        super.onStop()
+    }
     fun removeQuiz(){
 
         if (hostCode.isEmpty())return
@@ -540,8 +547,9 @@ class PVPActivity : AppCompatActivity() {
         val guest_left = FirebaseDatabase.getInstance().getReference("pvp/${hostCode}/guestIsHere")
         host_left.setValue(false)
         guest_left.setValue(false)*/
+        if(hostPosition<19 && guestPosition<19)
+            Toast.makeText(this, getString(R.string.testCancelled), Toast.LENGTH_LONG).show()
 
-        Toast.makeText(this, "لقد غادر شخص ما الاختبار", Toast.LENGTH_LONG).show()
 
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         ref.removeValue()

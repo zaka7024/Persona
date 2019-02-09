@@ -94,7 +94,7 @@ class Results : AppCompatActivity() {
         }
         if(deltaX<4 && deltaY<4)
             result_text.text = listOfResults[3]
-        else if(deltaX<6 && deltaY<6)
+        else if(deltaX>5 && deltaY>5)
             result_text.text = listOfResults[2]
         else if(deltaX<5 && deltaY>5)
             result_text.text = listOfResults[1]

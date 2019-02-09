@@ -78,7 +78,8 @@ class QuizItem(var code_item:code, var currentDeviceCode:String, var activity:Ac
                                             Log.i("PVPMatchActivity", "accept code, pvp will start")
                                             viewHolder.itemView.quiz_available_text_view.text = activity.getString(R.string.unavailable)
                                             ref.removeEventListener(this)
-                                            if(p0.child("hostIsHere").value.toString()=="true" && p0.child("guestIsHere").value.toString()=="true")
+                                            if(p0.child("hostIsHere").value.toString()=="true" && p0.child("guestIsHere").value.toString()=="true" &&
+                                                    p0.child("used").value.toString()=="true")
                                                 startOnlineQuiz()
                                             PVPMatchActivity.enteringQuiz=true
                                         }

@@ -63,40 +63,59 @@ class PVPMatchActivity : AppCompatActivity() {
         return networkInfo != null && networkInfo.isConnectedOrConnecting
     }
     private fun snackBarIfNoConnection(){
-        if(!isConnectedToInternet()){//If the activity is recreated, we won't show a snack bar if connection is available.
+        if(!isConnectedToInternet()){ //If the activity is recreated, this won't show a snack bar if connection is available.
+            hint_text_view_pvp_activity.text = getString(R.string.noConnectionTitle)
+            quiz_available_rv.visibility = View.INVISIBLE
+            hint_text_view_pvp_activity.visibility = View.VISIBLE
             val view= coordinatorLayout as View
             fun connectedSnackBar(){
                 val connectedNow = getString(R.string.connectedNow)
                 val anotherSnackBar = Snackbar.make(view, connectedNow, Snackbar.LENGTH_INDEFINITE)
                 anotherSnackBar.setAction(getString(R.string.restart)){
-                    recreate() //To reload data
+                    startActivity(Intent(this, PVPMatchActivity::class.java))
+                    finish()// recreate() can be used instead of those two lines but this gives some animation.
                 }
-                anotherSnackBar.setActionTextColor(Color.rgb(0, 120 , 0))
+                anotherSnackBar.setActionTextColor(Color.rgb(0, 140 , 0))
                 anotherSnackBar.show()
             }
             val noConnection = getString(R.string.noConnection)
             val snackBar = Snackbar.make(view, noConnection, Snackbar.LENGTH_INDEFINITE)
             snackBar.setAction(getString(R.string.tryAgain)){
-                    if(!isConnectedToInternet()) // This keeps showing this snack bar until there is a connection
-                        snackBarIfNoConnection()
-                    else
+                if(!isConnectedToInternet()) // This keeps showing this snack bar until there is a connection
+                    snackBarIfNoConnection()
+                else
+                    connectedSnackBar()
+            }
+            fun isConnectedNow(){
+                Handler().postDelayed({
+                    if(isConnectedToInternet())
                         connectedSnackBar()
-
+                    else
+                        isConnectedNow()
+                }, 4000)
             }
             snackBar.setActionTextColor(Color.rgb(240, 0 , 0))
             if(!isConnectedToInternet()){
+                isConnectedNow()
                 snackBar.show()
-                hint_text_view_pvp_activity.text = getString(R.string.noConnectionTitle)
-            } else
-                connectedSnackBar() }
+            }}
     }
-private fun connectionChecker(){
-    Handler().postDelayed({
-        if(!isConnectedToInternet())
-            snackBarIfNoConnection()
-    }, 4000)
-}
+    private fun connectionChecker(){
+        Handler().postDelayed({
+            if(!isConnectedToInternet())
+                snackBarIfNoConnection()
+            else
+                Handler().postDelayed({connectionChecker()}, 4000)
+        }, 8000)
+    }
     override fun onResume() {
+        //Those two(snackBarIfNoConnection,connectionChecker) does the following :
+        // If the activity is created/resumed and there was no connection => A snack bar would tell the user there is no connection
+        // and the function(connectionChecker) does this : if there is no connection, it shows a snack bar(every 8 seconds),
+        //  if there was a connection, it'd call itself again after 7 seconds to check for connection again.(while there is a connection, it's called every 4 seconds)
+        //if the function snackBarIfNoConnection is called and there was a no connection, it'd keep checking for connection every 4 seconds(isConnectedNow)
+        //if isConnectedNow called connectedSnackBar(i.e, a connection was established) a snack bar with an action to recreate the activity is shown.
+        //The recycler view is invisible if there is no internet and a message is shown to the user.
         snackBarIfNoConnection()
         connectionChecker()
         enteringQuiz=true
@@ -154,8 +173,16 @@ private fun connectionChecker(){
         super.onStop()
     }
     private fun createQuiz(){
-
-        if(myQuizId.isNotEmpty()){
+        if (myQuizId.isNotEmpty() && !isConnectedToInternet()){
+            Toast.makeText(this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show()
+            hint_text_view_pvp_activity.visibility = View.VISIBLE
+            return
+        }
+        else if(myQuizId.isNotEmpty() && hint_text_view_pvp_activity.visibility==View.VISIBLE && isConnectedToInternet()){
+            Toast.makeText(this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show()
+            return
+        }
+        else if(myQuizId.isNotEmpty()){
             Toast.makeText(this, getString(R.string.quiz_exists), Toast.LENGTH_SHORT).show()
             return
         }

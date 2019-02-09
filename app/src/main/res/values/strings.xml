@@ -7,16 +7,19 @@
     <string name="yes">نعم </string>
     <string name="no">لا </string>
     <string name="okay">حسنًا </string>
+    <string name="testCancelled">تم إلغاء الاختبار</string>
     <string name="tryAgain">المحاولة مرة أخرى </string>
     <string name="restart">إعادة التحميل </string>
     <string name="connectedNow">تم الإتصال</string>
     <string name="noConnection">لا يوجد إتصال </string>
-    <string name="noConnectionTitle">هذه الخاصيّة تتطلب الإنترنت، الرجاء تمكين الشبكة للدخول </string>
+    <string name="noConnectionTitle">هذه الخاصيّة تتطلب الإنترنت، الرجاء تمكين الشبكة للدخول ❗</string>
     <string name="available">متاح </string>
     <string name="unavailable">غير متاح </string>
     <string name="quiz_exists">لقد أنشئتَ اختبارًا بالفعل</string>
     <string name="progress_string">%1$s/20</string>
     <string name="no_quizzes_available">لا يوجد أي اختبار متاح حاليًا، شارك التطبيق مع أصدقائك 😊</string>
+    <string name="removeCurrentTest">حذف الاختبار الحالي</string>
+    <string name="newTest">اختبار جديد</string>
     <string-array name="results">
 
         <item>كلاكما يفكر بمنطقية وجدية، ومن بعض ما يميزكم الهدوء وقلة الكلام، والواقعية والوضوح شيئان كلاكما يهتم فيه. الاحترام أهم من التقدير واللباقة مفهوم مهم في نظركم. وأيضًا الأفكار قد تأخذكم إلى خيال وأماكن بعيدة وأحيانًا ما تستمعان بالحديث عن الفرص والقدرات</item>
