@@ -253,46 +253,44 @@
         app:layout_constraintTop_toTopOf="@+id/topic_title_container04" />
 
     <LinearLayout
-        android:weightSum="3"
+        android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:padding="4dp"
+        android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_weight="1"
             android:id="@+id/rate_btn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/option_icon_width"
+            android:layout_height="@dimen/option_icon_height"
+            android:layout_weight="1"
             app:lottie_autoPlay="true"
             app:lottie_fileName="rate.json"
-            app:lottie_loop="true"
-            />
+            app:lottie_loop="true" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_weight="1"
             android:id="@+id/add_question_btn"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/option_icon_width"
+            android:layout_height="@dimen/option_icon_height"
+            android:layout_weight="1"
             app:lottie_autoPlay="true"
             app:lottie_fileName="upload.json"
-            app:lottie_loop="true"
-            />
+            app:lottie_loop="true" />
 
         <com.airbnb.lottie.LottieAnimationView
-            android:layout_weight="1"
             android:id="@+id/share_btn_ActivityMain"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="@dimen/option_icon_width"
+            android:layout_height="@dimen/option_icon_height"
+            android:layout_weight="1"
             app:lottie_autoPlay="true"
             app:lottie_fileName="share.json"
-            app:lottie_loop="true"
-            />
+            app:lottie_loop="true" />
 
 
     </LinearLayout>
@@ -301,10 +299,13 @@
         android:id="@+id/page_one_btn"
         android:layout_width="35dp"
         android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toStartOf="@+id/page_two_btn"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/page_two_btn"
+        app:layout_constraintTop_toBottomOf="@+id/more_apps_btn"
         app:srcCompat="@drawable/number_one" />
 
     <ImageView
@@ -312,16 +313,16 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/page_one_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/page_one_btn"
-        app:layout_constraintTop_toBottomOf="@+id/topic_container04"
+        app:layout_constraintTop_toTopOf="@+id/page_one_btn"
         app:srcCompat="@drawable/number_two" />
 
     <Button
         android:id="@+id/user_activity_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/answer_btn_width"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:background="@drawable/answer_selector"
@@ -329,7 +330,7 @@
         android:padding="10dp"
         android:text="اختبار اسئلة المتسخدمين"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/main_text"
         app:layout_constraintStart_toStartOf="@+id/main_text"
@@ -337,7 +338,7 @@
 
     <Button
         android:id="@+id/online_quiz_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/answer_btn_width"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/answer_selector"
@@ -345,7 +346,7 @@
         android:padding="10dp"
         android:text="اختبار 'اون لاين'مع المستخدمين"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/user_activity_btn"
         app:layout_constraintStart_toStartOf="@+id/user_activity_btn"
@@ -353,49 +354,50 @@
 
     <Button
         android:id="@+id/change_name_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/answer_btn_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/answer_selector"
         android:fontFamily="@font/cairo_semibold"
         android:padding="10dp"
         android:text="@string/changeName"
         android:textColor="@color/white"
-        android:textSize="@dimen/answer_btn_text_size"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/user_activity_btn"
         app:layout_constraintStart_toStartOf="@+id/user_activity_btn"
-        app:layout_constraintTop_toBottomOf="@+id/user_activity_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/online_quiz_btn" />
 
     <Button
         android:id="@+id/privacy_policy_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/answer_btn_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/answer_selector"
         android:fontFamily="@font/cairo_semibold"
         android:padding="10dp"
         android:text="@string/privacyPolicy"
         android:textColor="@color/white"
-        android:textSize="@dimen/answer_btn_text_size"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="@+id/user_activity_btn"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="@+id/user_activity_btn"
-        app:layout_constraintTop_toTopOf="@+id/change_name_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/change_name_btn" />
 
     <Button
         android:id="@+id/more_apps_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/answer_btn_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="8dp"
         android:background="@drawable/answer_selector"
         android:fontFamily="@font/cairo_semibold"
         android:padding="10dp"
         android:text="@string/moreApps"
         android:textColor="@color/white"
-        android:textSize="@dimen/answer_btn_text_size"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
         android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/page_two_btn"
         app:layout_constraintEnd_toEndOf="@+id/user_activity_btn"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="@+id/user_activity_btn"

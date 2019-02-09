@@ -68,4 +68,6 @@
     <dimen name="choose_edittext_height_newQuestion">42dp</dimen>
     <dimen name="choose_edittext_size_newQuestion">18sp</dimen>
     <dimen name="send_btn_newQuestion">18sp</dimen>
+    <dimen name="option_icon_width">28dp</dimen>
+    <dimen name="option_icon_height">28dp</dimen>
 </resources>
