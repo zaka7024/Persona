@@ -1,8 +1,12 @@
 package persona.lemonlab.com.persona
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.View
@@ -13,8 +17,8 @@ import kotlinx.android.synthetic.main.activity_pvp.*
 import persona.lemonlab.com.persona.models.OnlineQuestion
 import persona.lemonlab.com.persona.models.Question
 import persona.lemonlab.com.persona.models.code
-import java.lang.Exception
 import java.util.*
+
 
 class PVPActivity : AppCompatActivity() {
 
@@ -40,13 +44,15 @@ class PVPActivity : AppCompatActivity() {
     //Those are needed to check whether the test is finished or not.
     private var hostPosition = 0
     private var guestPosition = 0
-    private var exitWhenDestroyed= true
+    private var removeQuizWhenExit= true
+    private var everyoneIsHere = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvp)
 
         hostCode = intent.extras.getString("PVP_HOST_CODE","")
-
+        host_progress.text = getString(R.string.progress_string,"1")
+        guest_progress.text = getString(R.string.progress_string,"1")
         test()
         buttonsAnimate()
         checkIfHostAndGuestIsHere()
@@ -56,11 +62,29 @@ class PVPActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         Log.i("PVPActivity", "on back -> host name: ${getHostName()}")
-        if(exitWhenDestroyed)
+        if(removeQuizWhenExit)
             removeQuiz()
-        else if(quizID.isNotEmpty() && !exitWhenDestroyed){
-            val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode");ref.removeValue() }
         super.onBackPressed()
+    }
+
+
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnectedOrConnecting
+    }
+    private fun snackBarIfNoConnection(){
+        val noConnection = getString(R.string.noConnection)
+        val view= coordinatorLayoutPVP as View
+        val snackBar = Snackbar.make(view, noConnection, Snackbar.LENGTH_LONG)
+        snackBar.setAction(getString(R.string.okay)){
+            try {Handler().postDelayed({snackBarIfNoConnection()}, 3500)
+            }catch (e:Exception){Log.i("AAAA", e.toString())}
+        }
+        snackBar.setActionTextColor(Color.rgb(240, 0 , 0))
+        if(!isConnectedToInternet()){
+            snackBar.show()
+        }
     }
     private fun getAllQuestionsAndAnswers(){
         see_result_btn.visibility = View.GONE
@@ -97,11 +121,11 @@ class PVPActivity : AppCompatActivity() {
                     Pair(listOfAnswerTexts[answerPosition + 3], listOfAnswerEffects[answerPosition + 3])))
             firstQuestion=false
         }else{
-        onlineQuestions.add(OnlineQuestion(listOfQuestionsTexts[questionPosition],
-                Pair(listOfAnswerTexts[answerPosition], listOfAnswerEffects[answerPosition]),
-                Pair(listOfAnswerTexts[answerPosition+1], listOfAnswerEffects[answerPosition+1]),
-                Pair(listOfAnswerTexts[answerPosition+2], listOfAnswerEffects[answerPosition+2]),
-                Pair(listOfAnswerTexts[answerPosition+3], listOfAnswerEffects[answerPosition+3])))
+            onlineQuestions.add(OnlineQuestion(listOfQuestionsTexts[questionPosition],
+                    Pair(listOfAnswerTexts[answerPosition], listOfAnswerEffects[answerPosition]),
+                    Pair(listOfAnswerTexts[answerPosition+1], listOfAnswerEffects[answerPosition+1]),
+                    Pair(listOfAnswerTexts[answerPosition+2], listOfAnswerEffects[answerPosition+2]),
+                    Pair(listOfAnswerTexts[answerPosition+3], listOfAnswerEffects[answerPosition+3])))
         }
     }
     private fun incrementValues(){
@@ -152,7 +176,7 @@ class PVPActivity : AppCompatActivity() {
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists())//To Ensure that both of the two have completed the quiz
+                if(p0.exists())//To ensure that the two of them completed the quiz
                     if(p0.value.toString()=="true")
                         goToResults()
                     else{
@@ -168,6 +192,16 @@ class PVPActivity : AppCompatActivity() {
         reference.child("${path}_xValue").setValue(x)
         reference.child("${path}_yValue").setValue(y)
     }
+    private fun isEveryoneHere(){
+        val reference =  FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
+        reference.addValueEventListener(object:ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(p0: DataSnapshot) {
+                everyoneIsHere = p0.child("hostIsHere").value.toString().toBoolean() && p0.child("guestIsHere").value.toString().toBoolean()
+            }
+        })
+    }
+
     private fun getHostData(){
         val reference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         reference.addValueEventListener(object :ValueEventListener{
@@ -175,13 +209,19 @@ class PVPActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
                     try{
-                        //hostProgressPath is the same as quizID.
-                        xValueOther = p0.child("${hostProgressPath}_xValue").value.toString().toInt()
-                        yValueOther = p0.child("${hostProgressPath}_yValue").value.toString().toInt()}catch (e:Exception){}
+                        xValueOther = p0.child("${hostProgressPath}_xValue").value.toString().toInt()  //hostProgressPath is the same as quizID.
+                        yValueOther = p0.child("${hostProgressPath}_yValue").value.toString().toInt()}catch (e:NumberFormatException){}
                 }
                 else{
                     reference.removeEventListener(this)
-                    getHostData()
+                    reference.child("hostIsHere").addValueEventListener(object:ValueEventListener{
+                        override fun onDataChange(p0: DataSnapshot) {
+                            if(p0.exists())
+                                if(p0.value.toString().toBoolean())
+                                    getHostData()
+                        }
+                        override fun onCancelled(p0: DatabaseError) {}
+                    })
                 }
             }
         })
@@ -195,11 +235,18 @@ class PVPActivity : AppCompatActivity() {
                 if(p0.exists()){
                     try{
                         xValueOther = p0.child("${guest.text}_xValue").value.toString().toInt()
-                        yValueOther = p0.child("${guest.text}_yValue").value.toString().toInt()}catch (e:Exception){}
+                        yValueOther = p0.child("${guest.text}_yValue").value.toString().toInt()}catch (e:NumberFormatException){}
                 }
                 else{
                     reference.removeEventListener(this)
-                    getGuestData()
+                    reference.child("guestIsHere").addValueEventListener(object:ValueEventListener{
+                        override fun onDataChange(p0: DataSnapshot) {
+                            if(p0.exists())
+                                if(p0.value.toString().toBoolean())
+                                    getGuestData()
+                        }
+                        override fun onCancelled(p0: DatabaseError) {}
+                    })
                 }
             }
         })
@@ -208,32 +255,38 @@ class PVPActivity : AppCompatActivity() {
         val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
         getHostName()
         updateTextWithoutIncrementation()
+        isEveryoneHere()
         hostProgressUpdater()
-        getGuestData()
-        getHostData()
-            for (item in listOfAnswerButtons) {
-                item.setOnClickListener {
-                    finishedYet()// goes to next question and when the test is completed this shows the "See results" button.
-                    when (item) {
-                        a_answer_btn -> {
-                            xValue += onlineQuestions[questionPosition].firstAnswer.second.first
-                            yValue += onlineQuestions[questionPosition].firstAnswer.second.second
-                        }
-                        b_answer_btn -> {
-                            xValue += onlineQuestions[questionPosition].secondAnswer.second.first
-                            yValue += onlineQuestions[questionPosition].secondAnswer.second.second
-                        }
-                        c_answer_btn -> {
-                            xValue += onlineQuestions[questionPosition].thirdAnswer.second.first
-                            yValue += onlineQuestions[questionPosition].thirdAnswer.second.second
-                        }
-                        d_answer_btn -> {
-                            xValue += onlineQuestions[questionPosition].fourthAnswer.second.first
-                            yValue += onlineQuestions[questionPosition].fourthAnswer.second.second
-                        }
+        for (item in listOfAnswerButtons) {
+            item.setOnClickListener {
+                getGuestData()
+                getHostData()
+                snackBarIfNoConnection()
+                finishedYet()// goes to next question and when the test is completed this shows the "See results" button.
+                if(everyoneIsHere)
+                    hostProgressUpdater()
+                else
+                    removeQuiz()
+                when (item) {
+                    a_answer_btn -> {
+                        xValue += onlineQuestions[questionPosition].firstAnswer.second.first
+                        yValue += onlineQuestions[questionPosition].firstAnswer.second.second
+                    }
+                    b_answer_btn -> {
+                        xValue += onlineQuestions[questionPosition].secondAnswer.second.first
+                        yValue += onlineQuestions[questionPosition].secondAnswer.second.second
+                    }
+                    c_answer_btn -> {
+                        xValue += onlineQuestions[questionPosition].thirdAnswer.second.first
+                        yValue += onlineQuestions[questionPosition].thirdAnswer.second.second
+                    }
+                    d_answer_btn -> {
+                        xValue += onlineQuestions[questionPosition].fourthAnswer.second.first
+                        yValue += onlineQuestions[questionPosition].fourthAnswer.second.second
                     }
                 }
             }
+        }
     }
     private fun finishedYet(){
         if(questionPosition+1>=20){
@@ -252,28 +305,30 @@ class PVPActivity : AppCompatActivity() {
         }else{
             updateTexts()
         }
-        hostProgressUpdater()
     }
     private fun hostProgressUpdater() {
         //since I'm the host, I want to track my guest progress and send them mine
-        if(quizID.isNotEmpty()){
+        if (quizID.isNotEmpty()) {
             val anotherReference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
             val reference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress/${guest.text}_currentProgress")
-            reference.addValueEventListener(object :ValueEventListener{
+            reference.addValueEventListener(object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError) {}
                 override fun onDataChange(p0: DataSnapshot) {
-                    guest_progress.text = getString(R.string.progress_string, p0.value.toString())
-                    guestPosition = try{
+                    if(p0.value.toString()=="null")
+                        guest_progress.text = getString(R.string.progress_string,"1")
+                    else
+                        guest_progress.text = getString(R.string.progress_string, p0.value.toString())
+                    guestPosition = try {
                         p0.value.toString().toInt()
-                    }catch (e:Exception){
+                    } catch (e: Exception) {
                         questionPosition
                     }
-                    host_progress.text = getString(R.string.progress_string, (questionPosition+1).toString())
-                    if(guestPosition>=20 && questionPosition+1>=20){
+                    host_progress.text = getString(R.string.progress_string, (questionPosition + 1).toString())
+                    if (guestPosition >= 20 && questionPosition + 1 >= 20) {
                         anotherReference.child("/seeResults").setValue(true)
                         see_result_btn.visibility = View.VISIBLE
-                        see_result_btn.text =getString(R.string.show_result)
-                        exitWhenDestroyed=false
+                        see_result_btn.text = getString(R.string.show_result)
+                        removeQuizWhenExit = false
                         see_result_btn.setOnClickListener {
                             seeResults()
                         }
@@ -282,9 +337,9 @@ class PVPActivity : AppCompatActivity() {
                 }
             })
             val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress")
-            ref.child("/${quizID}_currentProgress").setValue(questionPosition+1)
-            addData(anotherReference,quizID, xValue, yValue)
-        }else{
+            ref.child("/${quizID}_currentProgress").setValue(questionPosition + 1)
+            addData(anotherReference, quizID, xValue, yValue)
+        } else {
             guestProgressUpdater()
         }
     }
@@ -302,7 +357,10 @@ class PVPActivity : AppCompatActivity() {
                     reference.addValueEventListener(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
                         override fun onDataChange(p0: DataSnapshot) {
-                            host_progress.text = getString(R.string.progress_string, p0.value.toString())
+                            if(p0.value.toString()=="null")
+                                host_progress.text = getString(R.string.progress_string,"1")
+                            else
+                                host_progress.text = getString(R.string.progress_string, p0.value.toString())
                             hostPosition = try{
                                 p0.value.toString().toInt()
                             }catch (e:Exception){
@@ -313,7 +371,7 @@ class PVPActivity : AppCompatActivity() {
                                 anotherReference.child("/seeResults").setValue(true)
                                 see_result_btn.visibility = View.VISIBLE
                                 see_result_btn.text =getString(R.string.show_result)
-                                exitWhenDestroyed=false
+                                removeQuizWhenExit=false
                                 see_result_btn.setOnClickListener {
                                     seeResults()
                                 }
@@ -359,7 +417,7 @@ class PVPActivity : AppCompatActivity() {
                         }else{
                             guest.setTextColor(Color.BLUE)
                             host.setTextColor(Color.RED)
-                            if(exitWhenDestroyed)
+                            if(removeQuizWhenExit)
                                 removeQuiz()
                             ref.removeEventListener(this)
                         }
@@ -372,7 +430,7 @@ class PVPActivity : AppCompatActivity() {
                         }else{
                             host.setTextColor(Color.RED)
                             guest.setTextColor(Color.BLUE)
-                            if(exitWhenDestroyed)
+                            if(removeQuizWhenExit)
                                 removeQuiz()
                             ref.removeEventListener(this)
                         }
@@ -380,7 +438,7 @@ class PVPActivity : AppCompatActivity() {
                     }
                     Log.i("PVPActivity", "host is here (in quiz): ${pvp_code!!.hostIsHere}")
                     Log.i("PVPActivity", "guest is here (in quiz): ${pvp_code!!.guestIsHere}")
-                }else if(exitWhenDestroyed){
+                }else if(removeQuizWhenExit){
                     removeQuiz()
                 }
             }
@@ -437,13 +495,13 @@ class PVPActivity : AppCompatActivity() {
         return name
     }
 
-     fun hostLeftQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/")
+    private fun hostLeftQuiz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         ref.child("hostIsHere").setValue(false)
     }
 
-    fun guestLeftQuiz(){
-        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/")
+    private fun guestLeftQuiz(){
+        val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         ref.child("guestIsHere").setValue(false)
     }
 

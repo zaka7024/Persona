@@ -1,8 +1,13 @@
 package persona.lemonlab.com.persona.models
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Color
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
@@ -38,7 +43,6 @@ class PVPMatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvpmatch)
-
         //init
         initQuizAvailableRV()
         getAvailableQuiz()
@@ -53,14 +57,53 @@ class PVPMatchActivity : AppCompatActivity() {
             deleteQuiz()
         }
     }
+    private fun isConnectedToInternet(): Boolean {//This returns the status of the connection(true/false)
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo != null && networkInfo.isConnectedOrConnecting
+    }
+    private fun snackBarIfNoConnection(){
+        if(!isConnectedToInternet()){//If the activity is recreated, we won't show a snack bar if connection is available.
+            val view= coordinatorLayout as View
+            fun connectedSnackBar(){
+                val connectedNow = getString(R.string.connectedNow)
+                val anotherSnackBar = Snackbar.make(view, connectedNow, Snackbar.LENGTH_INDEFINITE)
+                anotherSnackBar.setAction(getString(R.string.restart)){
+                    recreate() //To reload data
+                }
+                anotherSnackBar.setActionTextColor(Color.rgb(0, 120 , 0))
+                anotherSnackBar.show()
+            }
+            val noConnection = getString(R.string.noConnection)
+            val snackBar = Snackbar.make(view, noConnection, Snackbar.LENGTH_INDEFINITE)
+            snackBar.setAction(getString(R.string.tryAgain)){
+                    if(!isConnectedToInternet()) // This keeps showing this snack bar until there is a connection
+                        snackBarIfNoConnection()
+                    else
+                        connectedSnackBar()
 
+            }
+            snackBar.setActionTextColor(Color.rgb(240, 0 , 0))
+            if(!isConnectedToInternet()){
+                snackBar.show()
+                hint_text_view_pvp_activity.text = getString(R.string.noConnectionTitle)
+            } else
+                connectedSnackBar() }
+    }
+private fun connectionChecker(){
+    Handler().postDelayed({
+        if(!isConnectedToInternet())
+            snackBarIfNoConnection()
+    }, 4000)
+}
     override fun onResume() {
+        snackBarIfNoConnection()
+        connectionChecker()
         enteringQuiz=true
         deleteQuiz()
         super.onResume()
     }
     override fun onBackPressed() {
-
         if (myQuizId.isEmpty()){
             this.finish()
             return

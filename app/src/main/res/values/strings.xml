@@ -6,6 +6,12 @@
     <string name="confirm">  الغاء الإختبار والعودة إلى الرئيسية</string>
     <string name="yes">نعم </string>
     <string name="no">لا </string>
+    <string name="okay">حسنًا </string>
+    <string name="tryAgain">المحاولة مرة أخرى </string>
+    <string name="restart">إعادة التحميل </string>
+    <string name="connectedNow">تم الإتصال</string>
+    <string name="noConnection">لا يوجد إتصال </string>
+    <string name="noConnectionTitle">هذه الخاصيّة تتطلب الإنترنت، الرجاء تمكين الشبكة للدخول </string>
     <string name="available">متاح </string>
     <string name="unavailable">غير متاح </string>
     <string name="quiz_exists">لقد أنشئتَ اختبارًا بالفعل</string>
