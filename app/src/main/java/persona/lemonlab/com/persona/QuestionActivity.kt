@@ -37,7 +37,7 @@ class QuestionActivity : AppCompatActivity() {
 
         //init the adView
         var request = AdRequest.Builder().build()
-        adView_QuestionActivity.loadAd(request)
+        adView_pvpActivity.loadAd(request)
 
         // init the ad
         mInterstitialAd = InterstitialAd(this)
