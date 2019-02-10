@@ -330,10 +330,11 @@ class MainActivity : AppCompatActivity() {
     private fun getDataFromRemoteConfig(){
         val config= FirebaseRemoteConfig.getInstance()
         config.activateFetched()
+        onlineTestsAvailable = config.getBoolean("onlineTests")
         config.fetch(3600).addOnSuccessListener {//When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
             //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)
             onlineTestsAvailable = config.getBoolean("onlineTests")
-            config.activateFetched()//if you don't activate fetched data, app will use old data even after it's cache expires.
+            config.activateFetched()//if you don't activate fetched data, app will use old data.
         }
 
     }

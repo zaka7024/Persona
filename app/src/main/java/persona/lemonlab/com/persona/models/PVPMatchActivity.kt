@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.ViewHolder
 import kotlinx.android.synthetic.main.activity_pvpmatch.*
@@ -33,6 +34,8 @@ class PVPMatchActivity : AppCompatActivity() {
     var adapter = GroupAdapter<ViewHolder>()
     var myQuizId:String = ""
     var myQuiz:code? = null
+    private var randomUserName="" //used to count users, it's random.
+    private var userCounterAvailable=false
     companion object {
         var uniqueID=""
         var aQuizID=""
@@ -43,10 +46,10 @@ class PVPMatchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvpmatch)
+        userCounterIsAvailable()
         //init
         initQuizAvailableRV()
         getAvailableQuiz()
-
         // here user can create oen quiz per activity
         new_quiz_btn.setOnClickListener {
             createQuiz()
@@ -56,6 +59,44 @@ class PVPMatchActivity : AppCompatActivity() {
         remove_quiz_btn.setOnClickListener {
             deleteQuiz()
         }
+    }
+    private fun userCounterIsAvailable(){
+        val config= FirebaseRemoteConfig.getInstance()
+        userCounterAvailable = config.getBoolean("userCounter")
+        config.fetch(3600).addOnSuccessListener {//When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
+            //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)
+            userCounterAvailable = config.getBoolean("userCounter")
+            config.activateFetched()//if you don't activate fetched data, app will use old data.
+
+        }
+    }
+    private fun usersCounter(){
+        var usersCount = 0
+        randomUserName = getUserName()+UUID.randomUUID().toString()
+
+        val reference= FirebaseDatabase.getInstance().getReference("current_users")
+
+        reference.child(randomUserName.substring(0, 15)).setValue(randomUserName.substring(0, 20))
+
+        reference.addValueEventListener(object:ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {}
+            override fun onDataChange(p0: DataSnapshot) {
+                if(p0.exists() && p0.hasChildren()){
+                    usersCount = p0.childrenCount.toInt()-1
+                    if(usersCount>1)
+                        new_quiz_btn.text = getString(R.string.NewTestAndUsersCounter, usersCount)
+                    else
+                        new_quiz_btn.text =getString(R.string.newTest)
+                }
+            }
+
+        })
+    }
+    private fun removeMe(){
+        if(userCounterAvailable){
+        val reference= FirebaseDatabase.getInstance().getReference("current_users")
+        //Removes user from database if they leave this activity
+        reference.child(randomUserName.substring(0, 15)).removeValue()}
     }
     private fun isConnectedToInternet(): Boolean {//This returns the status of the connection(true/false)
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -118,12 +159,17 @@ class PVPMatchActivity : AppCompatActivity() {
         //The recycler view is invisible if there is no internet and a message is shown to the user.
         snackBarIfNoConnection()
         connectionChecker()
+        Handler().postDelayed({//To Make sure data is fetched before making a decision
+            if(userCounterAvailable)//This is linked with remote config. Default value is false
+                usersCounter()
+        }, 5000)
         enteringQuiz=true
         deleteQuiz()
         super.onResume()
     }
     override fun onBackPressed() {
         if (myQuizId.isEmpty()){
+            removeMe()
             this.finish()
             return
         }
@@ -136,6 +182,7 @@ class PVPMatchActivity : AppCompatActivity() {
 
         dialog.setPositiveButton(getString(R.string.yes), object :DialogInterface.OnClickListener{
             override fun onClick(p0: DialogInterface?, p1: Int) {
+                removeMe()
                 deleteQuiz()
                 this@PVPMatchActivity.finish()
             }
@@ -162,10 +209,12 @@ class PVPMatchActivity : AppCompatActivity() {
             FirebaseDatabase.getInstance().getReference("pvp/$myQuizId").removeValue()
             enteringQuiz=true
         }
+        removeMe()
         super.onPause()
     }
 
     override fun onStop() {
+        removeMe()
         if(!enteringQuiz){
             FirebaseDatabase.getInstance().getReference("pvp/$myQuizId").removeValue()
             enteringQuiz=true
