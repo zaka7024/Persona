@@ -21,7 +21,7 @@
     <string name="quiz_exists">لقد أنشئتَ اختبارًا بالفعل</string>
     <string name="progress_string">%1$s/20</string>
     <string name="NewTestAndUsersCounter">اختبار جديد (المستخدمين %1$d )</string>
-    <string name="no_quizzes_available">لا يوجد أي اختبار متاح حاليًا، شارك التطبيق مع أصدقائك 😊</string>
+    <string name="no_quizzes_available">لا يوجد أي اختبار متاح حاليًا، %1$s التطبيق مع أصدقائك 😊</string>
     <string name="removeCurrentTest">حذف الاختبار الحالي</string>
     <string name="newTest">اختبار جديد</string>
     <string name="changeName">تغيّير الاسم</string>

@@ -73,7 +73,6 @@ class PVPMatchActivity : AppCompatActivity() {
     private fun usersCounter(){
         var usersCount = 0
         randomUserName = getUserName()+UUID.randomUUID().toString()
-
         val reference= FirebaseDatabase.getInstance().getReference("current_users")
 
         reference.child(randomUserName.substring(0, 15)).setValue(randomUserName.substring(0, 20))
@@ -83,7 +82,7 @@ class PVPMatchActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists() && p0.hasChildren()){
                     usersCount = p0.childrenCount.toInt()-1
-                    if(usersCount>1)
+                    if(usersCount>=1)
                         new_quiz_btn.text = getString(R.string.NewTestAndUsersCounter, usersCount)
                     else
                         new_quiz_btn.text =getString(R.string.newTest)
@@ -162,7 +161,7 @@ class PVPMatchActivity : AppCompatActivity() {
         Handler().postDelayed({//To Make sure data is fetched before making a decision
             if(userCounterAvailable)//This is linked with remote config. Default value is false
                 usersCounter()
-        }, 5000)
+        }, 7000) //user have to stay in this activity for 7 seconds.
         enteringQuiz=true
         deleteQuiz()
         super.onResume()
