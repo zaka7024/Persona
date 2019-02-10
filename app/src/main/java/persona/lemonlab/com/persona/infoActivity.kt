@@ -18,13 +18,12 @@ class infoActivity : AppCompatActivity() {
         save_btn.setOnClickListener {
             // play sound
             playSound()
-            if(username_edittext.text.toString().trim().isNotEmpty() &&(radio_male2.isChecked == true || radio_female2.isChecked
-                    == true)){
+            if(username_edittext.text.toString().trim().isNotEmpty() && (radio_male2.isChecked || radio_female2.isChecked)){
 
-                var intent = Intent(this,MainActivity::class.java)
+                val intent = Intent(this,MainActivity::class.java)
 
                 intent.putExtra("user_name",username_edittext.text.toString())
-                var gender = if(radio_male2.isChecked){
+                val gender = if(radio_male2.isChecked){
                     "male"
                 }else{
                     "female"
@@ -34,7 +33,7 @@ class infoActivity : AppCompatActivity() {
                     putBoolean("first_time",false)
                     putString("username",username_edittext.text.toString())
                     putString("usergender",gender)
-                    commit()
+                    apply()
                 }
 
 

@@ -28,34 +28,34 @@ class PVPActivity : AppCompatActivity() {
     private lateinit var listOfAnswerTexts:Array<String>
     private lateinit var listOfAnswerEffects:Array<Pair<Int, Int>> //How much does this answer a, b, c, d affect x and y ?
     private var firstQuestion:Boolean = true //Needed to  initialize onlineQuestions,this bool is false after that.
-    //Those two are needed to determine the final result
+    //Those four are needed to determine the final result for the two users
     private var xValue=0
     private var yValue=0
     private var xValueOther=0
     private var yValueOther=0
 
-    private var quizID = ""
+    private var quizID = ""//This is empty in guest device. It can be used to identify which user is which.
     //Those to move to the next question and determine the next answers to show.
     private var questionPosition = 0
     private var answerPosition = 0
-    private var hostProgressPath =""
+    private var hostProgressPath =""//Get data from host, to prevent similar host names from causing problems. This is A UUID.randomUUID().toString()
     //Those are needed to check whether the test is finished or not.
     private var hostPosition = 0
     private var guestPosition = 0
     private var removeQuizWhenExit= true
-    private var everyoneIsHere = true
+    private var everyoneIsHere = true//This would be a false if someone leaves.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvp)
 
         hostCode = intent.extras.getString("PVP_HOST_CODE","")
-        host_progress.text = getString(R.string.progress_string,"1")
+        host_progress.text = getString(R.string.progress_string,"1")//This shall prevent see null at the beginning of the test
         guest_progress.text = getString(R.string.progress_string,"1")
         test()
         buttonsAnimate()
         checkIfHostAndGuestIsHere()
-        getAllQuestionsAndAnswers()
-        handleQuestions()
+        getAllQuestionsAndAnswers()//Initialize variables
+        handleQuestions()//answers, data and more.
     }
 
     override fun onBackPressed() {
@@ -66,18 +66,18 @@ class PVPActivity : AppCompatActivity() {
     }
 
 
-    private fun isConnectedToInternet(): Boolean {
+    private fun isConnectedToInternet(): Boolean { //returns the state of the connection.
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnectedOrConnecting
     }
     private fun snackBarIfNoConnection(){
-        val noConnection = getString(R.string.noConnection)
-        val view= coordinatorLayoutPVP as View
+        val noConnection = getString(R.string.noConnection) //This is called every second and a half to ensure there is a connection
+        val view= coordinatorLayoutPVP as View //See the R.layout.activity_pvp id.
         val snackBar = Snackbar.make(view, noConnection, Snackbar.LENGTH_LONG)
         snackBar.setAction(getString(R.string.okay)){
-            try {Handler().postDelayed({snackBarIfNoConnection()}, 3500)
-            }catch (e:Exception){Log.i("AAAA", e.toString())}
+            try {Handler().postDelayed({snackBarIfNoConnection()}, 1500)
+            }catch (e:Exception){}
         }
         snackBar.setActionTextColor(Color.rgb(240, 0 , 0))
         if(!isConnectedToInternet()){
@@ -131,12 +131,12 @@ class PVPActivity : AppCompatActivity() {
         answerPosition +=4
     }
     private fun updateTexts(){
-        incrementValues()
-        getQuestion()
+        incrementValues()//To get to next Question and show next answers
+        getQuestion()//update list
         val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
         question_text_textView.text = onlineQuestions[questionPosition].questionText
         for (item in listOfAnswerButtons){
-            when(item){
+            when(item){ //Update Answers text accordingly.
                 a_answer_btn -> item.text = onlineQuestions[questionPosition].firstAnswer.first
                 b_answer_btn -> item.text = onlineQuestions[questionPosition].secondAnswer.first
                 c_answer_btn -> item.text = onlineQuestions[questionPosition].thirdAnswer.first
@@ -146,7 +146,7 @@ class PVPActivity : AppCompatActivity() {
 
     }
     private fun updateTextWithoutIncrementation(){ //This replaces the place holder texts with the first question, no need increment any values.
-        getQuestion()
+        getQuestion() // A rise starts at zero. Arrays start at zero, too.
         val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
         question_text_textView.text = onlineQuestions[questionPosition].questionText
         for (item in listOfAnswerButtons){
@@ -174,9 +174,9 @@ class PVPActivity : AppCompatActivity() {
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists())//To ensure that the two of them completed the quiz
+                if(p0.exists()) //To ensure that the two of them completed the quiz
                     if(p0.value.toString()=="true" && everyoneIsHere)
-                        goToResults()
+                        goToResults()//seeResults is a Boolean, if it's true, that means both of them has finished the test.
                     else{
                         seeResults()
                         reference.removeEventListener(this)
@@ -196,6 +196,7 @@ class PVPActivity : AppCompatActivity() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 everyoneIsHere = p0.child("hostIsHere").value.toString().toBoolean() && p0.child("guestIsHere").value.toString().toBoolean()
+                // This would ensure that if one of the two has left, the other won't add any data to the database(the person who left won't come back)
             }
         })
     }
@@ -206,7 +207,7 @@ class PVPActivity : AppCompatActivity() {
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
-                    try{
+                    try{//try can be removed, but you have to use p0.child("${hostProgressPath}_xValue").exists() instead of if p0.exists()
                         xValueOther = p0.child("${hostProgressPath}_xValue").value.toString().toInt()  //hostProgressPath is the same as quizID.
                         yValueOther = p0.child("${hostProgressPath}_yValue").value.toString().toInt()}catch (e:NumberFormatException){}
                 }
@@ -259,7 +260,6 @@ class PVPActivity : AppCompatActivity() {
             item.setOnClickListener {
                 getGuestData()
                 getHostData()
-                snackBarIfNoConnection()
                 finishedYet()// goes to next question and when the test is completed this shows the "See results" button.
                 if(everyoneIsHere)
                     hostProgressUpdater()
@@ -287,8 +287,8 @@ class PVPActivity : AppCompatActivity() {
         }
     }
     private fun finishedYet(){
+        snackBarIfNoConnection()
         if(questionPosition+1>=20){
-
             seeResults()
             val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
             for(item in listOfAnswerButtons)
@@ -307,8 +307,8 @@ class PVPActivity : AppCompatActivity() {
     private fun hostProgressUpdater() {
         //since I'm the host, I want to track my guest progress and send them mine
         if (quizID.isNotEmpty()) {
-            guest.setTextColor(Color.BLUE)
-            host.setTextColor(Color.RED)
+            guest.setTextColor(Color.BLUE)//The other person name color is blue. Always
+            host.setTextColor(Color.RED)//user will always see their name in red
             val anotherReference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
             val reference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress/${guest.text}_currentProgress")
             addData(anotherReference, quizID, xValue, yValue)// data is sent earlier than the progress. This would ensure
@@ -340,7 +340,7 @@ class PVPActivity : AppCompatActivity() {
                 }
             })
             val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/progress")
-            ref.child("/${quizID}_currentProgress").setValue(questionPosition + 1)
+            ref.child("/${quizID}_currentProgress").setValue(questionPosition + 1)//Using quizID instead of hostName to handle the received data if there is someone with the same hostName
         } else {
             guestProgressUpdater()
         }
@@ -355,8 +355,8 @@ class PVPActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 hostProgressPath = p0.value.toString()
                 if (guest.text.toString() == getUserName()) {
-                    guest.setTextColor(Color.RED)
-                    host.setTextColor(Color.BLUE)
+                    guest.setTextColor(Color.RED)//user will always see their name in red
+                    host.setTextColor(Color.BLUE)//user will always see the other name in blue
                     addData(anotherReference, guest.text.toString(), xValue, yValue) // data is sent earlier than the progress. This would ensure
                                                                                     //that every bit of data is sent before showing the final results(No different results)
                     val reference = FirebaseDatabase.getInstance().getReference(
@@ -369,7 +369,7 @@ class PVPActivity : AppCompatActivity() {
                             if(p0.value.toString()=="null")
                                 host_progress.text = getString(R.string.progress_string,"1")//No data yet(Host hasn't answered any question so their progress is 1/20)
                             else
-                                host_progress.text = getString(R.string.progress_string, p0.value.toString())
+                                host_progress.text = getString(R.string.progress_string, p0.value.toString()) //This takes an argument, see strings.xml progress_string.
                             hostPosition = try{
                                 p0.value.toString().toInt()
                             }catch (e:Exception){

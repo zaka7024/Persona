@@ -81,6 +81,8 @@ class QuizItem(var code_item:code, var currentDeviceCode:String, var activity:Ac
                                             if(p0.child("hostIsHere").value.toString()=="true" && p0.child("guestIsHere").value.toString()=="true" &&
                                                     p0.child("used").value.toString()=="true")
                                                 startOnlineQuiz()
+                                            deleteMyQuiz()//I hope this doesn't cause any trouble but it was a must to ensure
+                                            //that when a user created a test and enters another, their test is deleted now. if it isn't they should be able to enter that test.
                                             PVPMatchActivity.enteringQuiz=true
                                         }
                                     }
@@ -99,10 +101,11 @@ class QuizItem(var code_item:code, var currentDeviceCode:String, var activity:Ac
     private fun deleteMyQuiz(){
         try {
             if(PVPMatchActivity.createdQuiz){
-            val ref = FirebaseDatabase.getInstance().getReference("pvp/${PVPMatchActivity.aQuizID}")
-            ref.removeValue()
-            PVPMatchActivity.uniqueID=""
-            PVPMatchActivity.aQuizID=""}
+                PVPMatchActivity.createdQuiz=false
+                val ref = FirebaseDatabase.getInstance().getReference("pvp/${PVPMatchActivity.aQuizID}")
+                ref.removeValue()
+                PVPMatchActivity.uniqueID=""
+                PVPMatchActivity.aQuizID=""}
         }catch (e:Exception){}
     }
     fun startOnlineQuiz(){

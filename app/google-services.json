@@ -8,50 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:692571000265:android:11be0c90d57acf18",
+        "mobilesdk_app_id": "1:692571000265:android:904363a7a4be9de5",
         "android_client_info": {
-          "package_name": "com.lemonlab.persona"
+          "package_name": "coder.personamanager.com.personadatamanager"
         }
       },
       "oauth_client": [
         {
-          "client_id": "692571000265-pe9l9f8opfspnv0pofd5tufc8i3dqs69.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCwkhzQnhO7m1XWJ4BSrtVrCtS44VnLp60"
-        }
-      ],
-      "services": {
-        "analytics_service": {
-          "status": 1
-        },
-        "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
-        },
-        "ads_service": {
-          "status": 2
-        }
-      },
-      "admob_app_id": "ca-app-pub-9769401692194876~4361761855"
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:692571000265:android:78727e42ce0193a2",
-        "android_client_info": {
-          "package_name": "lemonlab.com.persona"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "692571000265-98v7m358c2kijng87ikskjqngii7um8k.apps.googleusercontent.com",
+          "client_id": "692571000265-f2amo7o0vttr53bu9n53lfokn1somm9g.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "lemonlab.com.persona",
-            "certificate_hash": "3f994a6ab52a430044869b536433f7456ab5cd0d"
+            "package_name": "coder.personamanager.com.personadatamanager",
+            "certificate_hash": "b86ebdc53d53711b72f77b97291a5c99d721e050"
           }
         },
         {
@@ -81,6 +49,51 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:692571000265:android:11be0c90d57acf18",
+        "android_client_info": {
+          "package_name": "com.lemonlab.persona"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "692571000265-a952kuc0ln6hplb30dl43u3mj2vsdv5c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lemonlab.persona",
+            "certificate_hash": "3a61edae86106001d808d650e0ce43c7ffdda4e1"
+          }
+        },
+        {
+          "client_id": "692571000265-pe9l9f8opfspnv0pofd5tufc8i3dqs69.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwkhzQnhO7m1XWJ4BSrtVrCtS44VnLp60"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "692571000265-pe9l9f8opfspnv0pofd5tufc8i3dqs69.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      },
+      "admob_app_id": "ca-app-pub-9769401692194876~4361761855"
     }
   ],
   "configuration_version": "1"

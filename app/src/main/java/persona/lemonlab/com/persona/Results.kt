@@ -56,7 +56,7 @@ class Results : AppCompatActivity() {
                 }
             }
         })
-        if(hostFinished && guestFinished){
+        if(hostFinished && guestFinished && hostCode.length>1){//hostCode should not be empty. if it was, all quizzes will be removed.
             FirebaseDatabase.getInstance().getReference("pvp/$hostCode").removeValue()
         }
     }

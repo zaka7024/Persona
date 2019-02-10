@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.info_dialog.view.*
 import persona.lemonlab.com.persona.Extenstions.playSound
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     var dialog:Dialog? = null
     var viewDialog:View? = null
+    private var onlineTestsAvailable:Boolean = true
     var privacy = "Privacy Policy of Lemon Lab\n" +
             "\n" +
             "Lemon Lab offers, which provides the SERVICE.\n" +
@@ -82,12 +84,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getDataFromRemoteConfig()//This is the top priority.
 
         //init
         //by default open page one
         openPageOne()
         privacyPolicy()//privacy Policy Button
         changeName()
+        moreApps()
 
         page_one_btn.setOnClickListener {
             openPageOne()
@@ -258,7 +262,8 @@ class MainActivity : AppCompatActivity() {
 
         // show other topic
         user_activity_btn.visibility = View.VISIBLE
-        online_quiz_btn.visibility = View.VISIBLE
+        if(onlineTestsAvailable)//Remote config
+            online_quiz_btn.visibility = View.VISIBLE
         change_name_btn.visibility = View.VISIBLE
         privacy_policy_btn.visibility = View.VISIBLE
         more_apps_btn.visibility = View.VISIBLE
@@ -301,14 +306,13 @@ class MainActivity : AppCompatActivity() {
             buttonOkay.setOnClickListener {
                 if(newName.text.length>2){
                     getSharedPreferences("app_data", 0).edit().apply{
-                    putString("username", newName.text.toString())
-                    apply()
+                        putString("username", newName.text.toString())
+                        apply()
                 }
                     Toast.makeText(this, getString(R.string.nameChanged), Toast.LENGTH_SHORT).show()
                 }else{
                     Toast.makeText(this, getString(R.string.nameMustBeLonger), Toast.LENGTH_SHORT).show()
                 }
-
 
                 dialogBuilder.dismiss()
             }
@@ -316,5 +320,22 @@ class MainActivity : AppCompatActivity() {
             dialogBuilder.setView(dialogView)
             dialogBuilder.show()
         }  }
+    private fun moreApps(){
+        more_apps_btn.setOnClickListener {
+        val lemonLabDevPage = Uri.parse("https://play.google.com/store/apps/developer?id=Lemon+Lab")
+        val lemonLab = Intent(Intent.ACTION_VIEW, lemonLabDevPage)
+        startActivity(lemonLab)
+        }
+    }
+    private fun getDataFromRemoteConfig(){
+        val config= FirebaseRemoteConfig.getInstance()
+        config.activateFetched()
+        config.fetch(3600).addOnSuccessListener {//When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
+            //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)
+            onlineTestsAvailable = config.getBoolean("onlineTests")
+            config.activateFetched()//if you don't activate fetched data, app will use old data even after it's cache expires.
+        }
+
+    }
 }
 
