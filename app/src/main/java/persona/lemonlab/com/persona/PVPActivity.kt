@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.airbnb.lottie.LottieAnimationView
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_pvp.*
 import persona.lemonlab.com.persona.models.OnlineQuestion
@@ -49,6 +50,10 @@ class PVPActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pvp)
 
+        // inti ad
+        val request = AdRequest.Builder().build()
+        adView_pvpActivity.loadAd(request)
+
         hostCode = intent.extras.getString("PVP_HOST_CODE","")
         host_progress.text = getString(R.string.progress_string,"1")//This shall prevent see null at the beginning of the test
         guest_progress.text = getString(R.string.progress_string,"1")
@@ -56,8 +61,10 @@ class PVPActivity : AppCompatActivity() {
         buttonsAnimate(1000)
         checkIfHostAndGuestIsHere()
         getAllQuestionsAndAnswers()//Initialize variables
-        emojiHandler()//Send and receive button clicks for emoji interaction.
+
+        /*emojiHandler()//Send and receive button clicks for emoji interaction. */ // removed by ceo
         handleQuestions()//answers, data and more.
+
     }
 
     override fun onBackPressed() {
@@ -556,7 +563,7 @@ class PVPActivity : AppCompatActivity() {
         ref.removeValue()
         this.finish()
     }
-
+/*
     private fun emojiHandler(){//Send and receive button clicks for emoji interaction.
 
         var intervalElapsed = true //Users cannot send data twice.
@@ -631,4 +638,6 @@ class PVPActivity : AppCompatActivity() {
             trackEmojiData(reference)//Tracks host data
         }
     }
+
+    */
 }

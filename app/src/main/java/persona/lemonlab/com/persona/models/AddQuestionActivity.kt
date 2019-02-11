@@ -20,9 +20,6 @@ class AddQuestionActivity : AppCompatActivity() {
             // play sound
             playSound()
 
-            // show progressbar
-            progressBar.visibility = View.VISIBLE
-
             // check if all fields are empty
             if(question_edittext.text.trim().isEmpty() || choose_edittext_01.text.trim().isEmpty()
                     || choose_edittext_02.text.trim().isEmpty() || choose_edittext_03.text.trim().isEmpty()
@@ -30,6 +27,9 @@ class AddQuestionActivity : AppCompatActivity() {
                 Toast.makeText(this@AddQuestionActivity,getString(R.string.fillAllFields_please),Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+            // show progressbar
+            progressBar.visibility = View.VISIBLE
 
             // connect to FirebaseDatabase
             val database = FirebaseDatabase.getInstance().getReference("questions")
