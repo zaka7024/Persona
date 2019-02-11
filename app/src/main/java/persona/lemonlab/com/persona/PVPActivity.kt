@@ -445,8 +445,6 @@ class PVPActivity : AppCompatActivity() {
                         }
 
                     }
-                    Log.i("PVPActivity", "host is here (in quiz): ${pvpCode!!.hostIsHere}")
-                    Log.i("PVPActivity", "guest is here (in quiz): ${pvpCode!!.guestIsHere}")
                 }else if(removeQuizWhenExit){
                     removeQuiz()
                 }
@@ -632,6 +630,5 @@ class PVPActivity : AppCompatActivity() {
             val reference = databaseReference.child("reactions").child("${host.text}_reaction")
             trackEmojiData(reference)//Tracks host data
         }
-        
     }
 }

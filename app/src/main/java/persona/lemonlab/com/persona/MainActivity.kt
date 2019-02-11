@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     var dialog:Dialog? = null
     var viewDialog:View? = null
     private var onlineTestsAvailable:Boolean = true
+    private var canAddQuestions:Boolean = true
     var privacy = "Privacy Policy of Lemon Lab\n" +
             "\n" +
             "Lemon Lab offers, which provides the SERVICE.\n" +
@@ -332,7 +333,10 @@ class MainActivity : AppCompatActivity() {
             //When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
             //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)
             onlineTestsAvailable = config.getBoolean("onlineTests")
+            canAddQuestions = config.getBoolean("submitQuestionsFeature")
             config.activateFetched()//if you don't activate fetched data, app will use old data.
+            if(!canAddQuestions)
+                add_question_btn.visibility = View.GONE
         }
 
     }

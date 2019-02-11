@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -16,14 +17,20 @@ class Results : AppCompatActivity() {
     private var hostCode=""
     private var hostFinished = false
     private var guestFinished = false
+    private lateinit var mInterstitialAd: InterstitialAd
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
 
         //init
 
-        var request = AdRequest.Builder().build()
+        val request = AdRequest.Builder().build()
         adView_ResultActivity.loadAd(request)
+
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-9769401692194876/8396267839"
+        mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         setTextAccordingToResult()
         iSawMyResults()
@@ -68,6 +75,7 @@ class Results : AppCompatActivity() {
     }
     override fun onBackPressed() {
         deleteOnlineData()
+        mInterstitialAd.show()
         super.onBackPressed()
     }
 
