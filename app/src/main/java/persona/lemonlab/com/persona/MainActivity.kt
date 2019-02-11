@@ -90,8 +90,9 @@ class MainActivity : AppCompatActivity() {
         //by default open page one
         openPageOne()
         privacyPolicy()//privacy Policy Button
-        changeName()
-        moreApps()
+        changeName()//Changes user name with shared preferences.
+        moreApps()//Goes to Google play dev profile
+        isUserComingFromResults()//if coming from results, page two is shown to simplify going back to the lobby(pvp match)
 
         page_one_btn.setOnClickListener {
             openPageOne()
@@ -108,51 +109,49 @@ class MainActivity : AppCompatActivity() {
         //Send Key to QuestionActivity to determine which topic will loaded
         topic_container01.setOnClickListener {
             playSound()
-            var intent = Intent(this,QuestionActivity::class.java)
+            val intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",0)
             startActivity(intent)
         }
 
         topic_container02.setOnClickListener {
             playSound()
-            var intent = Intent(this,QuestionActivity::class.java)
+            val intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",1)
             startActivity(intent)
         }
 
         topic_container03.setOnClickListener {
             playSound()
-            var intent = Intent(this,QuestionActivity::class.java)
+            val intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",2)
             startActivity(intent)
         }
 
         topic_container04.setOnClickListener {
             playSound()
-            var intent = Intent(this,QuestionActivity::class.java)
+            val intent = Intent(this,QuestionActivity::class.java)
             intent.putExtra("topic",3)
             startActivity(intent)
         }
 
         user_activity_btn.setOnClickListener {// this is a user question topic
             playSound()
-            var intent = Intent(this,UsersActivity::class.java)
+            val intent = Intent(this,UsersActivity::class.java)
             startActivity(intent)
         }
 
         rate_btn.setOnClickListener {
             playSound()
-            var intent = Intent(Intent.ACTION_VIEW)
-            intent.setData(Uri.parse("market://details?id=com.lemonlab.persona"))
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("market://details?id=com.lemonlab.persona")
             startActivity(intent);
         }
 
         share_btn_ActivityMain.setOnClickListener {
             playSound()
-            var intent = Intent(Intent.ACTION_SEND)
-            intent.putExtra(Intent.EXTRA_TEXT,"تطبيق اختبار الشخصية، تطبيق لتحليل شخصيتك و معرفة صفاتك.يطرح التطبيق عليك الكثير والكثير من الاسئلة الغريبة والمحرجه " +
-                    "جربه الان من هنا:" +
-                    "https://goo.gl/pm4jXh")
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.shareText) + " " +"https://goo.gl/pm4jXh")
             intent.type = "text/plain"
             startActivity(Intent.createChooser(intent,"مشاركة الى"))
         }
@@ -160,12 +159,12 @@ class MainActivity : AppCompatActivity() {
         // open new activity(add question)
         add_question_btn.setOnClickListener {
             playSound()
-            var intent = Intent(this,AddQuestionActivity::class.java)
+            val intent = Intent(this,AddQuestionActivity::class.java)
             startActivity(intent)
         }
 
         viewDialog!!.privacy_policy.setOnClickListener {
-            var dialog = AlertDialog.Builder(this)
+            val dialog = AlertDialog.Builder(this)
             dialog.setMessage(privacy)
             dialog.setPositiveButton("موافق",DialogInterface.OnClickListener({
                 dialog, which ->  dialog.dismiss()
@@ -177,7 +176,7 @@ class MainActivity : AppCompatActivity() {
         // for test
 
         online_quiz_btn.setOnClickListener {
-            var intent = Intent(this, PVPMatchActivity::class.java)
+            val intent = Intent(this, PVPMatchActivity::class.java)
             startActivity(intent)
         }
     }
@@ -306,7 +305,7 @@ class MainActivity : AppCompatActivity() {
             buttonOkay.setOnClickListener {
                 if(newName.text.length>2){
                     getSharedPreferences("app_data", 0).edit().apply{
-                        putString("username", newName.text.toString())
+                        putString("username", newName.text.toString().trim())
                         apply()
                 }
                     Toast.makeText(this, getString(R.string.nameChanged), Toast.LENGTH_SHORT).show()
@@ -329,12 +328,20 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getDataFromRemoteConfig(){
         val config= FirebaseRemoteConfig.getInstance()
-        config.fetch(100).addOnSuccessListener {//When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
+        config.fetch(3600).addOnSuccessListener {
+            //When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
             //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)
             onlineTestsAvailable = config.getBoolean("onlineTests")
             config.activateFetched()//if you don't activate fetched data, app will use old data.
         }
 
+    }
+    private fun isUserComingFromResults(){ //if they are coming from results activity, page two should be displayed.
+        try{
+            val goToPageTwo = intent.extras.getBoolean("goToPageTwo", false)
+            if(goToPageTwo)
+                openPageTwo()
+        }catch (exception:NullPointerException){}
     }
 }
 

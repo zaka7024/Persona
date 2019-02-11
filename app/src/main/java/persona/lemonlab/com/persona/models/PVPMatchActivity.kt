@@ -12,6 +12,9 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
+import android.text.SpannableString
+import android.text.SpannableStringBuilder
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -50,6 +53,7 @@ class PVPMatchActivity : AppCompatActivity() {
         //init
         initQuizAvailableRV()
         getAvailableQuiz()
+        coloredPlaceholderText()//Colors two part of the default text shown when there is no tests && handles clicks on hint_text_view_pvp_activity
         // here user can create oen quiz per activity
         new_quiz_btn.setOnClickListener {
             createQuiz()
@@ -70,6 +74,25 @@ class PVPMatchActivity : AppCompatActivity() {
 
         }
     }
+    private fun coloredPlaceholderText(){
+        val builder = SpannableStringBuilder()
+        val partOne = getString(R.string.no_quizzes_available)
+        val partTwo = getString(R.string.yourPersonalityToTheirs)
+        val coloredStringOne = SpannableString(partOne)
+        val coloredStringTwo = SpannableString(partTwo)
+        coloredStringOne.setSpan(ForegroundColorSpan(Color.BLUE), 0, 4, 0)
+        coloredStringTwo.setSpan(ForegroundColorSpan(Color.RED), 0, 7, 0)
+        builder.append(coloredStringOne, " ", coloredStringTwo)
+        hint_text_view_pvp_activity.text = builder
+        hint_text_view_pvp_activity.visibility = View.VISIBLE
+        quiz_available_rv.visibility = View.INVISIBLE
+        hint_text_view_pvp_activity.setOnClickListener {
+            val intent = Intent(Intent.ACTION_SEND)
+            intent.putExtra(Intent.EXTRA_TEXT,getString(R.string.shareText) + " " +"https://goo.gl/pm4jXh")
+            intent.type = "text/plain"
+            startActivity(Intent.createChooser(intent,"مشاركة الى"))
+        }
+    }
     private fun usersCounter(){
         var usersCount = 0
         randomUserName = getUserName()+UUID.randomUUID().toString()
@@ -85,17 +108,22 @@ class PVPMatchActivity : AppCompatActivity() {
                     if(usersCount>=1)
                         new_quiz_btn.text = getString(R.string.NewTestAndUsersCounter, usersCount)
                     else
-                        new_quiz_btn.text =getString(R.string.newTest)
+                        new_quiz_btn.text =getString(R.string.new_host)
                 }
             }
 
         })
     }
     private fun removeMe(){
-        if(userCounterAvailable){
+        if(userCounterAvailable && randomUserName.isNotBlank()){
         val reference= FirebaseDatabase.getInstance().getReference("current_users")
         //Removes user from database if they leave this activity
         reference.child(randomUserName.substring(0, 15)).removeValue()}
+    }
+
+    override fun onDestroy() {
+        removeMe()
+        super.onDestroy()
     }
     private fun isConnectedToInternet(): Boolean {//This returns the status of the connection(true/false)
         val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -107,6 +135,7 @@ class PVPMatchActivity : AppCompatActivity() {
             hint_text_view_pvp_activity.text = getString(R.string.noConnectionTitle)
             quiz_available_rv.visibility = View.INVISIBLE
             hint_text_view_pvp_activity.visibility = View.VISIBLE
+            new_quiz_btn.text =getString(R.string.new_host)
             val view= coordinatorLayout as View
             fun connectedSnackBar(){
                 val connectedNow = getString(R.string.connectedNow)
@@ -145,8 +174,8 @@ class PVPMatchActivity : AppCompatActivity() {
             if(!isConnectedToInternet())
                 snackBarIfNoConnection()
             else
-                Handler().postDelayed({connectionChecker()}, 7000)
-        }, 8000)
+                Handler().postDelayed({connectionChecker()}, 4000)
+        }, 7000)
     }
     override fun onResume() {
         //Those two(snackBarIfNoConnection,connectionChecker) does the following :
@@ -158,10 +187,8 @@ class PVPMatchActivity : AppCompatActivity() {
         //The recycler view is invisible if there is no internet and a message is shown to the user.
         snackBarIfNoConnection()
         connectionChecker()
-        Handler().postDelayed({//To Make sure data is fetched before making a decision
-            if(userCounterAvailable)//This is linked with remote config. Default value is false
-                usersCounter()
-        }, 7000) //user have to stay in this activity for 7 seconds.
+        if(userCounterAvailable)//This is linked with remote config. Default value is false
+            usersCounter()
         enteringQuiz=true
         deleteQuiz()
         super.onResume()
@@ -221,7 +248,8 @@ class PVPMatchActivity : AppCompatActivity() {
         super.onStop()
     }
     private fun createQuiz(){
-        if (myQuizId.isEmpty() && !isConnectedToInternet() || myQuizId.length>1 && !isConnectedToInternet() || myQuizId.isEmpty() && quiz_available_rv.visibility!=View.VISIBLE){
+        quiz_available_rv.visibility = View.VISIBLE
+        if (myQuizId.isEmpty() && !isConnectedToInternet() || myQuizId.length>1 && !isConnectedToInternet()){
             Toast.makeText(this, getString(R.string.noConnection), Toast.LENGTH_SHORT).show()
             hint_text_view_pvp_activity.visibility = View.VISIBLE
             return
@@ -267,6 +295,7 @@ class PVPMatchActivity : AppCompatActivity() {
 
         progress_pvp_match_activity.visibility = View.VISIBLE
         hint_text_view_pvp_activity.visibility = View.GONE
+        quiz_available_rv.visibility = View.VISIBLE
 
         val ref = FirebaseDatabase.getInstance().getReference("pvp")
         ref.addValueEventListener(object :ValueEventListener{
@@ -277,14 +306,19 @@ class PVPMatchActivity : AppCompatActivity() {
             override fun onDataChange(p0: DataSnapshot) {
                 adapter.clear()
                 if(p0.exists()){
+                    val listOfTests = mutableListOf<QuizItem>()
+                    progress_pvp_match_activity.visibility = View.GONE
+                    hint_text_view_pvp_activity.visibility = View.GONE
+                    quiz_available_rv.visibility = View.VISIBLE
                     for (item in p0.children){
-                        progress_pvp_match_activity.visibility = View.GONE
-                        hint_text_view_pvp_activity.visibility = View.GONE
-                        var quiz_code = item.getValue(code::class.java)
-                        adapter.add(QuizItem(quiz_code!!, myQuizId, this@PVPMatchActivity))
+                        val quizCode = item.getValue(code::class.java)
+                        if(!listOfTests.contains(QuizItem(quizCode!!, myQuizId, this@PVPMatchActivity)) &&
+                                quizCode.host_name.isNotBlank())
+                            listOfTests.add(QuizItem(quizCode, myQuizId, this@PVPMatchActivity))
                     }
+                    for (test in listOfTests)
+                        adapter.add(test)
                 }else{
-
                     hint_text_view_pvp_activity.visibility = View.VISIBLE
                     progress_pvp_match_activity.visibility = View.GONE
                 }
@@ -299,6 +333,8 @@ class PVPMatchActivity : AppCompatActivity() {
         if(myQuizId.isEmpty()) return
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$myQuizId/")
         ref.removeValue()
+        hint_text_view_pvp_activity.visibility = View.VISIBLE
+        quiz_available_rv.visibility = View.INVISIBLE
         createdQuiz = false
         enteringQuiz = true
         myQuizId = ""
@@ -323,5 +359,6 @@ class PVPMatchActivity : AppCompatActivity() {
         }
 
         startActivity(intent)
+        finish()
     }
 }

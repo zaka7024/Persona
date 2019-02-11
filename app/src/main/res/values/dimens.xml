@@ -61,7 +61,7 @@
     <dimen name="new_question_size">18sp</dimen>
     <dimen name="star_width">70dp</dimen>
     <dimen name="start_height">50dp</dimen>
-    <dimen name="main_text_newQuestion">24sp</dimen>
+    <dimen name="main_text_newQuestion">22sp</dimen>
     <dimen name="send_btn_width_newQuestion">100dp</dimen>
     <dimen name="send_btn_height_newQuestion">40dp</dimen>
     <dimen name="question_edittext_height_newQuestion">100dp</dimen>
@@ -70,4 +70,8 @@
     <dimen name="send_btn_newQuestion">18sp</dimen>
     <dimen name="option_icon_width">28dp</dimen>
     <dimen name="option_icon_height">28dp</dimen>
+    <item name="sliderActivity" type="layout">@layout/slider_item</item>
+    <item name="infoActivity" type="layout">@layout/infoActivity</item>
+    <dimen name="topic_image_width_480dpi">70dp</dimen>
+
 </resources>

@@ -18,7 +18,9 @@ class infoActivity : AppCompatActivity() {
         save_btn.setOnClickListener {
             // play sound
             playSound()
-            if(username_edittext.text.toString().trim().isNotEmpty() && (radio_male2.isChecked || radio_female2.isChecked)){
+            if(username_edittext.text.length<3)
+                Toast.makeText(this, getString(R.string.nameMustBeLonger), Toast.LENGTH_SHORT).show()
+            else if(username_edittext.text.toString().trim().isNotEmpty() && (radio_male2.isChecked || radio_female2.isChecked)){
 
                 val intent = Intent(this,MainActivity::class.java)
 

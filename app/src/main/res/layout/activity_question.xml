@@ -199,7 +199,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="49dp"
             android:fontFamily="@font/cairo_semibold"
-            android:text="شكرًا لك"
+            android:text="@string/testComplete_text"
             android:textColor="@color/white"
             android:textSize="@dimen/thx_text_size"
             android:visibility="invisible" />
@@ -230,7 +230,7 @@
         android:alpha="1"
         android:background="@drawable/rounded_button_selector"
         android:fontFamily="@font/cairo_semibold"
-        android:text="النتيجه"
+        android:text="@string/show_result"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:visibility="gone"
@@ -248,6 +248,8 @@
         ads:adUnitId="ca-app-pub-9769401692194876/5962618134"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+        ads:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
 
 </android.support.constraint.ConstraintLayout>

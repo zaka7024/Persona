@@ -60,7 +60,9 @@
         app:layout_constraintHorizontal_bias="0.486"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -93,9 +95,9 @@
                     android:background="@drawable/answer_selector"
                     android:elevation="0dp"
                     android:fontFamily="@font/cairo_semibold"
+                    android:gravity="center_horizontal"
                     android:scaleX="0.01"
                     android:scaleY="0.01"
-                    android:gravity="center_horizontal"
                     android:text="الخيار الاول"
                     android:textColor="@color/white"
                     android:textSize="@dimen/answer_btn_text_size"
@@ -203,4 +205,101 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/haha_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="120dp"
+        android:background="@drawable/emojis_button_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="@string/laugh"
+        android:textColor="@color/darkRed"
+        android:textSize="@dimen/answer_btn_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/wow_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/emojis_button_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="@string/wow"
+        android:textColor="@color/darkRed"
+        android:textSize="@dimen/answer_btn_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/haha_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/wink_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/emojis_button_selector"
+        android:fontFamily="@font/cairo_semibold"
+        android:text="@string/wink"
+        android:textColor="@color/darkRed"
+        android:textSize="@dimen/answer_btn_text_size"
+        app:layout_constraintBottom_toTopOf="@+id/wow_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.905"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question_text_textView"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/wow_animation"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:lottie_fileName="wow_anim.json"
+        app:layout_constraintBottom_toBottomOf="@+id/haha_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wink_button"
+        app:layout_constraintVertical_bias="1.0" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/haha_animation"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:lottie_fileName="haha_anim.json"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/haha_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wink_button"
+        app:layout_constraintVertical_bias="1.0" />
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/wink_animation"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="invisible"
+        app:lottie_fileName="wink_anim.json"
+        app:layout_constraintBottom_toBottomOf="@+id/haha_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/wink_button"
+        app:layout_constraintVertical_bias="1.0" />
 </android.support.constraint.ConstraintLayout>

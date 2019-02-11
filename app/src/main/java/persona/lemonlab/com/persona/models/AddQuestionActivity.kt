@@ -15,7 +15,7 @@ class AddQuestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_question)
 
-        // add question to Firebasedatabase
+        // add question to FirebaseDatabase
         send_question_btn.setOnClickListener {
             // play sound
             playSound()
@@ -24,18 +24,18 @@ class AddQuestionActivity : AppCompatActivity() {
             progressBar.visibility = View.VISIBLE
 
             // check if all fields are empty
-            if(question_edittext.text.trim().isEmpty()&& ( choose_edittext_01.text.trim().isEmpty()
+            if(question_edittext.text.trim().isEmpty() || choose_edittext_01.text.trim().isEmpty()
                     || choose_edittext_02.text.trim().isEmpty() || choose_edittext_03.text.trim().isEmpty()
-                    || choose_edittext_04.text.trim().isEmpty() )){
-                Toast.makeText(this@AddQuestionActivity,"الرجاء كتابة السؤال على الاقل",Toast.LENGTH_SHORT).show()
+                    || choose_edittext_04.text.trim().isEmpty()){//No more questions with empty answers.
+                Toast.makeText(this@AddQuestionActivity,getString(R.string.fillAllFields_please),Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // connect to Fitebasedatabase
-            var database = FirebaseDatabase.getInstance().getReference("questions")
+            // connect to FirebaseDatabase
+            val database = FirebaseDatabase.getInstance().getReference("questions")
 
-            var item_id = database.push().key
-            var new_question:questionModel = questionModel(item_id.toString(),
+            val itemID = database.push().key
+            val newQuestion = questionModel(itemID.toString(),
                     question_edittext.text.toString(),
                     choose_edittext_01.text.toString(),
                     choose_edittext_02.text.toString(),
@@ -50,8 +50,8 @@ class AddQuestionActivity : AppCompatActivity() {
             choose_edittext_03.setText("")
             choose_edittext_04.setText("")
 
-            database.child(item_id!!).setValue(new_question).addOnCompleteListener {
-                Toast.makeText(this@AddQuestionActivity,"لقد تم إرسال سؤالك، شكرًا على المساهمة في تطوير التطبيق",
+            database.child(itemID!!).setValue(newQuestion).addOnCompleteListener {
+                Toast.makeText(this@AddQuestionActivity,getString(R.string.yourQuestionIsSent),
                         Toast.LENGTH_LONG).show()
                 progressBar.visibility = View.INVISIBLE
             }

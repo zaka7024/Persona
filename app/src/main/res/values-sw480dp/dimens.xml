@@ -67,7 +67,7 @@
     <dimen name="new_question_size">22sp</dimen>
     <dimen name="star_width">70dp</dimen>
     <dimen name="start_height">70dp</dimen>
-    <dimen name="main_text_newQuestion">36sp</dimen>
+    <dimen name="main_text_newQuestion">30sp</dimen>
     <dimen name="send_btn_width_newQuestion">180dp</dimen>
     <dimen name="send_btn_height_newQuestion">80dp</dimen>
     <dimen name="question_edittext_height_newQuestion">150dp</dimen>

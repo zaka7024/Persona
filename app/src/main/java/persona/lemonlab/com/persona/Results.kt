@@ -3,7 +3,6 @@ package persona.lemonlab.com.persona
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import com.google.android.gms.ads.AdRequest
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -31,14 +30,25 @@ class Results : AppCompatActivity() {
     }
 
     private fun iSawMyResults(){
-        if(quizID.isNotEmpty())
-            FirebaseDatabase.getInstance().getReference("pvp/$hostCode/results/hostFinished").setValue(true).addOnCompleteListener {
-                deleteOnlineData()
-            }
-        else
-            FirebaseDatabase.getInstance().getReference("pvp/$hostCode/results/guestFinished").setValue(true).addOnCompleteListener{
-                deleteOnlineData()
-            }
+        fun userIsDone(){
+            if(quizID.isNotEmpty())
+                FirebaseDatabase.getInstance().getReference("pvp/$hostCode/results/hostFinished").setValue(true).addOnCompleteListener {
+                    deleteOnlineData()
+                }
+            else
+                FirebaseDatabase.getInstance().getReference("pvp/$hostCode/results/guestFinished").setValue(true).addOnCompleteListener{
+                    deleteOnlineData()
+                }
+        }
+        if(hostCode.length>1)
+            FirebaseDatabase.getInstance().getReference("pvp/$hostCode").addListenerForSingleValueEvent(object :ValueEventListener{
+                override fun onCancelled(p0: DatabaseError) {}
+                override fun onDataChange(p0: DataSnapshot) {
+                    if(p0.exists())
+                        userIsDone()
+                }
+            })
+
     }
 
     private fun deleteOnlineData(){
@@ -46,13 +56,9 @@ class Results : AppCompatActivity() {
         reference.addValueEventListener(object:ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.child("guestFinished").exists())
+                if(p0.child("guestFinished").exists() && p0.child("hostFinished").exists()){
                     guestFinished = p0.child("guestFinished").value.toString().toBoolean()
-                if(p0.child("hostFinished").exists())
                     hostFinished = p0.child("hostFinished").value.toString().toBoolean()
-                else{
-                    reference.removeEventListener(this)
-                    deleteOnlineData()
                 }
             }
         })
@@ -63,6 +69,11 @@ class Results : AppCompatActivity() {
     override fun onBackPressed() {
         deleteOnlineData()
         super.onBackPressed()
+    }
+
+    override fun onPause() {
+        deleteOnlineData()
+        super.onPause()
     }
     //Receives values from the previous activity to give a result here.
     private fun setTextAccordingToResult() {
@@ -75,13 +86,15 @@ class Results : AppCompatActivity() {
         close_results.setOnClickListener {
             deleteOnlineData()
             val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("goToPageTwo", true)
             startActivity(intent)
             finish()
         }
         val listOfResults = resources.getStringArray(R.array.results)
 
-        Log.i("finalResults", "x is : $xValue, $xValueOther")
+/*        Log.i("finalResults", "x is : $xValue, $xValueOther")
         Log.i("finalResults", "y is : $yValue, $yValueOther")
+        */
         val deltaX:Int
         val deltaY:Int
         if(quizID.length>1){ //Host Device(quidID is empty in the guest device)

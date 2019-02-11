@@ -93,7 +93,7 @@
         android:fontFamily="@font/cairo_semibold"
         android:hint="نص السؤال"
         android:inputType="text|textMultiLine"
-        android:paddingRight="10dp"
+        android:padding="10dp"
         android:selectAllOnFocus="true"
         android:singleLine="false"
         android:textColor="@color/blue"
@@ -114,7 +114,9 @@
         ads:adUnitId="ca-app-pub-9769401692194876/5962618134"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent"></com.google.android.gms.ads.AdView>
+        ads:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
 
     <TextView
         android:id="@+id/main_text_addActivity"
@@ -124,7 +126,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/cairo_semibold"
-        android:text="الرجاء ملء جميع الحقول"
+        android:text="@string/fillAllFields"
         android:textColor="@color/blue"
         android:textSize="@dimen/main_text_newQuestion"
         app:layout_constraintEnd_toEndOf="parent"

@@ -34,13 +34,13 @@ class FinalActivity : AppCompatActivity() {
         mInterstitialAd.loadAd(AdRequest.Builder().build())
 
         //init the AdView
-        var request = AdRequest.Builder().build()
+        val request = AdRequest.Builder().build()
         adViewFinalActivity.loadAd(request)
 
         // get gender and username then show random image
-        var data = getSharedPreferences("app_data",0)
-        var gender = data.getString("usergender","male")
-        var topicIndex = intent.extras.getInt("topic",0)
+        val data = getSharedPreferences("app_data",0)
+        val gender = data.getString("usergender","male")
+        val topicIndex = intent.extras.getInt("topic",0)
         username = data.getString("username", "المستخدم")
 
         Log.i("quiz","topic index: " + topicIndex.toString())
@@ -60,26 +60,23 @@ class FinalActivity : AppCompatActivity() {
             this@FinalActivity.finish()
         }
 
-        // get Data frmo QuestionActivity Abd Show Final Result
+        // get Data from QuestionActivity And Show Final Result
          trav = intent.extras.getInt("trav")
          trov = intent.extras.getInt("trov")
 
         // show result and Animate Scroll Image
-        if(topicIndex == 0){
-            showResultForTopicOne()
-        }else if(topicIndex == 1){
-            showResultForTopicTwo()
-        }else if(topicIndex == 2){
-            showResultForTopicThree()
-        }else{
-            showResultForTopicFour()
+        when (topicIndex) {
+            0 -> showResultForTopicOne()
+            1 -> showResultForTopicTwo()
+            2 -> showResultForTopicThree()
+            else -> showResultForTopicFour()
         }
         scrollImageAnimateToTop()
     }
 
-    fun showResultForTopicOne(){
+    private fun showResultForTopicOne(){
         // set the value of the main title of this activity with user name
-        main_title_finalActivity.text = "نتيجة تحليل لـ " + username
+        main_title_finalActivity.text = getString(R.string.resultForUsername, username)
 
         if(trav!! > trov!!  + 7 ){
             final_result_textview.text = DoorModel.topic_one_result[0]
@@ -90,10 +87,10 @@ class FinalActivity : AppCompatActivity() {
         }
     }
 
-    fun showResultForTopicTwo(){
+    private fun showResultForTopicTwo(){
 
         // set the value of the main title of this activity with user name
-        main_title_finalActivity.text = "نتيجة تحليل لـ " + username
+        main_title_finalActivity.text = getString(R.string.resultForUsername, username)
 
         if(trav!! > trov!!  + 7 ){
             final_result_textview.text = DoorModel.topic_two_result[0]
@@ -104,9 +101,9 @@ class FinalActivity : AppCompatActivity() {
         }
     }
 
-    fun showResultForTopicThree(){
+    private fun showResultForTopicThree(){
         // set the value of the main title of this activity with user name
-        main_title_finalActivity.text = "نتيجة تحليل لـ " + username
+        main_title_finalActivity.text = getString(R.string.resultForUsername, username)
 
         if(trav!! > trov!!  + 7 ){
             final_result_textview.text = DoorModel.topic_three_result[0]
@@ -117,9 +114,9 @@ class FinalActivity : AppCompatActivity() {
         }
     }
 
-    fun showResultForTopicFour(){
+    private fun showResultForTopicFour(){
         // set the value of the main title of this activity with user name
-        main_title_finalActivity.text = "نتيجة تحليل لـ " + username
+        main_title_finalActivity.text = getString(R.string.resultForUsername, username)
 
         if(trav!! > trov!!  + 7 ){
             final_result_textview.text = DoorModel.topic_four_result[0]
@@ -130,7 +127,7 @@ class FinalActivity : AppCompatActivity() {
         }
     }
 
-    fun scrollImageAnimateToTop(){
+    private fun scrollImageAnimateToTop(){
         scroll_imageView.animate().apply {
             translationY(-400f)
             duration = 2400
@@ -142,7 +139,7 @@ class FinalActivity : AppCompatActivity() {
         // play sound
         playSound()
         var intent = Intent(Intent.ACTION_SEND)
-        intent.putExtra(Intent.EXTRA_TEXT,final_result_textview.text.toString())
+        intent.putExtra(Intent.EXTRA_TEXT, final_result_textview.text.toString())
         intent.type = "text/plain"
         startActivity(Intent.createChooser(intent,"مشاركة الى"))
     }

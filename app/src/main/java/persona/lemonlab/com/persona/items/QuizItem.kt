@@ -84,6 +84,7 @@ class QuizItem(var code_item:code, var currentDeviceCode:String, var activity:Ac
                                             deleteMyQuiz()//I hope this doesn't cause any trouble but it was a must to ensure
                                             //that when a user created a test and enters another, their test is deleted now. if it isn't they should be able to enter that test.
                                             PVPMatchActivity.enteringQuiz=true
+                                            activity.finish()
                                         }
                                     }
 

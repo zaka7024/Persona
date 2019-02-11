@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import com.airbnb.lottie.LottieAnimationView
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_pvp.*
 import persona.lemonlab.com.persona.models.OnlineQuestion
@@ -52,9 +53,10 @@ class PVPActivity : AppCompatActivity() {
         host_progress.text = getString(R.string.progress_string,"1")//This shall prevent see null at the beginning of the test
         guest_progress.text = getString(R.string.progress_string,"1")
         test()
-        buttonsAnimate()
+        buttonsAnimate(1000)
         checkIfHostAndGuestIsHere()
         getAllQuestionsAndAnswers()//Initialize variables
+        emojiHandler()//Send and receive button clicks for emoji interaction.
         handleQuestions()//answers, data and more.
     }
 
@@ -133,6 +135,7 @@ class PVPActivity : AppCompatActivity() {
     private fun updateTexts(){
         incrementValues()//To get to next Question and show next answers
         getQuestion()//update list
+        buttonsAnimate(300)
         val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
         question_text_textView.text = onlineQuestions[questionPosition].questionText
         for (item in listOfAnswerButtons){
@@ -206,10 +209,11 @@ class PVPActivity : AppCompatActivity() {
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists()){
-                    try{//try can be removed, but you have to use p0.child("${hostProgressPath}_xValue").exists() instead of if p0.exists()
-                        xValueOther = p0.child("${hostProgressPath}_xValue").value.toString().toInt()  //hostProgressPath is the same as quizID.
-                        yValueOther = p0.child("${hostProgressPath}_yValue").value.toString().toInt()}catch (e:NumberFormatException){}
+                if(p0.exists() && p0.child("${hostProgressPath}_xValue").exists() && p0.child("${hostProgressPath}_yValue").exists()
+                        && p0.child("${hostProgressPath}_xValue").value.toString()!="null" && p0.child("${hostProgressPath}_yValue").value.toString()!="null")
+                {
+                    xValueOther = p0.child("${hostProgressPath}_xValue").value.toString().toInt()  //hostProgressPath is the same as quizID.
+                    yValueOther = p0.child("${hostProgressPath}_yValue").value.toString().toInt()
                 }
                 else{
                     reference.removeEventListener(this)
@@ -231,10 +235,11 @@ class PVPActivity : AppCompatActivity() {
         reference.addValueEventListener(object :ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
             override fun onDataChange(p0: DataSnapshot) {
-                if(p0.exists()){
-                    try{
-                        xValueOther = p0.child("${guest.text}_xValue").value.toString().toInt()
-                        yValueOther = p0.child("${guest.text}_yValue").value.toString().toInt()}catch (e:NumberFormatException){}
+                if(p0.exists() && p0.child("${guest.text}_xValue").exists() && p0.child("${guest.text}_yValue").exists()
+                        && p0.child("${guest.text}_xValue").value.toString()!="null" && p0.child("${guest.text}_yValue").value.toString()!="null")
+                {
+                    xValueOther = p0.child("${guest.text}_xValue").value.toString().toInt()
+                    yValueOther = p0.child("${guest.text}_yValue").value.toString().toInt()
                 }
                 else{
                     reference.removeEventListener(this)
@@ -317,14 +322,13 @@ class PVPActivity : AppCompatActivity() {
                 override fun onCancelled(p0: DatabaseError) {}
                 override fun onDataChange(p0: DataSnapshot) {
                     getGuestData()//If the progress is changed, then their data(x, y) values are updated so let's get some new data.
-                    if(p0.value.toString()=="null")
-                        guest_progress.text = getString(R.string.progress_string,"1")//No data yet(Guest hasn't answered any question so their progress is 1/20)
-                    else
+                    if(p0.value.toString()=="null"){
+                        guest_progress.text = getString(R.string.progress_string,"1")
+                        guestPosition = 1
+                    } //No data yet(Guest hasn't answered any question so their progress is 1/20)
+                    else{
                         guest_progress.text = getString(R.string.progress_string, p0.value.toString())
-                    guestPosition = try {
-                        p0.value.toString().toInt()
-                    } catch (e: Exception) {
-                        questionPosition
+                        guestPosition = p0.value.toString().toInt()
                     }
                     host_progress.text = getString(R.string.progress_string, (questionPosition + 1).toString())
                     if (guestPosition >= 20 && questionPosition + 1 >= 20) {
@@ -334,7 +338,7 @@ class PVPActivity : AppCompatActivity() {
                         removeQuizWhenExit = false
                         see_result_btn.setOnClickListener {
                             if(questionPosition>=19 && guestPosition>=19)
-                            seeResults()
+                                seeResults()
                         }
                     }
                 }
@@ -358,22 +362,21 @@ class PVPActivity : AppCompatActivity() {
                     guest.setTextColor(Color.RED)//user will always see their name in red
                     host.setTextColor(Color.BLUE)//user will always see the other name in blue
                     addData(anotherReference, guest.text.toString(), xValue, yValue) // data is sent earlier than the progress. This would ensure
-                                                                                    //that every bit of data is sent before showing the final results(No different results)
+                    //that every bit of data is sent before showing the final results(No different results)
                     val reference = FirebaseDatabase.getInstance().getReference(
                             "pvp/$hostCode/progress/${hostProgressPath}_currentProgress")//this is a unique id (created when a host opens a test) to prevent similar names from causing problems.
-                            //This unique ID is also used to identify the host. in the host device it's quizID, in the guest device it's hostProgressPath.
+                    //This unique ID is also used to identify the host. in the host device it's quizID, in the guest device it's hostProgressPath.
                     reference.addValueEventListener(object : ValueEventListener {
                         override fun onCancelled(p0: DatabaseError) {}
                         override fun onDataChange(p0: DataSnapshot) {
                             getHostData()//If the progress is changed, then their data(x, y) values are updated so let's get some new data.
-                            if(p0.value.toString()=="null")
-                                host_progress.text = getString(R.string.progress_string,"1")//No data yet(Host hasn't answered any question so their progress is 1/20)
-                            else
+                            if(p0.value.toString()=="null") {
+                                host_progress.text = getString(R.string.progress_string, "1")//No data yet(Host hasn't answered any question so their progress is 1/20)
+                                hostPosition = 1
+                            }
+                            else {
                                 host_progress.text = getString(R.string.progress_string, p0.value.toString()) //This takes an argument, see strings.xml progress_string.
-                            hostPosition = try{
-                                p0.value.toString().toInt()
-                            }catch (e:Exception){
-                                questionPosition
+                                hostPosition = p0.value.toString().toInt()
                             }
                             guest_progress.text = getString(R.string.progress_string, (questionPosition+1).toString())
                             if(hostPosition>=20 && questionPosition+1>=20){
@@ -408,16 +411,16 @@ class PVPActivity : AppCompatActivity() {
 
     private fun checkIfHostAndGuestIsHere(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
-        var currentUserName = getUserName()
+        val currentUserName = getUserName()
         ref.addValueEventListener(object:ValueEventListener{
             override fun onCancelled(p0: DatabaseError) {}
 
             override fun onDataChange(p0: DataSnapshot) {
                 if(p0.exists()){
-                    var pvp_code = p0.getValue(code::class.java)
-                    if (pvp_code!!.host_name == currentUserName){ // this device is the host
+                    val pvpCode = p0.getValue(code::class.java)
+                    if (pvpCode!!.host_name == currentUserName){ // this device is the host
 
-                        if(pvp_code.guestIsHere){
+                        if(pvpCode.guestIsHere){
                             guest.setTextColor(Color.BLUE)
                             host.setTextColor(Color.RED)
                         }else{
@@ -430,7 +433,7 @@ class PVPActivity : AppCompatActivity() {
 
                     }else{ // this device is the guest
 
-                        if(pvp_code.hostIsHere){
+                        if(pvpCode.hostIsHere){
                             host.setTextColor(Color.BLUE)
                             guest.setTextColor(Color.RED)
                         }else{
@@ -442,8 +445,8 @@ class PVPActivity : AppCompatActivity() {
                         }
 
                     }
-                    Log.i("PVPActivity", "host is here (in quiz): ${pvp_code!!.hostIsHere}")
-                    Log.i("PVPActivity", "guest is here (in quiz): ${pvp_code!!.guestIsHere}")
+                    Log.i("PVPActivity", "host is here (in quiz): ${pvpCode!!.hostIsHere}")
+                    Log.i("PVPActivity", "guest is here (in quiz): ${pvpCode!!.guestIsHere}")
                 }else if(removeQuizWhenExit){
                     removeQuiz()
                 }
@@ -454,7 +457,7 @@ class PVPActivity : AppCompatActivity() {
 
 
 
-    private fun buttonsAnimate(){
+    private fun buttonsAnimate(animation_duration:Long){
         // Reset ScaleX and ScaleY for all Animating Buttons
         a_answer_btn.scaleX = 0.01f
         a_answer_btn.scaleY = 0.01f
@@ -468,25 +471,25 @@ class PVPActivity : AppCompatActivity() {
         a_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = 600
+            duration = animation_duration
         }
 
         b_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = 700
+            duration = animation_duration+100
         }
 
         c_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = 800
+            duration = animation_duration+200
         }
 
         d_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = 900
+            duration = animation_duration+300
         }
     }
 
@@ -497,7 +500,7 @@ class PVPActivity : AppCompatActivity() {
         return name
     }
 
-    private fun hostLeftQuiz(){
+/*    private fun hostLeftQuiz(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         ref.child("hostIsHere").setValue(false)
     }
@@ -515,7 +518,7 @@ class PVPActivity : AppCompatActivity() {
     fun guestBackToQuiz(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/")
         ref.child("guestIsHere").setValue(true)
-    }
+    }*/
 
     private fun getHostName(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode/host_name")
@@ -534,10 +537,10 @@ class PVPActivity : AppCompatActivity() {
         })
     }
 
-    override fun onStop() {
+    override fun onPause() {
         if(!everyoneIsHere)
             removeQuiz()
-        super.onStop()
+        super.onPause()
     }
     fun removeQuiz(){
 
@@ -554,5 +557,81 @@ class PVPActivity : AppCompatActivity() {
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         ref.removeValue()
         this.finish()
+    }
+
+    private fun emojiHandler(){//Send and receive button clicks for emoji interaction.
+
+        var intervalElapsed = true //Users cannot send data twice.
+        val listOfThreeButtons = listOf<Button>(wink_button, wow_button, haha_button)
+        val listOfThreeAnimations = listOf<LottieAnimationView>(wink_animation, wow_animation, haha_animation)
+        val databaseReference = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
+        databaseReference.child("reactions").child("${getUserName()}_reaction").setValue("null")
+        fun buttonsAnimation(){//Some simple animation
+            for( (index, button) in listOfThreeButtons.withIndex()){
+                button.scaleX = 0.01f
+                button.scaleY = 0.01f
+                button.animate().apply{
+                    scaleY(1.0f)
+                    scaleX(1.0f)
+                    duration = 200+(300*index+1).toLong()
+                }
+            }
+        }
+        fun sendEmoji(whichButton:Int){
+            if(intervalElapsed){
+                buttonsAnimation()
+                intervalElapsed=false
+                for(button in listOfThreeButtons)
+                    button.setTextColor(Color.WHITE)//This tells the user they cannot do an emoji now.
+                Handler().postDelayed({
+                    intervalElapsed=true
+                    for(button in listOfThreeButtons)
+                        button.setTextColor(Color.rgb(140, 0, 0))
+                }, 6000)//After 6 seconds of the button click, it's reset and can be clicked again.
+                databaseReference.child("reactions").child("${getUserName()}_reaction").setValue(whichButton)
+            }
+        }
+        for(button in listOfThreeButtons)
+            button.setOnClickListener {
+                when(button){
+                    wink_button ->sendEmoji(0)
+                    wow_button ->sendEmoji(1)
+                    haha_button ->sendEmoji(2)
+                }
+            }
+
+        fun animateEmoji(emoji:Int){
+            for(anim in listOfThreeAnimations)
+                anim.visibility = View.GONE
+
+            listOfThreeAnimations[emoji].visibility = View.VISIBLE//Only needed animation is shown
+            listOfThreeAnimations[emoji].playAnimation()
+            Handler().postDelayed({
+                listOfThreeAnimations[emoji].visibility = View.GONE // And it's hidden after 3 seconds.
+            }, 3000)
+            if(quizID.trim().isNotEmpty())//On data change won't be called if a user sends the same emoji twice. (two winks, only one will be shown).
+            //that's why we set this data to null
+                databaseReference.child("reactions").child("${guest.text}_reaction").setValue("null")//User sets this to null, thus, they are ready to receive another number.
+            else
+                databaseReference.child("reactions").child("${host.text}_reaction").setValue("null")
+        }
+
+        fun trackEmojiData(reference:DatabaseReference){//This tracks the other user data, if they send an Integer, it'd represent an animation and that animation is played.
+            reference.addValueEventListener(object:ValueEventListener{
+                override fun onCancelled(p0: DatabaseError) {}
+                override fun onDataChange(p0: DataSnapshot) {
+                    if(p0.exists() && p0.value.toString() != "null")//cannot be null, as it's null in the beginning and will be null after every animation.
+                        animateEmoji(p0.value.toString().toInt())
+                }
+            })
+        }
+        if(quizID.trim().isNotEmpty()){//Host
+            val reference = databaseReference.child("reactions").child("${guest.text}_reaction")
+            trackEmojiData(reference)//Tracks guest data
+        }else{//Guest
+            val reference = databaseReference.child("reactions").child("${host.text}_reaction")
+            trackEmojiData(reference)//Tracks host data
+        }
+        
     }
 }
