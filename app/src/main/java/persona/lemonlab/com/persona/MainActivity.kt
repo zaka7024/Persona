@@ -206,6 +206,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun openPageOne(){
 
+        getDataFromRemoteConfig()
+
         main_text.text = getString(R.string.mainFourTests)
 
         page_one_btn.setImageResource(R.drawable.number_one_hover)
@@ -241,6 +243,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openPageTwo(){
+
+        getDataFromRemoteConfig()
 
         main_text.text =  getString(R.string.specialTests)
 
@@ -336,6 +340,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getDataFromRemoteConfig(){
         val config= FirebaseRemoteConfig.getInstance()
+        config.setDefaults(R.xml.remote_config_defaults)
         config.fetch(3600).addOnSuccessListener {
             //When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
             //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)

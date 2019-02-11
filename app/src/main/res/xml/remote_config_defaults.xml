@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultMap>
+    <entry>
+        <key>submitQuestionsFeature</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>userCounter</key>
+        <value>true</value>
+    </entry>
+
+    <entry>
+        <key>onlineTests</key>
+        <value>true</value>
+    </entry>
+</defaultMap>
