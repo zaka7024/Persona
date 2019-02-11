@@ -24,6 +24,11 @@
             android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -42,13 +47,6 @@
             android:name=".FinalActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".models.AddQuestionActivity" />
-        <activity android:name=".LemonLabActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
         <activity android:name=".UsersActivity" />
         <activity android:name=".models.PVPMatchActivity" />
         <activity android:name=".PVPActivity" />

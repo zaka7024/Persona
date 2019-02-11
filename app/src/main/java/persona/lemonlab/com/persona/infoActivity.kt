@@ -22,8 +22,6 @@ class infoActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.nameMustBeLonger), Toast.LENGTH_SHORT).show()
             else if(username_edittext.text.toString().trim().isNotEmpty() && (radio_male2.isChecked || radio_female2.isChecked)){
 
-                val intent = Intent(this,MainActivity::class.java)
-
                 intent.putExtra("user_name",username_edittext.text.toString())
                 val gender = if(radio_male2.isChecked){
                     "male"
@@ -38,9 +36,6 @@ class infoActivity : AppCompatActivity() {
                     apply()
                 }
 
-
-                intent.putExtra("user_gendr",gender)
-                startActivity(intent)
                 this.finish()
             }
             else{

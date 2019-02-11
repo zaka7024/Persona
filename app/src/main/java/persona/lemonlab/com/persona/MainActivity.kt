@@ -87,6 +87,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         getDataFromRemoteConfig()//This is the top priority.
 
+        val first_time = getSharedPreferences("app_data",0).getBoolean("first_time",true)
+
+        if(first_time){
+            var intent = Intent(this,splashActivity::class.java)
+            startActivity(intent)
+        }
+
         //init
         //by default open page one
         openPageOne()

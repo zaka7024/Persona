@@ -41,7 +41,6 @@ class splashActivity : AppCompatActivity() {
             this.finish()
         }
 
-
     }
 
     // Make 3 TextView and put it into linearLayout
