@@ -13,8 +13,8 @@ import kotlinx.android.synthetic.main.activity_results.*
 import java.lang.Math.abs
 
 class Results : AppCompatActivity() {
-    private var quizID=""
-    private var hostCode=""
+    private var quizID=""//Host will receive something, it's used to identify them
+    private var hostCode=""// needed to delete the test data from firebase
     private var hostFinished = false
     private var guestFinished = false
     private lateinit var mInterstitialAd: InterstitialAd
@@ -47,7 +47,7 @@ class Results : AppCompatActivity() {
                     deleteOnlineData()
                 }
         }
-        if(hostCode.length>1)
+        if(hostCode.length>1)//This ensures that not all tests get deleted if someone finishes.
             FirebaseDatabase.getInstance().getReference("pvp/$hostCode").addListenerForSingleValueEvent(object :ValueEventListener{
                 override fun onCancelled(p0: DatabaseError) {}
                 override fun onDataChange(p0: DataSnapshot) {
@@ -112,13 +112,21 @@ class Results : AppCompatActivity() {
         else{ //Guest Device
             deltaX = abs(xValueOther-xValue)
             deltaY = abs(yValueOther-yValue)
-        }
-        if(deltaX<4 && deltaY<4)
+        }//Shows result according to the difference between x and y
+        if(deltaX==3 && deltaY==3)
             result_text.text = listOfResults[3]
-        else if(deltaX>5 && deltaY>5)
+        else if(deltaX>5 && deltaY>=5)
             result_text.text = listOfResults[2]
-        else if(deltaX<5 && deltaY>5)
+        else if(deltaX<5 && deltaY>=5)
             result_text.text = listOfResults[1]
+        else if(deltaX>5 && deltaY<=5)
+            result_text.text = listOfResults[4]
+        else if(deltaX<5 && deltaY<=5)
+            result_text.text = listOfResults[5]
+        else if(deltaX<4 && deltaY>=4)
+            result_text.text = listOfResults[6]
+        else if(deltaX<4 && deltaY<=4)
+            result_text.text = listOfResults[7]
         else
             result_text.text = listOfResults[0]
     }

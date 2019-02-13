@@ -142,7 +142,7 @@ class PVPActivity : AppCompatActivity() {
     private fun updateTexts(){
         incrementValues()//To get to next Question and show next answers
         getQuestion()//update list
-        buttonsAnimate(300)
+        buttonsAnimate((30*questionPosition.toLong()))
         val listOfAnswerButtons = listOf<Button>(a_answer_btn, b_answer_btn, c_answer_btn, d_answer_btn)
         question_text_textView.text = onlineQuestions[questionPosition].questionText
         for (item in listOfAnswerButtons){
@@ -335,7 +335,10 @@ class PVPActivity : AppCompatActivity() {
                     } //No data yet(Guest hasn't answered any question so their progress is 1/20)
                     else{
                         guest_progress.text = getString(R.string.progress_string, p0.value.toString())
+                        if(guestPosition<p0.value.toString().toInt())
+                            animateView(guest_progress, guestPosition*30.toLong())
                         guestPosition = p0.value.toString().toInt()
+
                     }
                     host_progress.text = getString(R.string.progress_string, (questionPosition + 1).toString())
                     if (guestPosition >= 20 && questionPosition + 1 >= 20) {
@@ -380,9 +383,12 @@ class PVPActivity : AppCompatActivity() {
                             if(p0.value.toString()=="null") {
                                 host_progress.text = getString(R.string.progress_string, "1")//No data yet(Host hasn't answered any question so their progress is 1/20)
                                 hostPosition = 1
+
                             }
                             else {
                                 host_progress.text = getString(R.string.progress_string, p0.value.toString()) //This takes an argument, see strings.xml progress_string.
+                                if(hostPosition<p0.value.toString().toInt())
+                                    animateView(host_progress, hostPosition*30.toLong())
                                 hostPosition = p0.value.toString().toInt()
                             }
                             guest_progress.text = getString(R.string.progress_string, (questionPosition+1).toString())
@@ -415,7 +421,15 @@ class PVPActivity : AppCompatActivity() {
             }
         }catch (e:Exception){ }
     }
-
+private fun animateView(view:View, timeDuration:Long){
+    view.scaleX = 0.01f
+    view.scaleY = 0.01f
+    view.animate().apply{
+        scaleY(1.0f)
+        scaleX(1.0f)
+        duration = timeDuration
+    }
+}
     private fun checkIfHostAndGuestIsHere(){
         val ref = FirebaseDatabase.getInstance().getReference("pvp/$hostCode")
         val currentUserName = getUserName()
@@ -472,6 +486,14 @@ class PVPActivity : AppCompatActivity() {
         c_answer_btn.scaleY = 0.01f
         d_answer_btn.scaleX = 0.01f
         d_answer_btn.scaleY = 0.01f
+        question_text_textView.scaleX = 0.01f
+        question_text_textView.scaleY = 0.01f
+
+        question_text_textView.animate().apply{
+            scaleY(1.0f)
+            scaleX(1.0f)
+            duration = animation_duration-20
+        }
 
         a_answer_btn.animate().apply{
             scaleY(1.0f)
@@ -482,19 +504,19 @@ class PVPActivity : AppCompatActivity() {
         b_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = animation_duration+100
+            duration = animation_duration+50
         }
 
         c_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = animation_duration+200
+            duration = animation_duration+80
         }
 
         d_answer_btn.animate().apply{
             scaleY(1.0f)
             scaleX(1.0f)
-            duration = animation_duration+300
+            duration = animation_duration+100
         }
     }
 

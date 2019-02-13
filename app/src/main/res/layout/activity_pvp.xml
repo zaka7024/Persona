@@ -184,7 +184,7 @@
         android:gravity="center"
         android:text="هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي"
         android:textColor="#585C65"
-        android:textSize="14sp"
+        android:textSize="@dimen/question_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/host" />
