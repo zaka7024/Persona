@@ -10,8 +10,8 @@ android {
         applicationId "com.lemonlab.persona"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.02"
+        versionCode 5
+        versionName "1.50"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
