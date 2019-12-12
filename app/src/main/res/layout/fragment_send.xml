@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".SendFragment">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/choice4"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/choose_editText_height_newQuestion"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text_rounded"
+        android:ems="10"
+        android:hint="@string/choice_4"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/blue"
+        android:textColorHint="#CCC"
+        android:textSize="@dimen/choose_editText_size_newQuestion"
+        app:layout_constraintEnd_toEndOf="@+id/choice3"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="@+id/choice2"
+        app:layout_constraintTop_toBottomOf="@+id/choice3" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/choice3"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/choose_editText_height_newQuestion"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text_rounded"
+        android:ems="10"
+        android:hint="@string/choice_3"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/blue"
+        android:textColorHint="#CCC"
+        android:textSize="@dimen/choose_editText_size_newQuestion"
+        app:layout_constraintEnd_toEndOf="@+id/choice2"
+        app:layout_constraintStart_toStartOf="@+id/choice2"
+        app:layout_constraintTop_toBottomOf="@+id/choice2" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/choice1"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/choose_editText_height_newQuestion"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text_rounded"
+        android:ems="10"
+        android:hint="@string/choice_1"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/blue"
+        android:textColorHint="#CCC"
+        android:textSize="@dimen/choose_editText_size_newQuestion"
+        app:layout_constraintEnd_toEndOf="@+id/questionText"
+        app:layout_constraintStart_toStartOf="@+id/questionText"
+        app:layout_constraintTop_toBottomOf="@+id/questionText" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/choice2"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/choose_editText_height_newQuestion"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text_rounded"
+        android:ems="10"
+        android:hint="@string/choice_2"
+        android:inputType="textPersonName"
+        android:padding="8dp"
+        android:textColor="@color/blue"
+        android:textColorHint="#CCC"
+        android:textSize="@dimen/choose_editText_size_newQuestion"
+        app:layout_constraintEnd_toEndOf="@+id/choice1"
+        app:layout_constraintStart_toStartOf="@+id/choice1"
+        app:layout_constraintTop_toBottomOf="@+id/choice1" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/questionText"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/question_editText_height_newQuestion"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edit_text_rounded"
+        android:ems="10"
+        android:hint="@string/question_text"
+        android:inputType="text|textMultiLine"
+        android:padding="10dp"
+        android:selectAllOnFocus="true"
+        android:singleLine="false"
+        android:textColor="@color/blue"
+        android:textColorHint="@color/main_color"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSend" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-9769401692194876/5962618134"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/textViewSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/fillAllFields"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/main_text_newQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sendNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/rounded_button_selector"
+        android:text="@string/send"
+        android:textColor="@color/white"
+        android:textSize="@dimen/send_btn_newQuestion"
+        app:layout_constraintBottom_toTopOf="@+id/adViewSend"
+        app:layout_constraintEnd_toEndOf="@+id/questionText"
+        app:layout_constraintStart_toStartOf="@+id/questionText"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+    <androidx.core.widget.ContentLoadingProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:theme="@style/CircularProgress"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choice4"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

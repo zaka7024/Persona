@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".QuestionsFragment">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/infoImageView"
+        android:layout_width="@dimen/info_image_QuestionActivity"
+        android:layout_height="@dimen/info_image_height_QuestionActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/info_icon" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/questionsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="18dp"
+            android:layout_toEndOf="@+id/currentQuestionNumber"
+            android:gravity="center_horizontal"
+            android:text="@string/user"
+            android:textColor="@color/white"
+            android:textSize="@dimen/total_question_text_size" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/currentQuestionNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="9dp"
+            android:gravity="center_horizontal"
+            android:text="@string/user"
+            android:textColor="@color/white"
+            android:textSize="@dimen/current_question_text_size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/currentQuestionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_horizontal"
+            android:text="@string/sample_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/question_text_size" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/a_choice_btn"
+                android:layout_width="@dimen/answer_btn_width"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="20dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/answer_selector"
+                android:scaleX="0.01"
+                android:scaleY="0.01"
+                android:text="@string/choice_1"
+                android:textColor="@color/white"
+                android:textSize="@dimen/answer_btn_text_size"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/b_choice_btn"
+                android:layout_width="@dimen/answer_btn_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/a_choice_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/answer_selector"
+                android:scaleX="0.01"
+                android:scaleY="0.01"
+                android:text="@string/choice_2"
+                android:textColor="@color/white"
+                android:textSize="@dimen/answer_btn_text_size"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/a_choice_btn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/c_choice_btn"
+                android:layout_width="@dimen/answer_btn_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/a_choice_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/answer_selector"
+                android:scaleX="0.01"
+                android:scaleY="0.01"
+                android:text="@string/choice_3"
+                android:textColor="@color/white"
+                android:textSize="@dimen/answer_btn_text_size"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/b_choice_btn" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/d_choice_btn"
+                android:layout_width="@dimen/answer_btn_width"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/a_choice_btn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/answer_selector"
+                android:scaleX="0.01"
+                android:scaleY="0.01"
+                android:text="@string/choice_4"
+                android:textColor="@color/white"
+                android:textSize="@dimen/answer_btn_text_size"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/c_choice_btn" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/thx"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/love"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="49dp"
+            android:text="@string/testComplete_text"
+            android:textColor="@color/white"
+            android:textSize="@dimen/thx_text_size"
+            android:visibility="invisible" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/love"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:alpha="0"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="like.json"
+            app:lottie_loop="true" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/showResultButton"
+        android:layout_width="@dimen/result_btn_width"
+        android:layout_height="@dimen/result_btn_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="120dp"
+        android:alpha="1"
+        android:background="@drawable/rounded_button_selector"
+        android:text="@string/show_result"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-9769401692194876/5962618134"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

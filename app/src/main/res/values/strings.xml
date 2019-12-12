@@ -1,30 +1,10 @@
 <resources>
     <string name="app_name">الشخصيّة</string>
     <string name="ok">Okay</string>
-    <string name="back_to_main">العودة إلى الرئيسية</string>
     <string name="show_result">  أظهر النتيجة</string>
-    <string name="other_still_in_quiz">ما زال %1$s في الاختبار</string>
-    <string name="confirm">  الغاء الاستضافة والعودة إلى الرئيسية</string>
-    <string name="yes">نعم </string>
-    <string name="no">لا </string>
     <string name="done">تم </string>
     <string name="okay">حسنًا </string>
     <string name="nameMustBeLonger">الاسم يجب أن يكون أطول من حرفين</string>
-    <string name="testCancelled">تم إلغاء الاختبار</string>
-    <string name="tryAgain">المحاولة مرة أخرى </string>
-    <string name="restart">إعادة التحميل </string>
-    <string name="connectedNow">تم الإتصال</string>
-    <string name="noConnection">لا يوجد إتصال </string>
-    <string name="noConnectionTitle">هذه الخاصيّة تتطلب الإنترنت، الرجاء تمكين الشبكة للدخول ❗</string>
-    <string name="available">متاح </string>
-    <string name="unavailable">غير متاح </string>
-    <string name="quiz_exists">لقد أنشئتَ استضافةً بالفعل</string>
-    <string name="progress_string">%1$s/20</string>
-    <string name="NewTestAndUsersCounter">استضافة جديدة (المستخدمين %1$d )</string>
-    <string name="no_quizzes_available">شارك التطبيق مع من تعرفهم وادخل الاختبار لتعرف مدى تقارب </string>
-    <string name="yourPersonalityToTheirs">شخصيّتك معهم</string>
-    <string name="removeCurrentTest">حذف الاستضافة الحاليّة</string>
-    <string name="new_host">استضافة جديدة</string>
     <string name="changeName">تغيّير الاسم</string>
     <string name="privacyPolicy">سياسة الخصوصيّة</string>
     <string name="moreApps">المزيد من التّطبيقات</string>
@@ -32,6 +12,7 @@
     <string name="specialTests">الاختبارات المميّزة</string>
     <string name="changeLanguage">العربيّة</string>
     <string name="cancel">إلغاء</string>
+    <string name="index">%1$d/</string>
     <string name="enterNewName">أدخل الاسم الجديد</string>
     <string name="nameChanged">تم تغيير الاسم </string>
     <string name="yourQuestionIsSent">تم استقبال سؤالك، يمكنك رؤيته الآن في اختبار المستخدمين</string>
@@ -41,184 +22,52 @@
     <string name="resultForUsername"> نتيجة التحليل لـ %1$s</string>
     <string name="share_result">مشاركة النّتيجة</string>
     <string name="home_text">الرئيسيّة</string>
-    <string name="laugh">هاها</string>
-    <string name="wow">واو</string>
-    <string name="wink">غمزة </string>
-    <string name="restartToEnable">الرجاء إعادة التشغيل لتمكين الميّزات الجديدة </string>
     <string name="testComplete_text">شكرًا لك</string>
     <string name="online_test_with_users">اختبار التّشابه مع المستخدمين</string>
     <string name="users_questions">أسئلة من طرح المستخدمين</string>
-    <string name="main_title_info_text"> لن نأخذ من وقتك</string>
-    <string name="sub_title_info_text">نحتاج فقط هذه المعلومات</string>
+    <string name="main_title_info_text"> لن نأخذ من وقتك
+    \n
+        نحتاج فقط هذه المعلومات
+    </string>
     <string name="enter_into_text">الدخول</string>
     <string name="username_hint_info">اسم المستخدم (يمكنك تغييره لاحقًا)</string>
-    <string-array name="results">
-
-        <item>كلاكما يفكر بمنطقية وجدية، ومن بعض ما يميزكم الهدوء وقلة الكلام، والواقعية والوضوح شيئان كلاكما يهتم فيه. الاحترام أهم من التقدير واللباقة مفهوم مهم في نظركم. وأيضًا الأفكار قد تأخذكم إلى خيال وأماكن بعيدة وأحيانًا ما تستمعان بالحديث عن الفرص والقدرات</item>
-
-        <item>مثاليًا قد يعتقد أحدكم أن الآخر لطيف جدًا، قراراتكم مبنية حسب تأثيرها على من حولكم، وعند كل قرار أحدكما يتخذه قد يراجع مبادئه كي يتشجع أكثر. أحيانًا يكون التخطيط شاقًا وليس شيقًا لكن هذا قد يكون دليلًا على أنكم تعيشون في الحاضر</item>
-
-        <item>يبدو وكأن نقاط التشابه بينكما قليلة، قد يتكلم واحد منكم كثيرًا ويستمع الآخر بدل الرد، قد يعجب أحدكما التخطيط والآخر لا. لكنّ دخولكما إلى هنا لأخذ هذا الاختبار يعني أن بينكما تشابه كبير وقد لم نتمكن بهذا الاختبار البسيط والقصير توضيح هذا التشابه</item>
-        <item> حسب ما تقدّم، نعتقد أنكما مفكران وتحبان المنطقيّة، خيالكما واسع، خصوًصًا (اسم المستخدم هون)، ولا بد من ذكر مقولة شخص شخصيّتكما تشبه شخصيّته، عندما يكون هناك شيءٌ مهمٌ جدًا، فإنك تفعله بغض النظر عن نتائجه. لديكما جرأة لتكونا مختلفَين، وبالنّسبة لمبادئكم، فإنكم كالحجارة لا تتزحزحون عنها</item>
-        <item>نعتقد أنكما تنظران للحياة كما وكأنها ساحة شطرنج واسعة، بإمكانكم الذهاب أي مكان وفعل أي شيء، وتحبان الاكتشاف بأيديكم وأعينكم في نفس الوقت. تكتشفان الأفكار وتبدعان من خلال التجريب والملاحظة. لا شيء ممل كاتفاق جميع الناس معكما، تحبان التميّز، وتعتقدان أن كثيرًا من الناس يسيئان فهمكم</item>
-        <item> تسعون إلى الاختلاف والمنطقيّة مهما كانت العواقب، قد تغيّرا خططكم بسبب شيء جديد وقد تتدخلا في عمل غيركم لأنه قد تشعرا بأنهم يفعلونه بشكل خاطئ. دائمًا تقيّمون الاستراتيجيّات الجديدة وتحاولون السيطرة على الوضع، ولديكم نفورٌ من اتخاذ القرارت بناء على المشاعر، وهذه الشخصيّة موجودة في كثير من الأبطال والأشرار خياليًا</item>
-        <item>تحبان المخاطرة رغم كل المتاعب، تعيشان في الحاضر وخلال الحدث اللحظي وليس المستقبلي، من الصعب إيجاد من يتفق معكم في نموذج الحياة لأن أسلوبكم غير متوقع، ومع دمجكم للمخاطرة وحب الإبداع فإن حياتكم غالبًا تكون مليئة بالأحداث وإعجابًا بإنجازاتكم</item>
-
-        <item>أنتما رائعين فعلًا. ليس هناك مانع للضحك في أي وقت، وعند الأزمات قد يفكر أحدكم بشكل سريع ويستبق الأحداث. التجوال والسفر قد يكون أحيانًا مرهقًا لكنه يساعد كثيرًا في سعادتكما. هذا ليس كل شيء بل هناك الكثير لكن الأفضل أن تظلّا أصدقاء رائعين</item>
-
-    </string-array>
 
 
-    <string-array name="online_questions">
-        <!-- Answers are in another array below-->
-        <item> أنت ملك وقد تعرّضت مملكتك لنهب بعض ممتلكاتها</item>
-        <item>عندما يقول أحدهم عمري ثلاثين عامًا</item>
-        <item>اختر أفضل ما يناسبك</item>
-        <item>ما نسبة اتفاقك مع العادات والتقاليد في مجتمعك؟</item>
-        <item>اختر أفضل ما يناسبك</item>
-        <item>يعتبرك من حولك </item>
-        <item>تنتظر في صف طويل </item>
-        <item>ستذهب في رحلة إلى أوروبا</item>
-        <item>واجباتك ومشاريعك أفضل إذا </item>
-        <item>أنت مدير شركة هدفها الأسمى </item>
-        <item>أكثر صفة تود تطويرها في نفسك</item>
-        <item>في رأسك يوميًا </item>
-        <item>بالنسبة لك، الأمر الأسهل عند شراء حاجة ما هو </item>
-        <item>من أولوياتك إرجاع الأشياء إلى أماكنها بعد استخدامها، كم نسبة اتفاقك؟</item>
-        <item>اصطدمت بشخص وكان لك موقف سيء معه مسبقًا </item>
-        <item>تعتقد أنك ستكون في مهنتك أفضل إذا كانت</item>
-        <item>غالبًا ما تُجيب أسئلة استطلاع الرأي بسرعة وبدون قراءة</item>
-        <item>كيف تحب أخذ ملاحظاتك في الجامعة/المدرسة؟</item>
-        <item>حياتيًا، تعتبر نفسك </item>
-        <item>أخيرًا، رأيك في هذا الاختبار ؟ </item>
-    </string-array>
-
-    <string-array name="online_question_answers">
-        <!-- Every four items are the four answers to a question -->
-        <item>أدافع عن مملكتي بردّ العدو</item>
-        <item>أصد الهجوم و أهاجم المعتدين</item>
-        <item>أنسحب من تلك الأرض</item>
-        <item>أنا ملك وعندي مشاغل أهم</item>
-
-        <item>يقصد أنه سيعيش ثلاثون عامًا </item>
-        <item>اليوم عيد ميلاده الواحد والثلاثون</item>
-        <item>اليوم عيد ميلاده الثلاثين</item>
-        <item>مضى من عمره ثلاثون عامًا</item>
-
-        <item> قلّ ما تكذب</item>
-        <item>لا يمكنك المجاملة</item>
-        <item>تكذب أحيانًا لكن لكي تضحك غيرك</item>
-        <item>تعتبر نفسك صادق للغاية</item>
-
-        <item>صفر بالمئة</item>
-        <item>%15 إلى 35%</item>
-        <item>أكره العادات والتقاليد</item>
-        <item>70% وأكثر</item>
-
-        <item> تحاول أن يكون عندك أكثر من وجهة نظر لموضوع ما</item>
-        <item>تحب أن تعرف كل شيء يدور ويحدث حولك</item>
-        <item>تتأكد من المعلومات ولا تضع افتراضات كثيرة</item>
-        <item>في الأماكن المزدحمة تشعر بالضيق</item>
-
-        <item>لا تشارك الكثير من تفاصيل حياتك</item>
-        <item>تتحدث كثيرًا عن حياتك</item>
-        <item>ليس حولي أحد</item>
-        <item>حسب من حولي</item>
-
-        <item>تخرج هاتفك وتتصفّح الانترنت</item>
-        <item>لا تخرج هاتفك لأنه في يدك أصلًا</item>
-        <item>تراقب من حولك دون تعقيب لكلام أحد</item>
-        <item>تدردش مع من هم حولك</item>
-
-        <item>تسافر وتتجول دون تخطيط مسبق</item>
-        <item>تخطط أي مواقع أثرية سوف تزور </item>
-        <item>لا تسافر وتلغي الرحلة في آخر لحظة</item>
-        <item>تبحث عن أحد ليسافر معك</item>
-
-        <item>أتممتها مع زملاء لك</item>
-        <item>أنجزتها لوحدك</item>
-        <item>لم تكن موجودة</item>
-        <item>لم تنجزها إطلاقًا</item>
-
-        <item>دعم التقاليد والثقافات الاجتماعية</item>
-        <item>الإبداع </item>
-        <item>تغيير المستقبل</item>
-        <item>مساعدة البشرية</item>
-
-        <item>المجادلة وإقناع الآخرين</item>
-        <item>زيادة اعجاب الناس بي</item>
-        <item>الثقة بالنفس</item>
-        <item>أقلل من ضغوطات حياتي</item>
-
-        <item>1000 فكرة</item>
-        <item>أفكار قليلة </item>
-        <item>رأسي فارغ</item>
-        <item>النوم والأكل وبعض الدراسة </item>
-
-        <item>اختيار أفضل سلعة</item>
-        <item>دفع المال</item>
-        <item>لا أشتري أي شيء</item>
-        <item>الاستمتاع بما تشتري</item>
-
-        <item>صفر بالمئة</item>
-        <item>%15 إلى 35%</item>
-        <item>بلا إجابة</item>
-        <item>70% وأكثر</item>
-
-        <item>تعتقد أنه تعمّد ذلك</item>
-        <item>تتجاهله وتمضي قُدمًا</item>
-        <item>تتشاجر معه</item>
-        <item>ليس عندي مواقف سيئة مع أحد</item>
-
-        <item>تحتاج حركة كثيرة وتفكيرًا أقل</item>
-        <item>تتطلب الجلوس في مكتب طوال اليوم</item>
-        <item>تتفاعل فيها مع البشر كثيرًا</item>
-        <item>سهلة ومريحة</item>
-
-        <item>نعم</item>
-        <item>نادرًا</item>
-        <item>أبدًا</item>
-        <item>لم يسبق لي إجابة أسئلة من هذا النوع</item>
-
-        <item>العنوان ثم أفكار مندرجة حسب الحاجة</item>
-        <item>قل ما أكتب أي شيء</item>
-        <item>كل شيء بتسلسل ثابت</item>
-        <item>أكتب كل ما يُكتب </item>
-
-        <item>قادرًا على تغيير العالم</item>
-        <item>ساعيًا لأي شيء قد يجلب السعادة</item>
-        <item>ذو ضغوطات ومشاكل التزامية كثيرة </item>
-        <item>إنسانًا رائعًا </item>
-
-        <item>الأسئلة كثيرة ومملة وطويلة</item>
-        <item>اختبار رائع </item>
-        <item>بعض الأسئلة فريدة وبعضها بلا مغزى</item>
-        <item>اختبار فاشل(لا أعرف كيف أنهيته)</item>
-
-    </string-array>
     <string name="privacyPolicyText">Privacy Policy of Lemon Lab\n
         \n
         Lemon Lab provides many services including this app.\n
         \n
-        This page is used to inform Lemon Lab offers visitors regarding our policies with the collection، use، and disclosure of Personal Information if anyone decided to use our Service، the Lemon Lab.\n
+        This page is used to inform Lemon Lab offers visitors regarding our policies with the collection، use، and
+        disclosure of Personal Information if anyone decided to use our Service، the Lemon Lab.\n
         \n
-        If you choose to use our Service، then you agree to the collection and use of information in relation with this policy. The Personal Information that we collect are used for providing and improving the Service. We will not use or share your information with anyone except as described in this Privacy Policy.\n
+        If you choose to use our Service، then you agree to the collection and use of information in relation with this
+        policy. The Personal Information that we collect are used for providing and improving the Service. We will not
+        use or share your information with anyone except as described in this Privacy Policy.\n
         \n
-        The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions، which is accessible at Lemon lab، unless otherwise defined in this Privacy Policy.\n
+        The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions، which is accessible
+        at Lemon lab، unless otherwise defined in this Privacy Policy.\n
         \n
         Information Collection and Use\n
         \n
-        For a better experience while using our Service، we may require you to provide us with certain personally identifiable information، including but not limited to your name، phone number، and postal address. The information that we collect will be used to contact or identify you.\n
+        For a better experience while using our Service، we may require you to provide us with certain personally
+        identifiable information، including but not limited to your name، phone number، and postal address. The
+        information that we collect will be used to contact or identify you.\n
         \n
         Log Data\n
         \n
-        We want to inform you that whenever you visit our Service، we collect information that your browser sends to us that is called Log Data. This Log Data may include information such as your computer’s Internet Protocol (\IP\) address، browser version، pages of our Service that you visit، the time and date of your visit، the time spent on those pages، and other statistics.\n
+        We want to inform you that whenever you visit our Service، we collect information that your browser sends to us
+        that is called Log Data. This Log Data may include information such as your computer’s Internet Protocol (\IP\)
+        address، browser version، pages of our Service that you visit، the time and date of your visit، the time spent
+        on those pages، and other statistics.\n
         \n
         Cookies\n
         \n
-        Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are sent to your browser from the website that you visit and are stored on your computer’s hard drive.\n
+        Cookies are files with small amount of data that is commonly used an anonymous unique identifier. These are sent
+        to your browser from the website that you visit and are stored on your computer’s hard drive.\n
         \n
-        Our apps uses these cookies to collection information and to improve our Service. You have the option to either accept or refuse these cookies، and know when a cookie is being sent to your computer. If you choose to refuse our cookies، you may not be able to use some portions of our Service.\n
+        Our apps uses these cookies to collection information and to improve our Service. You have the option to either
+        accept or refuse these cookies، and know when a cookie is being sent to your computer. If you choose to refuse
+        our cookies، you may not be able to use some portions of our Service.\n
         \n
         Service Providers\n
         \n
@@ -230,50 +79,76 @@
         or \n
         To assist us in analyzing how our Service is used.\n
         \n
-        We want to inform our Service users that these third parties have access to your Personal Information. The reason is to perform the tasks assigned to them on our behalf. However، they are obligated not to disclose or use the information for any other purpose.\n
+        We want to inform our Service users that these third parties have access to your Personal Information. The
+        reason is to perform the tasks assigned to them on our behalf. However، they are obligated not to disclose or
+        use the information for any other purpose.\n
         \n
         Security\n
         \n
-        We value your trust in providing us your Personal Information، thus we are striving to use commercially acceptable means of protecting it. But remember that no method of transmission over the internet، or method of electronic storage is 100% secure and reliable، and we cannot guarantee its absolute security.\n
+        We value your trust in providing us your Personal Information، thus we are striving to use commercially
+        acceptable means of protecting it. But remember that no method of transmission over the internet، or method of
+        electronic storage fully secure and reliable، and we cannot guarantee its absolute security.\n
         \n
         Links to Other Sites\n
         \n
-        Our Service may contain links to other sites. If you click on a third-party link، you will be directed to that site. Note that these external sites are not operated by us. Therefore، we strongly advise you to review the Privacy Policy of these websites. We have no control over، and assume no responsibility for the content، privacy policies، or practices of any third-party sites or services.\n
+        Our Service may contain links to other sites. If you click on a third-party link، you will be directed to that
+        site. Note that these external sites are not operated by us. Therefore، we strongly advise you to review the
+        Privacy Policy of these websites. We have no control over، and assume no responsibility for the content، privacy
+        policies، or practices of any third-party sites or services.\n
         \n
         Children’s Privacy\n
         \n
-        Our Services do not address anyone under the age of 6. We do not knowingly collect personal identifiable information from children under 6. In the case we discover that a child under 6 has provided us with personal information، we immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information، please contact us so that we will be able to do necessary actions.\n
+        Our Services do not address anyone under the age of 6. We do not knowingly collect personal identifiable
+        information from children under 6. In the case we discover that a child under 6 has provided us with personal
+        information، we immediately delete this from our servers. If you are a parent or guardian and you are aware that
+        your child has provided us with personal information، please contact us so that we will be able to do necessary
+        actions.\n
         \n
         Changes to This Privacy Policy\n
         \n
-        We may update our Privacy Policy from time to time. Thus، we advise you to review this page periodically for any changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately، after they are posted on this page.\n
+        We may update our Privacy Policy from time to time. Thus، we advise you to review this page periodically for any
+        changes. We will notify you of any changes by posting the new Privacy Policy on this page. These changes are
+        effective immediately، after they are posted on this page.\n
+        \n
+        Credits\n
+        \n
+        We used different libraries to make this app. Toasty. Groupie. Daimajia. makeramen. TrueTime. Dexter. Glide. App icon is from icons8.com.\n
         \n
         Contact Us\n
         \n
-        If you have any questions or suggestions about our Privacy Policy، do not hesitate to contact us at zaka7024@gmail.com.\n</string>
+        If you have any questions or suggestions about our Privacy Policy، do not hesitate to contact us at
+        zaka7024@gmail.com.\n
+    </string>
     <string name="privacyPolicyTextAr">سياسة الخصوصية لدى مختبر الليمون\n
         \n
         يوفر مختبر الليمون عدة خدمات، منها هذا التطبيق.\n
         \n
-        هذه الصفحة تحتوي على معلومات لإخبار أي من مستخدمي خدمات مختبر الليمون عن المعلومات الشخصية التي قد نجمعها عند استخدامك لإحدى الخدمات.\n
+        هذه الصفحة تحتوي على معلومات لإخبار أي من مستخدمي خدمات مختبر الليمون عن المعلومات الشخصية التي قد نجمعها عند
+        استخدامك لإحدى الخدمات.\n
         \n
-        إذا استخدمت خدماتنا، فأنت توافق على تحصيل المعلومات واستخدامها حسب هذه السياسة. المعلومات الشخصية التي نجمعها هي فقط لتطوير الخدمات التي يوفرها مختبر الليمون ولن نشاركها مع أحد إلا كما يذكر لاحقًا.\n
+        إذا استخدمت خدماتنا، فأنت توافق على تحصيل المعلومات واستخدامها حسب هذه السياسة. المعلومات الشخصية التي نجمعها هي
+        فقط لتطوير الخدمات التي يوفرها مختبر الليمون ولن نشاركها مع أحد إلا كما يذكر لاحقًا.\n
         \n
-        المصطلحات المستخدمة في سياسة الخصوصية لها نفس المعنى في شروط الخدمة التي يمكنك الوصول إليها في مختبر الليمون. إلا إذا قيل غير ذلك.\n
+        المصطلحات المستخدمة في سياسة الخصوصية لها نفس المعنى في شروط الخدمة التي يمكنك الوصول إليها في مختبر الليمون.
+        إلا إذا قيل غير ذلك.\n
         \n
         تجميع المعلومات واستخدامها\n
         \n
-        لتجربة أفضل خلال استخدام خدماتنا، قد نطلب منك معلومات تعريفية شخصية تشمل ولا تقتصر على اسمك وهاتفك وعنوانك البريدي، وسوف تستخدم للتواصل معك أو التعريف بك.\n
+        لتجربة أفضل خلال استخدام خدماتنا، قد نطلب منك معلومات تعريفية شخصية تشمل ولا تقتصر على اسمك وهاتفك وعنوانك
+        البريدي، وسوف تستخدم للتواصل معك أو التعريف بك.\n
         \n
         بيانات التسجيل\n
         \n
-        نود إخبارك أنه في كل مرة تستخدم خدماتنا، فإننا نجمع معلومات يرسلها هاتفك تسمى معلومات التسجيل وقد تشمل بروتوكول الانترنت، نسخة المتصفح أو الجهاز، والأماكن التي تزورها في خدماتنا، وقت زيارتك ومدتها وبعض الاحصائيات الأخرى\n
+        نود إخبارك أنه في كل مرة تستخدم خدماتنا، فإننا نجمع معلومات يرسلها هاتفك تسمى معلومات التسجيل وقد تشمل بروتوكول
+        الانترنت، نسخة المتصفح أو الجهاز، والأماكن التي تزورها في خدماتنا، وقت زيارتك ومدتها وبعض الاحصائيات الأخرى\n
         \n
         ملفات تعريف الارتباط على الإنترنت\n
         \n
-        ملفات تعريف الارتباط على الإنترنت هي ملفات صغيرة تحوي بيانات قليلة تستخدم بشكل واسع كمعرف فريد مجهول، ترسل إلى المتصفح عبر مواقع الويب وتخزن على جهازك\n
+        ملفات تعريف الارتباط على الإنترنت هي ملفات صغيرة تحوي بيانات قليلة تستخدم بشكل واسع كمعرف فريد مجهول، ترسل إلى
+        المتصفح عبر مواقع الويب وتخزن على جهازك\n
         \n
-        تطبيقنا يستخدم ملفات تعريف الارتباط لجمع المعلومات لتطوير خدماتنا، لديك الخيار لرفض أو قبول هذه الملفات والمعرفة في حال استخدامنا لها. وفي حال رفضك لهذه الملفات قد لا تستطيع استخدام جزء من خدماتنا.\n
+        تطبيقنا يستخدم ملفات تعريف الارتباط لجمع المعلومات لتطوير خدماتنا، لديك الخيار لرفض أو قبول هذه الملفات والمعرفة
+        في حال استخدامنا لها. وفي حال رفضك لهذه الملفات قد لا تستطيع استخدام جزء من خدماتنا.\n
         \n
         موفرو الخدمات\n
         \n
@@ -285,27 +160,59 @@
         أو \n
         لمساعدتنا في تحليل الطريقة التي تستخدم فيها خدماتنا.\n
         \n
-        نود إخبار مستخدمي خدماتنا أن هذه الشركات لها وصول إلى بياناتهم الشخصية والسبب لتنفيذهم مهمات نحن مختبر الليمون طلبناها منهم. وهم مجبرون على أية حال على عدم استخدام تلك البيانات لأي هدف آخر.\n
+        نود إخبار مستخدمي خدماتنا أن هذه الشركات لها وصول إلى بياناتهم الشخصية والسبب لتنفيذهم مهمات نحن مختبر الليمون
+        طلبناها منهم. وهم مجبرون على أية حال على عدم استخدام تلك البيانات لأي هدف آخر.\n
         \n
         الأمن\n
         \n
-        نحن نقدر ثقتك في خدماتنا عند توفيرك للمعلومات لذلك نحن نستخدم طرقًا مقبولة لحمايتها لكن يجب أن تتذكر أنه ليس هناك طريقة على الانترنت أو إلكترونية آمنة كليًا.\n
+        نحن نقدر ثقتك في خدماتنا عند توفيرك للمعلومات لذلك نحن نستخدم طرقًا مقبولة لحمايتها لكن يجب أن تتذكر أنه ليس
+        هناك طريقة على الانترنت أو إلكترونية آمنة كليًا.\n
         \n
         روابط لمواقع أخرى\n
         \n
-        قد تحتوي خدماتنا روابط لمواقع أخرى، لذا فإننا ننصح بمراجعة سياسة الخصوصية لتلك المواقع لأننا لسنا مسؤولين عن أي انتهاك لأن تلك المواقع ليست من مختبر الليمون\n
+        قد تحتوي خدماتنا روابط لمواقع أخرى، لذا فإننا ننصح بمراجعة سياسة الخصوصية لتلك المواقع لأننا لسنا مسؤولين عن أي
+        انتهاك لأن تلك المواقع ليست من مختبر الليمون\n
         \n
         خصوصية الأطفال\n
         \n
-        خدماتنا لا تستقبل أي طفل تحت الست سنوات، إذا لاحظنا أن طفلًا تحت الست سنوات قد أعطى معلومات شخصية فإننا نحذفها فور وصولها. إذا كنت والدًا أو ولي أمر طفل تعتقد أنه استخدم خدماتنا، تواصل معنا وسنقوم بالإجراءات الضرورية.\n
+        خدماتنا لا تستقبل أي طفل تحت الست سنوات، إذا لاحظنا أن طفلًا تحت الست سنوات قد أعطى معلومات شخصية فإننا نحذفها
+        فور وصولها. إذا كنت والدًا أو ولي أمر طفل تعتقد أنه استخدم خدماتنا، تواصل معنا وسنقوم بالإجراءات الضرورية.\n
         \n
         التغييرات على سياسة الخصوصية\n
         \n
-        \nقد نقوم بتغيير سياسة الخصوصية لدينا في أي وقت، لذا ينصح بالاطلاع على هذه الصفحة دوريًا. علمًا بأننا سنعلمك في حال التغيير، والتغييرات ستطبق فور نشرها هنا.
+        \nقد نقوم بتغيير سياسة الخصوصية لدينا في أي وقت، لذا ينصح بالاطلاع على هذه الصفحة دوريًا. علمًا بأننا سنعلمك في
+        حال التغيير، والتغييرات ستطبق فور نشرها هنا.
         \n
         \n
         تواصل معنا \n
         \n
-        إذا كان لديك أي أسئلة أو اقتراحات أو استفسارات حول سياسة الخصوصية، لا تتردد في مراسلتنا على zaka7024@gmail.com\n</string>
+        إذا كان لديك أي أسئلة أو اقتراحات أو استفسارات حول سياسة الخصوصية، لا تتردد في مراسلتنا على zaka7024@gmail.com\n
+    </string>
+
+    <string name="female">أنثى</string>
+    <string name="male">ذكر</string>
+    <string name="fill_fields">الرجاء ملء جميع الحقول</string>
+    <string name="splash_info_1">الشخصيّة هي واحد من العديد من العوامل التي تحدد تصرفاتنا، لأن تصرفاتنا متأثرة بالبيئة المحيطة، وأهدافنا الشخصيّة وأحيانًا تجاربنا</string>
+    <string name="splash_info_2">بغض النّظر عن قوّة الفرضيّة التي وضعناها في تصميم الاختبارات، لا يمكننا تقسيم الناس إلى فئات معيّنة باستخدام معلومات قليلة</string>
+    <string name="splash_info_3">ليس جميع ما نقوله عنك سيجعلك تبتسم، لأن هدفنا الحقيقة، أيضًا، البشر كمخلوقات اجتماعيّة ليس فيها شيء ثابت وصفاتك قد تتغيّر من وقت لآخر</string>
+    <string name="choose_test">اختر واحد من الاختبارات التالية</string>
+    <string name="tactics_identity">التكتيك و الهوية</string>
+    <string name="character_identity">الصبغة والهوية</string>
+    <string name="mind_mindset">الفكر و العقلية</string>
+    <string name="energy">الطاقه و الحركة</string>
+    <string name="privacy_title">Privacy Policy and Terms of Service</string>
+    <string name="shareTo">مشاركة الى</string>
+    <string name="choice_4">الخيار الرابع</string>
+    <string name="choice_3">الخيار الثالث</string>
+    <string name="choice_1">الخيار الاول</string>
+    <string name="choice_2">الخيار الثاني</string>
+    <string name="question_text">نص السؤال</string>
+    <string name="send">إرسال</string>
+    <string name="loading_questions">جار الحصول على أسئلة المستخدمين</string>
+    <string name="no_more_questions">انتهت جميع الاسئلة! انتظر وصول اسئلة جديدة من المستخدمين</string>
+    <string name="no_choice">لم يكتب صاحب السؤال خيارًا هنا</string>
+    <string name="sample_text">هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي هذا مثال لنص قابل للاستبدال تم توليد هذا النص من مولد النص العربي</string>
+    <string name="user">المستخدم</string>
+    <string name="start">ابدأ</string>
 
 </resources>

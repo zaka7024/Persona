@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="persona.lemonlab.com.persona.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info">
+        <action
+            app:destination="@id/mainFragment"
+            app:popUpTo="@+id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="persona.lemonlab.com.persona.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash">
+        <action app:destination="@id/infoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="persona.lemonlab.com.persona.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main">
+        <action
+            app:destination="@id/questionsFragment"
+            app:launchSingleTop="true" />
+        <action app:destination="@id/usersFragment" />
+        <action app:destination="@id/sendFragment" />
+        <action app:destination="@id/splashFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendFragment"
+        android:name="persona.lemonlab.com.persona.SendFragment"
+        android:label="fragment_send"
+        tools:layout="@layout/fragment_send" />
+    <fragment
+        android:id="@+id/usersFragment"
+        android:name="persona.lemonlab.com.persona.UsersFragment"
+        android:label="fragment_users"
+        tools:layout="@layout/fragment_users" />
+    <fragment
+        android:id="@+id/topicResultFragment"
+        android:name="persona.lemonlab.com.persona.TopicResultFragment"
+        android:label="fragment_topic_result"
+        tools:layout="@layout/fragment_topic_result">
+        <argument
+            android:name="firstValue"
+            app:argType="integer" />
+        <argument
+            android:name="secondValue"
+            app:argType="integer" />
+        <action
+            app:destination="@id/mainFragment"
+            app:popUpTo="@+id/mainFragment" />
+        <argument
+            android:name="topicIndex"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionsFragment"
+        android:name="persona.lemonlab.com.persona.QuestionsFragment"
+        android:label="fragment_questions"
+        tools:layout="@layout/fragment_questions">
+        <argument
+            android:name="topicIndex"
+            android:defaultValue="0"
+            app:argType="integer" />
+        <action
+            app:destination="@id/topicResultFragment"
+            app:popUpTo="@+id/mainFragment" />
+    </fragment>
+</navigation>

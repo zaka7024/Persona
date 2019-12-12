@@ -6,9 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/main_color</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/lalezar</item>
     </style>
 
-    <style name="edittext_style">
+
+    <style name="editText_style">
         <item name="android:colorControlNormal" tools:targetApi="lollipop">#707070</item>
         <item name="android:colorControlActivated" tools:targetApi="lollipop">@color/white</item>
     </style>

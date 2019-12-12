@@ -1,0 +1,394 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".MainFragment">
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewSubTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:text="@string/choose_test"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_text_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/textViewTitle"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/textViewTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_container01"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubTitle"
+        app:srcCompat="@drawable/circle_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_title_container01"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_container01"
+        app:layout_constraintTop_toTopOf="@+id/topic_container01"
+        app:srcCompat="@drawable/topic_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_image01"
+        android:layout_width="@dimen/topic_image_width_MainActivity"
+        android:layout_height="@dimen/topic_image_height_MainActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container01"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_container01"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title01"
+        app:srcCompat="@drawable/topic01" />
+
+    <TextView
+        android:id="@+id/topic_title01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/tactics_identity"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container01"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container01" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_container02"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container01"
+        app:srcCompat="@drawable/circle_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_title_container02"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_container02"
+        app:layout_constraintTop_toTopOf="@+id/topic_container02"
+        app:srcCompat="@drawable/topic_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_image02"
+        android:layout_width="@dimen/topic_image_height_MainActivity"
+        android:layout_height="@dimen/topic_image_width_MainActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container02"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_container02"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title_container02"
+        app:srcCompat="@drawable/topic04" />
+
+    <TextView
+        android:id="@+id/topic_title02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/character_identity"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container02"
+        app:layout_constraintTop_toTopOf="@+id/topic_container02" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_container03"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container01"
+        app:layout_constraintStart_toStartOf="@+id/topic_container01"
+        app:layout_constraintTop_toBottomOf="@+id/topic_container01"
+        app:srcCompat="@drawable/circle_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_title_container03"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container03"
+        app:layout_constraintStart_toStartOf="@+id/topic_container03"
+        app:layout_constraintTop_toTopOf="@+id/topic_container03"
+        app:srcCompat="@drawable/topic_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_image03"
+        android:layout_width="@dimen/topic_image_width_MainActivity"
+        android:layout_height="@dimen/topic_image_height_MainActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container03"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container03"
+        app:layout_constraintStart_toStartOf="@+id/topic_container03"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title_container03"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/topic03" />
+
+    <TextView
+        android:id="@+id/topic_title03"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/mind_mindset"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container03"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container03"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container03" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_container04"
+        android:layout_width="@dimen/topic_container_width_MainActivity"
+        android:layout_height="@dimen/topic_container_height_MainActivity"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container02"
+        app:layout_constraintStart_toStartOf="@+id/topic_container02"
+        app:layout_constraintTop_toBottomOf="@+id/topic_container02"
+        app:srcCompat="@drawable/circle_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_title_container04"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/topic_title_container_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container04"
+        app:layout_constraintStart_toStartOf="@+id/topic_container04"
+        app:layout_constraintTop_toTopOf="@+id/topic_container04"
+        app:srcCompat="@drawable/topic_image" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topic_image04"
+        android:layout_width="@dimen/topic_image_width_MainActivity"
+        android:layout_height="@dimen/topic_image_height_MainActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/topic_container04"
+        app:layout_constraintEnd_toEndOf="@+id/topic_container04"
+        app:layout_constraintStart_toStartOf="@+id/topic_container04"
+        app:layout_constraintTop_toBottomOf="@+id/topic_title_container04"
+        app:srcCompat="@drawable/topic02" />
+
+    <TextView
+        android:id="@+id/topic_title04"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/energy"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/topic_title_size_MainActivity"
+        app:layout_constraintEnd_toEndOf="@+id/topic_title_container04"
+        app:layout_constraintStart_toStartOf="@+id/topic_title_container04"
+        app:layout_constraintTop_toTopOf="@+id/topic_title_container04" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:weightSum="3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/rateButton"
+            android:layout_width="@dimen/option_icon_width"
+            android:layout_height="@dimen/option_icon_height"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="rate.json"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/sendQuestion"
+            android:layout_width="@dimen/option_icon_width"
+            android:layout_height="@dimen/option_icon_height"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="upload.json"
+            app:lottie_loop="true" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/shareApp"
+            android:layout_width="@dimen/option_icon_width"
+            android:layout_height="@dimen/option_icon_height"
+            android:layout_weight="1"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="share.json"
+            app:lottie_loop="true" />
+
+
+    </LinearLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/pageOne"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toStartOf="@+id/pageTwo"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/moreAppsButton"
+        app:srcCompat="@drawable/number_one" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/pageTwo"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pageOne"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pageOne"
+        app:layout_constraintTop_toTopOf="@+id/pageOne"
+        app:srcCompat="@drawable/number_two" />
+
+    <Button
+        android:id="@+id/usersQuestions"
+        android:layout_width="@dimen/answer_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/answer_selector"
+        android:padding="10dp"
+        android:text="@string/users_questions"
+        android:textColor="@color/white"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/textViewSubTitle"
+        app:layout_constraintStart_toStartOf="@+id/textViewSubTitle"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSubTitle" />
+
+    <Button
+        android:id="@+id/onlineQuiz"
+        android:layout_width="@dimen/answer_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/answer_selector"
+        android:padding="10dp"
+        android:text="@string/online_test_with_users"
+        android:textColor="@color/white"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/usersQuestions"
+        app:layout_constraintStart_toStartOf="@+id/usersQuestions"
+        app:layout_constraintTop_toBottomOf="@+id/usersQuestions" />
+
+    <Button
+        android:id="@+id/changeName"
+        android:layout_width="@dimen/answer_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/answer_selector"
+        android:padding="10dp"
+        android:text="@string/changeName"
+        android:textColor="@color/white"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/usersQuestions"
+        app:layout_constraintStart_toStartOf="@+id/usersQuestions"
+        app:layout_constraintTop_toBottomOf="@+id/onlineQuiz" />
+
+    <Button
+        android:id="@+id/privacyPolicyButton"
+        android:layout_width="@dimen/answer_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/answer_selector"
+        android:padding="10dp"
+        android:text="@string/privacyPolicy"
+        android:textColor="@color/white"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/usersQuestions"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="@+id/usersQuestions"
+        app:layout_constraintTop_toBottomOf="@+id/changeName" />
+
+    <Button
+        android:id="@+id/moreAppsButton"
+        android:layout_width="@dimen/answer_btn_width"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/answer_selector"
+        android:padding="10dp"
+        android:text="@string/moreApps"
+        android:textColor="@color/white"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/pageTwo"
+        app:layout_constraintEnd_toEndOf="@+id/usersQuestions"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="@+id/usersQuestions"
+        app:layout_constraintTop_toBottomOf="@+id/privacyPolicyButton" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

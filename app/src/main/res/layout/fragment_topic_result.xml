@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_color"
+    tools:context=".TopicResultFragment">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/mainTitleResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_title_finalActivity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/result_window_height_finalActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainTitleResult">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/topicResultText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="middle"
+                    android:gravity="center_horizontal"
+                    android:text="@string/sample_text"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/result_finalActivity"
+                    tools:layout_editor_absoluteY="90dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/topicResultPerson"
+        android:layout_width="@dimen/person_image_width_FinalActivity"
+        android:layout_height="@dimen/person_image_height_FinalActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout5"
+        app:srcCompat="@drawable/person03" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/homeButton"
+        android:layout_width="@dimen/home_btn_width_finalActivity"
+        android:layout_height="@dimen/home_btn_height_finalActivity"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/rounded_button_selector"
+        android:text="@string/home_text"
+        android:textColor="@color/white"
+        android:textSize="@dimen/home_btn_text_size_finalActivity"
+        app:layout_constraintBottom_toBottomOf="@+id/shareTopicResult"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/shareTopicResult"
+        app:layout_constraintTop_toTopOf="@+id/shareTopicResult" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/shareTopicResult"
+        android:layout_width="@dimen/share_btn_width_finalActivity"
+        android:layout_height="@dimen/share_btn_height_finalActivity"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="@dimen/share_btn_margin_top_finalActivity"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_button_selector"
+        android:text="@string/share_result"
+        android:textColor="@color/white"
+        android:textSize="@dimen/share_btn_text_size_finalActivity"
+        app:layout_constraintBottom_toTopOf="@+id/adViewResult"
+        app:layout_constraintEnd_toStartOf="@+id/homeButton"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topicResultPerson" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/scrollImageView"
+        android:layout_width="@dimen/finger_width_finalActivity"
+        android:layout_height="@dimen/finger_height_finalActivity"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/relativeLayout5"
+        app:layout_constraintEnd_toEndOf="@+id/relativeLayout5"
+        app:srcCompat="@drawable/scroll" />
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adViewResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-9769401692194876/5962618134"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
