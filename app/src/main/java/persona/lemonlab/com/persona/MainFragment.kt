@@ -141,13 +141,13 @@ class MainFragment : Fragment() {
 
     private fun getDataFromRemoteConfig() {
         val config = FirebaseRemoteConfig.getInstance()
-        config.setDefaultsAsync(R.xml.remote_config_defaults)
+        config.setDefaults(R.xml.remote_config_defaults)
         config.fetch(3600).addOnSuccessListener {
             //When a user has data that is older than 1 hour, update his data. i.e remote changes will be applied after one hour.
             //if you want to see if it works, please change the 3600 to something like 10 seconds(App will get data after 10 seconds if cached data is older than 10 seconds)
             onlineTestsAvailable = config.getBoolean("onlineTests")
             canAddQuestions = config.getBoolean("submitQuestionsFeature")
-            config.activate()//if you don't activate fetched data, app will use old data.
+            config.activateFetched()//if you don't activate fetched data, app will use old data.
             if (!canAddQuestions)
                 sendQuestion.visibility = View.GONE
         }

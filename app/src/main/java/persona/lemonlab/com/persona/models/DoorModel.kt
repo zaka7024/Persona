@@ -1,11 +1,11 @@
 package persona.lemonlab.com.persona.models
 
 
-data class Question(var QuestionText: String,
-                    var a: HashMap<String, Pair<Int, Boolean>>,
-                    var b: HashMap<String, Pair<Int, Boolean>>,
-                    var c: HashMap<String, Pair<Int, Boolean>>,
-                    var d: HashMap<String, Pair<Int, Boolean>>)
+data class Question(public var QuestionText: String,
+                    public var a: HashMap<String, Pair<Int, Boolean>>,
+                    public var b: HashMap<String, Pair<Int, Boolean>>,
+                    public var c: HashMap<String, Pair<Int, Boolean>>,
+                    public var d: HashMap<String, Pair<Int, Boolean>>)
 
 class DoorModel {
 

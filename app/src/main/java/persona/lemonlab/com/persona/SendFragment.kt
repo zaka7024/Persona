@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_send.*
 import persona.lemonlab.com.persona.Extensions.playSound
@@ -26,7 +28,14 @@ class SendFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    private fun loadAd() =
+            adViewSend.loadAd(AdRequest.Builder().build())
+
     private fun sendQuestion() {
+        loadAd()
+        cancel.setOnClickListener {
+            it.findNavController().navigate(SendFragmentDirections.sendToMain())
+        }
         sendNow.setOnClickListener {
             // play sound
             context!!.playSound()
@@ -60,11 +69,11 @@ class SendFragment : Fragment() {
             choice2.text!!.clear()
             choice3.text!!.clear()
             choice4.text!!.clear()
-
             database.child(itemID!!).setValue(newQuestion).addOnCompleteListener {
                 Toast.makeText(context!!, getString(R.string.yourQuestionIsSent),
                         Toast.LENGTH_LONG).show()
-                progressBar.visibility = View.INVISIBLE
+                if (view != null)
+                    progressBar.visibility = View.INVISIBLE
             }
         }
 

@@ -98,19 +98,49 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSend" />
 
-    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+
+    <com.google.android.gms.ads.AdView
         android:id="@+id/adViewSend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-9769401692194876/5962618134"
-        ads:layout_constraintBottom_toBottomOf="parent"
-        ads:layout_constraintEnd_toEndOf="parent"
-        ads:layout_constraintStart_toStartOf="parent">
+        android:layout_gravity="center_horizontal"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-9769401692194876/6753106225"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
     </com.google.android.gms.ads.AdView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/sendNow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_selector"
+        android:text="@string/send"
+        android:textColor="@color/white"
+        android:textSize="@dimen/send_btn_newQuestion"
+        app:layout_constraintBottom_toTopOf="@+id/adViewSend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choice4"
+        app:layout_constraintVertical_bias="0.43" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_button_selector"
+        android:text="@string/cancel"
+        android:textColor="@color/white"
+        android:textSize="@dimen/send_btn_newQuestion"
+        app:layout_constraintBottom_toTopOf="@+id/adViewSend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choice4"
+        app:layout_constraintVertical_bias="0.71000004" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/textViewSend"
@@ -126,33 +156,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/sendNow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/rounded_button_selector"
-        android:text="@string/send"
-        android:textColor="@color/white"
-        android:textSize="@dimen/send_btn_newQuestion"
-        app:layout_constraintBottom_toTopOf="@+id/adViewSend"
-        app:layout_constraintEnd_toEndOf="@+id/questionText"
-        app:layout_constraintStart_toStartOf="@+id/questionText"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
-
     <androidx.core.widget.ContentLoadingProgressBar
         android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
         android:theme="@style/CircularProgress"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/choice4"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

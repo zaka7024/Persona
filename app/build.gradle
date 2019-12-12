@@ -4,15 +4,25 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'androidx.navigation.safeargs'
+
 android {
+    signingConfigs {
+        release {
+            storeFile file('pathToKey')
+            storePassword ''
+            keyPassword ''
+            keyAlias = 'key'
+        }
+    }
     compileSdkVersion 29
     defaultConfig {
         applicationId "com.lemonlab.persona"
         minSdkVersion 20
         targetSdkVersion 29
-        versionCode 6
-        versionName "1.6.1"
+        versionCode 7
+        versionName "1.6.2"
         multiDexEnabled true
+        signingConfig signingConfigs.release
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

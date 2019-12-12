@@ -38,7 +38,9 @@
             app:destination="@id/usersFragment" />
         <action
             android:id="@+id/mainToSend"
-            app:destination="@id/sendFragment" />
+            app:destination="@id/sendFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/mainFragment" />
         <action
             android:id="@+id/mainToSplash"
             app:destination="@id/splashFragment" />
@@ -47,7 +49,11 @@
         android:id="@+id/sendFragment"
         android:name="persona.lemonlab.com.persona.SendFragment"
         android:label="fragment_send"
-        tools:layout="@layout/fragment_send" />
+        tools:layout="@layout/fragment_send">
+        <action
+            android:id="@+id/sendToMain"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/usersFragment"
         android:name="persona.lemonlab.com.persona.UsersFragment"
