@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import kotlinx.android.synthetic.main.fragment_topic_result.*
 import persona.lemonlab.com.persona.Extensions.playSound
 import persona.lemonlab.com.persona.models.DoorModel
@@ -27,6 +29,7 @@ class TopicResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         init()
+        loadAdFull()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -36,6 +39,17 @@ class TopicResultFragment : Fragment() {
             duration = 2400
         }.alpha(0f)
 
+    }
+
+    private fun loadAdFull() {
+        val fullScreenAd = InterstitialAd(context!!)
+        fullScreenAd.adUnitId = "ca-app-pub-9769401692194876/8396267839"
+        fullScreenAd.loadAd(AdRequest.Builder().build())
+        fullScreenAd.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                fullScreenAd.show()
+            }
+        }
     }
 
     private fun init() {

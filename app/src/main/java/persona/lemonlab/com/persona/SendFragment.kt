@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_send.*
 import persona.lemonlab.com.persona.Extensions.playSound
@@ -25,11 +27,22 @@ class SendFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         sendQuestion()
+        loadAdFull()
         super.onViewCreated(view, savedInstanceState)
     }
 
     private fun loadAd() =
             adViewSend.loadAd(AdRequest.Builder().build())
+
+
+    private lateinit var fullScreenAd: InterstitialAd
+
+    private fun loadAdFull() {
+        fullScreenAd = InterstitialAd(context!!)
+        fullScreenAd.adUnitId = "ca-app-pub-9769401692194876/8396267839"
+        fullScreenAd.loadAd(AdRequest.Builder().build())
+    }
+
 
     private fun sendQuestion() {
         loadAd()
@@ -69,6 +82,7 @@ class SendFragment : Fragment() {
             choice2.text!!.clear()
             choice3.text!!.clear()
             choice4.text!!.clear()
+            fullScreenAd.show()
             database.child(itemID!!).setValue(newQuestion).addOnCompleteListener {
                 Toast.makeText(context!!, getString(R.string.yourQuestionIsSent),
                         Toast.LENGTH_LONG).show()

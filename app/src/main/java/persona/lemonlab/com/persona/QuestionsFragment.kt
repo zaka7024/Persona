@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import kotlinx.android.synthetic.main.fragment_questions.*
 import kotlinx.android.synthetic.main.info_dialog.view.*
 import persona.lemonlab.com.persona.Extensions.playSound
@@ -91,6 +93,7 @@ class QuestionsFragment : Fragment() {
 
     private fun loadAd() =
             adViewQuestion.loadAd(AdRequest.Builder().build())
+
 
     private fun buttonsAnimate() {
         // Reset ScaleX and ScaleY for all Animating Buttons

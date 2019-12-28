@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.fragment.app.Fragment
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -35,7 +37,7 @@ class UsersFragment : Fragment() {
     }
 
     private fun init() {
-        loadAd()
+        loadAdFull()
         choices = ArrayList()
         choices.apply {
             add(a_choice)
@@ -54,6 +56,18 @@ class UsersFragment : Fragment() {
 
     private fun loadAd() =
             adViewUsers.loadAd(AdRequest.Builder().build())
+
+    private fun loadAdFull() {
+        loadAd()
+        val fullScreenAd = InterstitialAd(context!!)
+        fullScreenAd.adUnitId = "ca-app-pub-9769401692194876/8396267839"
+        fullScreenAd.loadAd(AdRequest.Builder().build())
+        fullScreenAd.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                fullScreenAd.show()
+            }
+        }
+    }
 
     private fun getData() {
         val ref = FirebaseDatabase.getInstance().getReference("questions")

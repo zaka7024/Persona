@@ -19,8 +19,8 @@ android {
         applicationId "com.lemonlab.persona"
         minSdkVersion 20
         targetSdkVersion 29
-        versionCode 7
-        versionName "1.6.2"
+        versionCode 8
+        versionName "1.6.3"
         multiDexEnabled true
         signingConfig signingConfigs.release
         // testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
